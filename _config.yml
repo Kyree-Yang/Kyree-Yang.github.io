@@ -21,7 +21,7 @@ repository               : "Kyree-Yang/Kyree-Yang.github.io"
 #               Additional customization can be done by editing /_includes/author-profile.html
 author:
   # Biographic information
-  avatar           : "profile.png"
+  avatar           : "profile.jpg"
   name             : "Ruikai Yang"
   pronouns         : "he/him" 
   bio              : "Hi, nice to meet you here! I am a current CS student in Univeristy of Michigan."
