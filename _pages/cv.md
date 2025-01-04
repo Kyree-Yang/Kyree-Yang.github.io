@@ -1,6 +1,6 @@
 ---
 layout: archive
-title: "CV"
+title: "[CV](https://github.com/Kyree-Yang/Kyree-Yang.github.io/blob/master/files/RuikaiYang_%20Resume_Research.pdf)"
 permalink: /cv/
 author_profile: true
 redirect_from:
