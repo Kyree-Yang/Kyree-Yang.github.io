@@ -8,7 +8,7 @@ redirect_from:
 ---
 
 {% include base_path %}
-Click here to download PDF version of my [CV](https://Kyree-Yang.github.io/files/RuikaiYang_Resume_Research.pdf) (Updated in Jan. 2025).
+Click here to download PDF version of my [CV](https://Kyree-Yang.github.io/files/RuikaiYang_ Resume_Research.pdf) (Updated in Jan. 2025).
 
 Education
 ======
