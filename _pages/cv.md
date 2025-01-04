@@ -1,6 +1,6 @@
 ---
 layout: archive
-title: "[CV](https://github.com/Kyree-Yang/Kyree-Yang.github.io/blob/master/files/RuikaiYang_%20Resume_Research.pdf)"
+title: "CV"
 permalink: /cv/
 author_profile: true
 redirect_from:
@@ -8,6 +8,7 @@ redirect_from:
 ---
 
 {% include base_path %}
+Click here to download PDF version of my [CV](https://github.com/Kyree-Yang/Kyree-Yang.github.io/blob/master/files/RuikaiYang_%20Resume_Research.pdf) (Updated in Jan. 2025).
 
 Education
 ======
