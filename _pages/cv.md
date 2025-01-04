@@ -8,7 +8,7 @@ redirect_from:
 ---
 
 {% include base_path %}
-Click here to download PDF version of my [CV](https://github.com/Kyree-Yang/Kyree-Yang.github.io/blob/master/files/RuikaiYang_%20Resume_Research.pdf) (Updated in Jan. 2025).
+Click here to download PDF version of my [CV](https://Kyree-Yang.github.io/files/RuikaiYang_Resume_Research.pdf) (Updated in Jan. 2025).
 
 Education
 ======
@@ -19,7 +19,7 @@ Education
 
 * **Shanghai Jiao Tong University, Shanghai, China**  
   * B.Eng in Mechanical Engineering (Expected: Aug. 2026)  
-  * GPA: 3.92/4.0 (Top 1%)
+  * GPA: 3.85/4.0
 
 Work experience
 ======
