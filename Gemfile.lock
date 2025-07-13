@@ -17,6 +17,7 @@ GEM
     commonmarker (0.17.13)
       ruby-enum (~> 0.5)
     concurrent-ruby (1.1.8)
+    csv (3.3.5)
     dnsruby (1.61.5)
       simpleidn (~> 0.1)
     em-websocket (0.5.2)
@@ -216,12 +217,16 @@ GEM
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     mercenary (0.3.6)
+    mini_portile2 (2.8.9)
     minima (2.5.1)
       jekyll (>= 3.5, < 5.0)
       jekyll-feed (~> 0.9)
       jekyll-seo-tag (~> 2.1)
     minitest (5.14.4)
     multipart-post (2.1.1)
+    nokogiri (1.13.3)
+      mini_portile2 (~> 2.8.0)
+      racc (~> 1.4)
     nokogiri (1.13.3-arm64-darwin)
       racc (~> 1.4)
     nokogiri (1.13.3-x86_64-darwin)
@@ -269,14 +274,17 @@ GEM
     zeitwerk (2.4.2)
 
 PLATFORMS
+  arm64-darwin-24
   universal-darwin-19
   x86_64-linux
 
 DEPENDENCIES
+  csv
   github-pages
   hawkins
+  jekyll
   jekyll-feed
   jekyll-sitemap
 
 BUNDLED WITH
-   2.2.19
+   2.6.9
