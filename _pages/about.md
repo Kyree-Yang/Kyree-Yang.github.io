@@ -43,16 +43,29 @@ My research interest includes neural machine translation and computer vision. I 
 - [Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet](https://github.com), A, B, C, **CVPR 2020**
 
 # 🎖 Honors and Awards
-- *2021.10* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
-- *2021.09* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
+- *2024.07* The Tang Junyuan Scholarship (top 0.5%)
+- *2024.06* The [Fan Xuji](https://en.wikipedia.org/wiki/Fan_Xuji) Scholarship (top 0.5%)
+- *2023.12* China Undergraduate Outstanding Scholarship (top 1%)
+- *2023.11* The John Wu and Jane Sun Excellence Scholarship (top 1%)
+- *2023.10* China Undergraduate National Scholarship (top 1.5%)
+
 
 # 📖 Educations
-- *2019.06 - 2022.04 (now)*, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
-- *2015.09 - 2019.06*, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
+- *2024.08 - 2026.05 (Now)*, University of Michigan, Ann Arbor, MI.
+B.S.E in Computer Science Engineering	
+GPA:  4.0/4.0 (A+ Courses: Foundations of Computer Science, Computer Vision, Robot Learning ...)
+
+- *2022.09 - 2026.08 (Expected)*, Shanghai Jiao Tong University, Shanghai, China.
+B.Eng. in Mechanical Engineering
+GPA: 3.92/4.0 (top 1%)
+
 
 # 💬 Invited Talks
 - *2021.06*, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
 - *2021.03*, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet.  \| [\[video\]](https://github.com/)
 
-# 💻 Internships
+<!-- # 💻 Internships
+- *2019.05 - 2020.02*, [Lorem](https://github.com/), China. -->
+
+# 💻 Activities
 - *2019.05 - 2020.02*, [Lorem](https://github.com/), China.
