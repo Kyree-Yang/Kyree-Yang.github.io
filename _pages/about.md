@@ -67,5 +67,21 @@ GPA: 3.92/4.0 (top 1%)
 <!-- # 💻 Internships
 - *2019.05 - 2020.02*, [Lorem](https://github.com/), China. -->
 
-# 💻 Activities
-- *2019.05 - 2020.02*, [Lorem](https://github.com/), China.
+# 🤝 Activities
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">Desertification Control in Tengger</div><img src='images/green_grid.png' alt="sym" width="100%"></div></div>
+<div class='paper-box-text' markdown="1">
+
+- *2024.04 - 2024.05*, [Tengger Desert](https://en.wikipedia.org/wiki/Tengger_Desert), Gansu, China.
+Together with more than 40 fellow students from the Green Grid Club at Shanghai Jiao Tong University, we ventured deep into the Tengger Desert in early summer to participate in a social practice project focused on sand prevention and desertification control. Through our joint efforts, our team planted a total of *1,000* bundles—nearly *80,000* saplings—of cold-resistant Haloxylon ammodendron, hoping to contribute a patch of green to the ecologically fragile Minqin area.
+
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">Mathematical Contest in Modeling</div><img src='images/mcm.jpg' alt="sym" width="100%"></div></div>
+<div class='paper-box-text' markdown="1">
+
+-*2024.02*, [MCM](https://www.comap.com/contests/mcm-icm), *Outstanding Winner* (top <1%)
+In the Mathematical Contest in Modeling, my team was awarded the highest distinction, the Outstanding Winner Prize (O Prize). In this competition, we tackled the intricate issue of momentum shifts in tennis by analyzing match data from the 2023 Wimbledon Championships. the topic is really fascinating for me, since I myself is a tennis lover. I contributed to building a quantitative framework using the Exponential Weighted Moving Average (EWMA) to define and detect momentum swings. We combined statistical methods, such as the run test and contextual analysis, to demonstrate that momentum in tennis is not merely random.
+
+To predict momentum changes, we developed a hybrid model leveraging the accuracy of Long Short-Term Memory (LSTM) networks together with the interpretability of Extreme Gradient Boosting (XGBoost). By incorporating K-means clustering for clustered transfer learning, we further improved model performance. Additionally, we used SHapley Additive Explanations (SHAP) to identify key factors influencing momentum swings. Through sensitivity analysis, we validated our methodological choices and highlighted potential directions for further research. Our findings were summarized in a practical memo for tennis coaches. This experience deepened my skills in data analysis, machine learning, and collaborative research, and challenged me to approach complex real-world problems from both technical and strategic perspectives.
+
+- *2023.01 - 2023.02, [Eryuan Country](https://en.wikipedia.org/wiki/Eryuan_County), Yunnan, China.
+This was my first time visiting a poverty-stricken county to participate in volunteer teaching. Together with more than twenty other members of the Miyuan Youth Volunteer Team, I traveled to Eryuan in Yunnan Province, where we spent an unforgettable time with local middle school students from several schools. There, I was responsible for tutoring the children in mathematics, science, and English. I also played basketball with them in the schoolyard and let them try out a camera—which was quite a novelty in the area. Unexpectedly, living, eating, and sharing daily life with the students taught me even more than I was able to teach them, allowing me to grow in ways I hadn’t anticipated.
+
