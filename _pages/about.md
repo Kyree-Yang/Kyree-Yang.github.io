@@ -22,9 +22,9 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet 
 My research interest includes neural machine translation and computer vision. I have published more than 100 papers at the top international AI conferences with total <a href='https://scholar.google.com/citations?user=DhtAFkwAAAAJ'>google scholar citations <strong><span id='total_cit'>260000+</span></strong></a> (You can also use google scholar badge <a href='https://scholar.google.com/citations?user=DhtAFkwAAAAJ'><img src="https://img.shields.io/endpoint?url={{ url | url_encode }}&logo=Google%20Scholar&labelColor=f6f6f6&color=9cf&style=flat&label=citations"></a>).
 
 
-# 🔥 News
+<!-- # 🔥 News
 - *2022.02*: &nbsp;🎉🎉 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
-- *2022.02*: &nbsp;🎉🎉 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
+- *2022.02*: &nbsp;🎉🎉 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet.  -->
 
 # 📝 Publications 
 - *2025*: [Phasing Through the Flames: Rapid Motion Planning with the AGHF PDE for Arbitrary Objective Functions and Constraints](https://drive.google.com/file/d/1O7Q9re7RWqmCqSX7_24W9CXT7vo9t69f/view?usp=sharing)
@@ -40,9 +40,13 @@ Developed a modular ranking system with weighted heuristics (title text, anchor 
 
 
 # 🎖 Honors and Awards
+- *2025.06* Included on Umich Winter 2025 [Dean's Honor List](https://studentawards.engin.umich.edu/deanslist/)
+- *2025.01* Included on Umich Fall 2024 [Dean's Honor List](https://studentawards.engin.umich.edu/deanslist/)
+- *2024.12* 2024 First-Class China Undergraduate Excellence Scholarship (top 1%)
 - *2024.07* The Tang Junyuan Scholarship (top 0.5%)
 - *2024.06* The [Fan Xuji](https://en.wikipedia.org/wiki/Fan_Xuji) Scholarship (top 0.5%)
 - *2023.12* China Undergraduate Outstanding Scholarship (top 1%)
+- *2023.12* 2023 First-Class China Undergraduate Excellence Scholarship (top 1%)
 - *2023.11* The John Wu and Jane Sun Excellence Scholarship (top 1%)
 - *2023.10* China Undergraduate National Scholarship (top 1.5%)
 
@@ -57,11 +61,13 @@ B.Eng. in Mechanical Engineering
 GPA: 3.92/4.0 (top 1%)
 
 
-# 💬 Teaching & Leadership
+# 💬 Teaching and Leadership
 - *2024.09 - 2026.05*, Advisor at Joint Institute Advising Center. Organized several workshops.
-- *2024.09 - 2026.05*, Member of Joint Institute Alumni. Organized several events.
+- *2024.09 - 2026.05*, Member of Joint Institute Alumni. Organized a few events.
 - *2024.05 - 2024.08*, Teaching Assistant for PHYS1500J SU 2024. Nominated as Outstanding TA.
 - *2023.10*, Invited to give a talk about learning experience to the next incoming class.
+- *2023.09 - 2024.08*, Department Leader of Joint Institute Student Union.
+- *2022.09 - 2023.08*, Group Leader of Joint Institute Miyuan Youth Volunteer Team.
 
 <div class="teach-photos">
   <div class="teach-photo-box">
