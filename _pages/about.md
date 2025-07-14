@@ -27,20 +27,17 @@ My research interest includes neural machine translation and computer vision. I 
 - *2022.02*: &nbsp;🎉🎉 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
 
 # 📝 Publications 
+- *2025*: [Phasing Through the Flames: Rapid Motion Planning with the AGHF PDE for Arbitrary Objective Functions and Constraints](https://drive.google.com/file/d/1O7Q9re7RWqmCqSX7_24W9CXT7vo9t69f/view?usp=sharing)
+- *2024*: [A Pathological Diagnosis Method Combining Image-Text Large Model and Rule-Based Reasoning](https://drive.google.com/file/d/1tEEharN7Kb1n-DYoO8aeS-_3CeG5n06H/view?usp=sharing)
 
-<div class='paper-box'><div class='paper-box-image'><div><div class="badge">CVPR 2016</div><img src='images/500x300.png' alt="sym" width="100%"></div></div>
-<div class='paper-box-text' markdown="1">
 
-[Deep Residual Learning for Image Recognition](https://openaccess.thecvf.com/content_cvpr_2016/papers/He_Deep_Residual_Learning_CVPR_2016_paper.pdf)
+# 🌐 Projects
+Crawler Crew: Internet Search Engine (C++ · Multithreading · Sockets)	Winter 2025
+Startup-style team collaboration | Full-stack engine | Self-design algorithm	
+Built a scalable web crawler that fetched 30 million pages across 2,600+ seed domains
+Engineered a 500 GB on-disk inverted index and optimized query latency to 300–2,000 ms (peak 5 s) using thread-safe file, process, and socket APIs
+Developed a modular ranking system with weighted heuristics (title text, anchor text, proximity thresholds) to maximize result relevance
 
-**Kaiming He**, Xiangyu Zhang, Shaoqing Ren, Jian Sun
-
-[**Project**](https://scholar.google.com/citations?view_op=view_citation&hl=zh-CN&user=DhtAFkwAAAAJ&citation_for_view=DhtAFkwAAAAJ:ALROH1vI_8AC) <strong><span class='show_paper_citations' data='DhtAFkwAAAAJ:ALROH1vI_8AC'></span></strong>
-- Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
-</div>
-</div>
-
-- [Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet](https://github.com), A, B, C, **CVPR 2020**
 
 # 🎖 Honors and Awards
 - *2024.07* The Tang Junyuan Scholarship (top 0.5%)
@@ -60,28 +57,178 @@ B.Eng. in Mechanical Engineering
 GPA: 3.92/4.0 (top 1%)
 
 
-# 💬 Invited Talks
-- *2021.06*, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
-- *2021.03*, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet.  \| [\[video\]](https://github.com/)
+# 💬 Teaching Experiences
+- *2024.09 - 2026.05*, Advisor at Joint Institute Advising Center. Organized several workshops.
+- *2024.05 - 2024.08*, Teaching Assistant for PHYS1500J SU 2024. Nominated as Outstanding TA.
+- *2023.10*, Invited to give a talk about learning experience to the next incoming class.
+
+<div class="teach-photos">
+  <div class="teach-photo-box">
+    <img src="images/TA.jpg" alt="Teaching Assistant" />
+    <div class="teach-photo-caption">PHYS1500J TA (2024)</div>
+  </div>
+  <div class="teach-photo-box">
+    <img src="images/talk.jpg" alt="Talk" />
+    <div class="teach-photo-caption">Invited Talk (2023)</div>
+  </div>
+</div>
 
 <!-- # 💻 Internships
 - *2019.05 - 2020.02*, [Lorem](https://github.com/), China. -->
 
 # 🤝 Activities
-<div class='paper-box'><div class='paper-box-image'><div><div class="badge">Desertification Control in Tengger</div><img src='images/green_grid.png' alt="sym" width="100%"></div></div>
-<div class='paper-box-text' markdown="1">
 
-- *2024.04 - 2024.05*, [Tengger Desert](https://en.wikipedia.org/wiki/Tengger_Desert), Gansu, China.
-Together with more than 40 fellow students from the Green Grid Club at Shanghai Jiao Tong University, we ventured deep into the Tengger Desert in early summer to participate in a social practice project focused on sand prevention and desertification control. Through our joint efforts, our team planted a total of *1,000* bundles—nearly *80,000* saplings—of cold-resistant Haloxylon ammodendron, hoping to contribute a patch of green to the ecologically fragile Minqin area.
+<div class="paper-box">
+  <div class="paper-box-image">
+    <div>
+      <div class="badge">Desertification Control in Tengger</div>
+      <img src="images/green_grid.jpg" alt="Tengger" width="100%">
+    </div>
+  </div>
+  <div class="paper-box-text">
+    <p><strong>2024.04 - 2024.05</strong>, <a href="https://en.wikipedia.org/wiki/Tengger_Desert"><strong>Tengger Desert</strong></a>, <strong>Gansu, China</strong>.</p>
+    <p>
+      Together with more than 40 fellow students from the Green Grid Club at Shanghai Jiao Tong University, we ventured deep into the Tengger Desert in early summer to participate in a social practice project focused on sand prevention and desertification control. Through our joint efforts, our team planted a total of <em>1,000</em> bundles—nearly <em>80,000</em> saplings—of cold-resistant Haloxylon ammodendron, hoping to contribute a patch of green to the ecologically fragile Minqin area.
+    </p>
+  </div>
+</div>
 
-<div class='paper-box'><div class='paper-box-image'><div><div class="badge">Mathematical Contest in Modeling</div><img src='images/mcm.jpg' alt="sym" width="100%"></div></div>
-<div class='paper-box-text' markdown="1">
+<div class="paper-box">
+  <div class="paper-box-text">
+    <p><strong>2024.02</strong>, <a href="https://www.comap.com/contests/mcm-icm">MCM</a>, <em>Outstanding Winner</em> (top &lt;1%)</p>
+    <p>
+      In the Mathematical Contest in Modeling, my team was awarded the highest distinction, the Outstanding Winner Prize. In this competition, we discussed the momentum shifts in tennis by analyzing match data from the 2023 Wimbledon Championships. The topic is really fascinating for me, since I myself am a tennis lover. I contributed to building a quantitative framework using the Exponential Weighted Moving Average (EWMA) to define and detect momentum swings. Our full paper could be found <a href="https://drive.google.com/file/d/1sfivP-A_PA-UUqpr1lz6x69M1KH5CZxx/view?usp=sharing" target="_blank">here</a>.
+    </p>
+  </div>
+  <div class="paper-box-image">
+    <div>
+      <div class="badge">MCM Highest Prize</div>
+      <img src="images/Oprize.jpg" alt="O" width="100%">
+    </div>
+  </div>
+</div>
 
--*2024.02*, [MCM](https://www.comap.com/contests/mcm-icm), *Outstanding Winner* (top <1%)
-In the Mathematical Contest in Modeling, my team was awarded the highest distinction, the Outstanding Winner Prize (O Prize). In this competition, we tackled the intricate issue of momentum shifts in tennis by analyzing match data from the 2023 Wimbledon Championships. the topic is really fascinating for me, since I myself is a tennis lover. I contributed to building a quantitative framework using the Exponential Weighted Moving Average (EWMA) to define and detect momentum swings. We combined statistical methods, such as the run test and contextual analysis, to demonstrate that momentum in tennis is not merely random.
+<div class="paper-box">
+  <div class="paper-box-text">
+    <p><strong>2023.01 - 2023.02</strong>, <a href="https://en.wikipedia.org/wiki/Eryuan_County">Eryuan County</a>, Yunnan, China.</p>
+    <p>
+      Together with more than twenty other members of the Miyuan Youth Volunteer Team, I traveled to Eryuan in Yunnan Province, where we spent an unforgettable time with local middle school students from several schools. I was responsible for tutoring the children in mathematics, science, and English. Unexpectedly, living, eating, and sharing daily life with the students taught me even more than I was able to teach them, allowing me to grow in ways I hadn’t anticipated.
+    </p>
+  </div>
+  <div class="paper-box-image">
+    <div>
+      <div class="badge">Conducting a Physics Experiment in Eryuan</div>
+      <img src="images/eryuan.jpg" alt="Eryuan" width="100%">
+    </div>
+  </div>
+</div>
 
-To predict momentum changes, we developed a hybrid model leveraging the accuracy of Long Short-Term Memory (LSTM) networks together with the interpretability of Extreme Gradient Boosting (XGBoost). By incorporating K-means clustering for clustered transfer learning, we further improved model performance. Additionally, we used SHapley Additive Explanations (SHAP) to identify key factors influencing momentum swings. Through sensitivity analysis, we validated our methodological choices and highlighted potential directions for further research. Our findings were summarized in a practical memo for tennis coaches. This experience deepened my skills in data analysis, machine learning, and collaborative research, and challenged me to approach complex real-world problems from both technical and strategic perspectives.
+<!-- 统一样式 -->
+<style>
+.paper-box, .paper-box.reverse {
+  display: flex;
+  align-items: flex-start;
+  gap: 36px;
+  margin: 32px 0;
+  background: #fafbfc;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  padding: 32px 28px;
+}
+.paper-box.reverse { flex-direction: row-reverse; }
+.paper-box-image, .paper-box-text {
+  flex: 1;
+}
+.paper-box-image { max-width: 340px; min-width: 180px; }
+.paper-box img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(61,90,254,0.04);
+}
+.paper-box .badge, .paper-box-grid .badge {
+  display: inline-block;
+  padding: 4px 12px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  background: #3d5afe;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+.paper-box-text p { margin: 0 0 12px 0; font-size: 16px; line-height: 1.7;}
+.paper-box-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 28px 36px;
+  align-items: start;
+  margin: 32px 0;
+  background: #fafbfc;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  padding: 32px 28px;
+}
+.paper-box-grid .grid-item { font-size: 16px; line-height: 1.7; }
+.paper-box-grid img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(61,90,254,0.05);
+}
+@media (max-width: 900px) {
+  .paper-box, .paper-box.reverse, .paper-box-grid {
+    flex-direction: column !important;
+    display: block;
+    padding: 18px 8px;
+  }
+  .paper-box-image, .paper-box-text {
+    max-width: 100%;
+  }
+  .paper-box-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 18px 8px;
+  }
+}
 
-- *2023.01 - 2023.02, [Eryuan Country](https://en.wikipedia.org/wiki/Eryuan_County), Yunnan, China.
-This was my first time visiting a poverty-stricken county to participate in volunteer teaching. Together with more than twenty other members of the Miyuan Youth Volunteer Team, I traveled to Eryuan in Yunnan Province, where we spent an unforgettable time with local middle school students from several schools. There, I was responsible for tutoring the children in mathematics, science, and English. I also played basketball with them in the schoolyard and let them try out a camera—which was quite a novelty in the area. Unexpectedly, living, eating, and sharing daily life with the students taught me even more than I was able to teach them, allowing me to grow in ways I hadn’t anticipated.
+.teach-photos {
+  display: flex;
+  gap: 32px;
+  margin: 26px 0 16px 0;
+  justify-content: center;
+}
+.teach-photo-box {
+  flex: 1 1 220px;
+  max-width: 320px;
+  text-align: center;
+}
+.teach-photo-box img {
+  width: 100%;
+  max-width: 320px;
+  aspect-ratio: 4/3;   /* 或直接用 height: 180px; */
+  object-fit: cover;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(61,90,254,0.08);
+  margin-bottom: 10px;
+}
+.teach-photo-caption {
+  font-size: 14px;
+  color: #555;
+  margin-top: 2px;
+  font-style: italic;
+  letter-spacing: 0.02em;
+}
 
+@media (max-width: 800px) {
+  .teach-photos {
+    flex-direction: column;
+    gap: 18px;
+    align-items: center;
+  }
+  .teach-photo-box {
+    max-width: 92vw;
+  }
+}
+</style>
