@@ -12,17 +12,20 @@ main:
   - title: "Projects"
     url: "/#-projects"
 
-  - title: "Honors and Awards"
+  - title: "Honors & Awards"
     url: "/#-honors-and-awards"
 
   - title: "Educations"
     url: "/#-educations"
 
-  - title: "Teaching Experiences"
-    url: "/#-teaching-experiences"
+  - title: "Teaching & Leadership"
+    url: "/#-teaching-and-leadership"
 
   # - title: "Internships"
   #   url: "/#-internships"
+
+  - title: "Competitions"
+    url: "/#-competitions"
   
   - title: "Activities"
     url: "/#-activities"

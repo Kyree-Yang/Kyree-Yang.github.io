@@ -57,8 +57,9 @@ B.Eng. in Mechanical Engineering
 GPA: 3.92/4.0 (top 1%)
 
 
-# 💬 Teaching Experiences
+# 💬 Teaching & Leadership
 - *2024.09 - 2026.05*, Advisor at Joint Institute Advising Center. Organized several workshops.
+- *2024.09 - 2026.05*, Member of Joint Institute Alumni. Organized several events.
 - *2024.05 - 2024.08*, Teaching Assistant for PHYS1500J SU 2024. Nominated as Outstanding TA.
 - *2023.10*, Invited to give a talk about learning experience to the next incoming class.
 
@@ -71,10 +72,64 @@ GPA: 3.92/4.0 (top 1%)
     <img src="images/talk.jpg" alt="Talk" />
     <div class="teach-photo-caption">Invited Talk (2023)</div>
   </div>
+  <div class="teach-photo-box">
+    <img src="images/tenvolunteer.jpg" alt="Talk" />
+    <div class="teach-photo-caption">Named as Top Ten Volenteers (2023)</div>
+  </div>
 </div>
 
 <!-- # 💻 Internships
 - *2019.05 - 2020.02*, [Lorem](https://github.com/), China. -->
+
+# 🏆 Competitions
+<div class="paper-box">
+  <div class="paper-box-text">
+    <p><strong>2024.02</strong>, <a href="https://www.comap.com/contests/mcm-icm">MCM</a>, <em>Outstanding Winner</em> (top &lt;1%)</p>
+    <p>
+      In the Mathematical Contest in Modeling, my team was awarded the highest distinction, the Outstanding Winner Prize. In this competition, we discussed the momentum shifts in tennis by analyzing match data from the 2023 Wimbledon Championships. The topic is really fascinating for me, since I myself am a tennis lover. I contributed to the use of Exponential Weighted Moving Average (EWMA) to define and detect momentum swings. Here's a view of our <a href="https://www.instagram.com/sjtu_1896/p/C7i6zT4tdG6/?img_index=1" target="_blank">story</a>. Our full paper could be found <a href="https://drive.google.com/file/d/1sfivP-A_PA-UUqpr1lz6x69M1KH5CZxx/view?usp=sharing" target="_blank">here</a>.
+    </p>
+  </div>
+  <div class="paper-box-image">
+    <div>
+      <div class="badge">MCM Highest Prize</div>
+      <img src="images/Oprize.jpg" alt="O" width="100%">
+    </div>
+  </div>
+</div>
+
+<div class="paper-box">
+  <div class="paper-box-text">
+    <p><strong>2024.02 - 2024.04</strong>, <a href="https://www.chinausyoungmaker.org/">CUYMC</a>, <em>First Prize</em> </p>
+    <p>
+      In the China-US Young Maker Competition, I designed a digital virtual human to make our intelligent elderly care project more approachable and user-friendly for seniors. By integrating large language models (LLMs) into the Unreal Engine 5 (UE5) platform, I enhanced the system’s interactivity and responsiveness. This work received <a href="https://drive.google.com/file/d/1lClXiM0LWnZ-DQd9cYq3U_eHx9oSAvxb/view?usp=sharing" target="_blank">software copyright</a> recognition in China. Here's a view of our <a href="https://www.instagram.com/p/C9tw3lQss1x/?img_index=1" target="_blank">story</a>.
+    </p>
+  </div>
+  <div class="paper-box-image">
+  <div>
+    <div class="badge">Virtual Teammate</div>
+    <div class="three-gif-row">
+      <img src="images/hantian1.gif" alt="Demo 1" />
+      <img src="images/hantian2.gif" alt="Demo 2" />
+      <img src="images/hantian3.gif" alt="Demo 3" />
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="paper-box">
+  <div class="paper-box-text">
+    <p><strong>2023.11</strong>, <a href="https://uphysicsc.com/">UPC</a>, <em>Bronze Medal Winner</em> </p>
+    <p>
+      In the Univeristy Physics Competition, we studied complex dynamic systems, including the problem of multiple people bouncing on an elastic trampoline. In this competition, I worked on simulation-based prediction problems for the first time, leveraging my interdisciplinary background in both mechanical engineering and computer science. Our paper could be found <a href="https://drive.google.com/file/d/1sfivP-A_PA-UUqpr1lz6x69M1KH5CZxx/view?usp=sharing" target="_blank">here</a>.
+    </p>
+  </div>
+  <div class="paper-box-image">
+    <div>
+      <div class="badge">UPC Bronze Medal</div>
+      <img src="images/2023UPC.jpg" alt="O" width="100%">
+    </div>
+  </div>
+</div>
 
 # 🤝 Activities
 
@@ -90,21 +145,6 @@ GPA: 3.92/4.0 (top 1%)
     <p>
       Together with more than 40 fellow students from the Green Grid Club at Shanghai Jiao Tong University, we ventured deep into the Tengger Desert in early summer to participate in a social practice project focused on sand prevention and desertification control. Through our joint efforts, our team planted a total of <em>1,000</em> bundles—nearly <em>80,000</em> saplings—of cold-resistant Haloxylon ammodendron, hoping to contribute a patch of green to the ecologically fragile Minqin area.
     </p>
-  </div>
-</div>
-
-<div class="paper-box">
-  <div class="paper-box-text">
-    <p><strong>2024.02</strong>, <a href="https://www.comap.com/contests/mcm-icm">MCM</a>, <em>Outstanding Winner</em> (top &lt;1%)</p>
-    <p>
-      In the Mathematical Contest in Modeling, my team was awarded the highest distinction, the Outstanding Winner Prize. In this competition, we discussed the momentum shifts in tennis by analyzing match data from the 2023 Wimbledon Championships. The topic is really fascinating for me, since I myself am a tennis lover. I contributed to building a quantitative framework using the Exponential Weighted Moving Average (EWMA) to define and detect momentum swings. Our full paper could be found <a href="https://drive.google.com/file/d/1sfivP-A_PA-UUqpr1lz6x69M1KH5CZxx/view?usp=sharing" target="_blank">here</a>.
-    </p>
-  </div>
-  <div class="paper-box-image">
-    <div>
-      <div class="badge">MCM Highest Prize</div>
-      <img src="images/Oprize.jpg" alt="O" width="100%">
-    </div>
   </div>
 </div>
 
@@ -195,18 +235,18 @@ GPA: 3.92/4.0 (top 1%)
 
 .teach-photos {
   display: flex;
-  gap: 32px;
+  gap: 15px;
   margin: 26px 0 16px 0;
   justify-content: center;
 }
 .teach-photo-box {
-  flex: 1 1 220px;
-  max-width: 320px;
+  flex: 1 1 200px;
+  max-width: 260px;
   text-align: center;
 }
 .teach-photo-box img {
   width: 100%;
-  max-width: 320px;
+  max-width: 260px;
   aspect-ratio: 4/3;   /* 或直接用 height: 180px; */
   object-fit: cover;
   border-radius: 14px;
@@ -229,6 +269,35 @@ GPA: 3.92/4.0 (top 1%)
   }
   .teach-photo-box {
     max-width: 92vw;
+  }
+}
+
+.three-gif-row {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 6px;
+}
+.three-gif-row img {
+  width: 120px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(61,90,254,0.08);
+  background: #f5f6fa;
+  /* 你可以根据需要改宽高，比如120/120，或者用 max-width: 100px; */
+}
+@media (max-width: 800px) {
+  .three-gif-row {
+    flex-direction: row;
+    gap: 5px;
+  }
+  .three-gif-row img {
+    width: 28vw;
+    height: 28vw;
+    max-width: 110px;
+    max-height: 110px;
   }
 }
 </style>
