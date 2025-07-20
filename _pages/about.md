@@ -29,12 +29,71 @@ Transformable Wheels](https://drive.google.com/file/d/11Ko0Iz_yxDsFiDTv31OPZtjMY
 - *2024*: [A Pathological Diagnosis Method Combining Image-Text Large Model and Rule-Based Reasoning](https://drive.google.com/file/d/1tEEharN7Kb1n-DYoO8aeS-_3CeG5n06H/view?usp=sharing)
 
 
-# 🌐 Projects
-Crawler Crew: Internet Search Engine (C++ · Multithreading · Sockets)	Winter 2025
-Startup-style team collaboration | Full-stack engine | Self-design algorithm	
-Built a scalable web crawler that fetched 30 million pages across 2,600+ seed domains
-Engineered a 500 GB on-disk inverted index and optimized query latency to 300–2,000 ms (peak 5 s) using thread-safe file, process, and socket APIs
-Developed a modular ranking system with weighted heuristics (title text, anchor text, proximity thresholds) to maximize result relevance
+# 🚀 Projects
+
+## 🌐 Crawler Crew: Distributed Internet Search Engine  
+<small><em>C++ · Multithreading · Socket Programming &nbsp;|&nbsp; Winter 2025</em></small>
+
+In Winter 2025, I took the course [System Design of a Search Engine](https://web.eecs.umich.edu/~nham/eecs440w21/) at UMich. Under the guidance of Professor [Nicole Hamilton](https://nicolehamilton.com/) and in collaboration with five other members, we built a **fully functional search engine** from scratch. All of our code was implemented in C++, and apart from some basic libraries, we did not rely on any additional external packages. The project covers the entire pipeline of web crawling, text indexing, search, and ranking, involving both system-level engineering and algorithm design. Click to view our [presentation slides](https://drive.google.com/file/d/1FGbRYxvjK-vAfHU_dv6T-5CvNNeEbCrX/view?usp=sharing) and [final report](https://drive.google.com/file/d/1VOQzt5-8_eUEl-4789d3tC1rsZnxkAUU/view?usp=sharing).
+
+**Demo:**   
+<div style="display: flex; gap: 24px; align-items: flex-start; justify-content: flex-start; margin: 18px 0 24px 0; margin-left: 30px; flex-wrap: wrap;">
+
+  <div style="flex:1 1 320px; min-width:260px; max-width:500px; text-align:center;">
+    <img src="images/super_quality.gif" alt="Search Engine Demo" style="width:100%; max-width:450px; border-radius:12px; box-shadow:0 2px 12px rgba(61,90,254,0.12);" />
+    <div style="font-size:15px;color:#555; margin-top:8px;">
+      <em>End-to-end search process demonstration (<a href="https://drive.google.com/file/d/14IXclVzGSuWGfr02a0Ca66xePWN0XvMg/view?usp=sharing" target="_blank">full 5-min Demo</a>)</em>
+    </div>
+  </div>
+
+  <div style="flex:1 1 260px; min-width:240px; max-width:330px; margin-top:-2px;">
+    <table style="width:100%; font-size:15px; border-collapse:collapse; border-radius:14px; overflow:hidden; box-shadow:0 2px 12px rgba(61,90,254,0.07); background:#f9fbfc;">
+      <thead>
+        <tr style="background:#e3eafc;">
+          <th style="padding:8px 12px; text-align:left; font-weight:600;">Key Metrics</th>
+          <th style="padding:8px 12px; text-align:right; font-weight:600;">Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding:6px 12px;">Pages Crawled (M)</td>
+          <td style="padding:6px 12px; text-align:right; font-size:18px; font-weight:600; color:#273469;">30</td>
+        </tr>
+        <tr>
+          <td style="padding:6px 12px;">Crawler Threads</td>
+          <td style="padding:6px 12px; text-align:right; font-size:18px; font-weight:600; color:#273469;">7,500</td>
+        </tr>
+        <tr>
+          <td style="padding:6px 12px;">Seed List Size</td>
+          <td style="padding:6px 12px; text-align:right; font-size:18px; font-weight:600; color:#273469;">3,000</td>
+        </tr>
+        <tr>
+          <td style="padding:6px 12px;">Tokens Indexed (B)</td>
+          <td style="padding:6px 12px; text-align:right; font-size:18px; font-weight:600; color:#273469;">20+</td>
+        </tr>
+        <tr>
+          <td style="padding:6px 12px;">Index Size (GB)</td>
+          <td style="padding:6px 12px; text-align:right; font-size:18px; font-weight:600; color:#273469;">500</td>
+        </tr>
+        <tr>
+          <td style="padding:6px 12px;">Chunk Size (GB)</td>
+          <td style="padding:6px 12px; text-align:right; font-size:18px; font-weight:600; color:#273469;">1.1</td>
+        </tr>
+        <tr>
+          <td style="padding:6px 12px;">Query Latency (ms)</td>
+          <td style="padding:6px 12px; text-align:right; font-size:18px; font-weight:600; color:#273469;">300–2,000</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+**Reflection:**
+- Gained in-depth understanding of large-scale information retrieval and distributed system architecture.
+- Learned system optimization through better ranking algorithm and more efficient data structure.
+- Enhanced my ability to solve complex engineering problems and communicate effectively as a team.
+
+---
 
 
 # 🎖 Honors and Awards
@@ -49,14 +108,48 @@ Developed a modular ranking system with weighted heuristics (title text, anchor 
 - *2023.10* China Undergraduate National Scholarship (top 1.5%)
 
 
-# 📖 Educations
-- *2024.08 - 2026.05 (Now)*, University of Michigan, Ann Arbor, MI.
-B.S.E in Computer Science Engineering	
-GPA:  4.0/4.0 (A+ Courses: Foundations of Computer Science, Computer Vision, Robot Learning ...)
+# 📖 Education
 
-- *2022.09 - 2026.08 (Expected)*, Shanghai Jiao Tong University, Shanghai, China.
-B.Eng. in Mechanical Engineering
-GPA: 3.92/4.0 (top 1%)
+<div style="display: flex; gap:28px; flex-wrap: wrap; margin: 18px 0 18px 0;">
+
+  <div style="flex:1 1 310px; min-width:250px; max-width:400px; background: #f9fbfc; border-radius: 14px; box-shadow: 0 2px 14px rgba(61,90,254,0.09); padding: 22px 24px 18px 24px; margin-bottom: 8px;">
+    <div style="font-size:1.13rem; font-weight:700; color:#263470; margin-bottom:6px;">
+      University of Michigan <span style="font-size:13px; color:#888;">(Ann Arbor, MI)</span>
+    </div>
+    <div style="font-size:15px; color:#555; margin-bottom:5px;">
+      <strong>B.S.E. in Computer Science Engineering</strong>
+    </div>
+    <div style="font-size:14px; color:#888; margin-bottom:6px;">
+      Aug 2024 – May 2026 <span style="color:#3d5afe; font-size:13px;">(Current)</span>
+    </div>
+    <div style="font-size:15px; margin-bottom:3px;">
+      <b>GPA:</b> 4.0 / 4.0
+    </div>
+    <div style="font-size:14px; color:#444;">
+      <b>Selected A+ Courses:</b> Foundations of Computer Science, Computer Vision, Robot Learning ...
+    </div>
+  </div>
+
+  <div style="flex:1 1 310px; min-width:250px; max-width:400px; background: #f9fbfc; border-radius: 14px; box-shadow: 0 2px 14px rgba(61,90,254,0.09); padding: 22px 24px 18px 24px; margin-bottom: 8px;">
+    <div style="font-size:1.13rem; font-weight:700; color:#263470; margin-bottom:6px;">
+      Shanghai Jiao Tong University <span style="font-size:13px; color:#888;">(Shanghai, China)</span>
+    </div>
+    <div style="font-size:15px; color:#555; margin-bottom:5px;">
+      <strong>B.Eng. in Mechanical Engineering</strong>
+    </div>
+    <div style="font-size:14px; color:#888; margin-bottom:6px;">
+      Sep 2022 – Aug 2026 <span style="color:#3d5afe; font-size:13px;">(Expected)</span>
+    </div>
+    <div style="font-size:15px; margin-bottom:3px;">
+      <b>GPA:</b> 3.92 / 4.0 <span style="color:#4caf50; font-size:13px;">(Top 1%)</span>
+    </div>
+    <div style="font-size:14px; color:#444;">
+      <b>Selected A+ Courses:</b> Data Structures and Algorithms, Advanced Mathematics, Design and Manufacturing ...
+    </div>
+  </div>
+
+</div>
+
 
 
 # 💬 Teaching and Leadership
