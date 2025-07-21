@@ -31,13 +31,49 @@ Transformable Wheels](https://drive.google.com/file/d/11Ko0Iz_yxDsFiDTv31OPZtjMY
 
 # 🚀 Projects
 
-## 🌐 Crawler Crew: Distributed Internet Search Engine  
-<small><em>C++ · Multithreading · Socket Programming &nbsp;|&nbsp; Winter 2025</em></small>
+## 🤖 AGHF-based Optimal Path Planning for Robotics  
+<small><em> Trajectory Optimization · Chebyshev interpolation · Dynamcis &nbsp;|&nbsp; Fall 2024 – Present</em></small>
 
-In Winter 2025, I took the course [System Design of a Search Engine](https://web.eecs.umich.edu/~nham/eecs440w21/) at UMich. Under the guidance of Professor [Nicole Hamilton](https://nicolehamilton.com/) and in collaboration with five other members, we built a **fully functional search engine** from scratch. All of our code was implemented in C++, and apart from some basic libraries, we did not rely on any additional external packages. The project covers the entire pipeline of web crawling, text indexing, search, and ranking, involving both system-level engineering and algorithm design. Click to view our [presentation slides](https://drive.google.com/file/d/1FGbRYxvjK-vAfHU_dv6T-5CvNNeEbCrX/view?usp=sharing) and [final report](https://drive.google.com/file/d/1VOQzt5-8_eUEl-4789d3tC1rsZnxkAUU/view?usp=sharing).
+As a research assistant in the [ROAHM Lab](https://www.roahmlab.com/), I implemented and validated the Affine Geometric Heat Flow (AGHF) algorithm for robotic arm motion planning. This work spans both theoretical development and practical deployment, from simulation to real-world hardware. Click to view our [paper](https://drive.google.com/file/d/1O7Q9re7RWqmCqSX7_24W9CXT7vo9t69f/view?usp=sharing) and the full [2-min demo video](https://drive.google.com/file/d/15BX5_gLY5BFMNQd0kJqNu0fHDIMAdMLI/view?usp=sharing).
+
+- Developed a full-stack AGHF-based trajectory optimizer for robotic arms, enabling efficient motion planning under complex objectives and constraints.
+- Verified and extended the method with time-scaling features and endpoint constraints for real-world feasibility.
+- Successfully transferred simulation results to hardware, achieving reliable trajectory tracking and obstacle avoidance.
+- Co-authored a peer-reviewed paper demonstrating the effectiveness and generality of the approach.
+
+**Demo:**  
+<div style="display: flex; gap: 22px; align-items: flex-start; justify-content: flex-start; margin: 18px 0 24px 0; margin-left: 30px; flex-wrap: wrap;">
+
+  <div style="flex:1 1 420px; min-width:240px; max-width:420px; text-align:center;">
+    <img src="images/aghf_sim.gif" alt="AGHF Simulation Demo" style="width:100%; max-width:420px; border-radius:12px; box-shadow:0 2px 12px rgba(61,90,254,0.12);" />
+    <div style="font-size:15px;color:#555; margin-top:8px;">
+      <em>Optimal trajectory planning in simulation</em>
+    </div>
+  </div>
+
+  <div style="flex:1 1 420px; min-width:240px; max-width:420px; text-align:center;">
+    <img src="images/aghf_hardware.gif" alt="AGHF Hardware Demo" style="width:100%; max-width:420px; border-radius:12px; box-shadow:0 2px 12px rgba(61,90,254,0.12);" />
+    <div style="font-size:15px;color:#555; margin-top:8px;">
+      <em>Real-world hardware implementation</em>
+    </div>
+  </div>
+
+</div>
+
+---
+
+## 🌐 Crawler Crew: Distributed Internet Search Engine  
+<small><em>C++ · Multithread Crawler · Memory Map · Socket Programming  &nbsp;|&nbsp; Winter 2025</em></small>
+
+In Winter 2025, I took the course [System Design of a Search Engine](https://web.eecs.umich.edu/~nham/eecs440w21/) at UMich. Under the guidance of Professor [Nicole Hamilton](https://nicolehamilton.com/) and in collaboration with five other members, we built a **fully functional search engine** from scratch. The majority of our code was implemented in C++, and apart from some basic libraries, we did not rely on any additional external packages. The project covers the entire pipeline of web crawling, text indexing, search, and ranking, involving both system-level engineering and algorithm design. In this project, I'm mainly responsible for the design of the ranker.
+Click to view our [presentation slides](https://drive.google.com/file/d/1FGbRYxvjK-vAfHU_dv6T-5CvNNeEbCrX/view?usp=sharing) and [final report](https://drive.google.com/file/d/1VOQzt5-8_eUEl-4789d3tC1rsZnxkAUU/view?usp=sharing).
+
+- Gained in-depth understanding of large-scale information retrieval and distributed system architecture.
+- Learned system optimization through better ranking algorithm and more efficient data structure.
+- Enhanced my ability to solve complex engineering problems and communicate effectively as a team.
 
 **Demo:**   
-<div style="display: flex; gap: 24px; align-items: flex-start; justify-content: flex-start; margin: 18px 0 24px 0; margin-left: 30px; flex-wrap: wrap;">
+<div style="display: flex; gap: 24px; align-items: flex-start; justify-content: flex-start; margin: 18px 0 24px 0; margin-left: 2px; flex-wrap: wrap;">
 
   <div style="flex:1 1 320px; min-width:260px; max-width:500px; text-align:center;">
     <img src="images/super_quality.gif" alt="Search Engine Demo" style="width:100%; max-width:450px; border-radius:12px; box-shadow:0 2px 12px rgba(61,90,254,0.12);" />
@@ -88,10 +124,23 @@ In Winter 2025, I took the course [System Design of a Search Engine](https://web
   </div>
 </div>
 
-**Reflection:**
-- Gained in-depth understanding of large-scale information retrieval and distributed system architecture.
-- Learned system optimization through better ranking algorithm and more efficient data structure.
-- Enhanced my ability to solve complex engineering problems and communicate effectively as a team.
+---
+
+## 🖼️ Diffusion-Pyramid: One Shot Generation for Text-to-Image Diffusion Models  
+<small><em>Computer Vision · Data Augmentation · Laplacian Pyramid &nbsp;|&nbsp; Fall 2024</em></small>
+
+This is a class project from [EECS 442 Computer Vision](https://www.eecs.umich.edu/courses/eecs442/fa24/) at UMich. With two teammates, we focused on improving the diversity and controllability of text-to-image diffusion models through advanced data augmentation techniques. The idea I proposed to implement text augmentation got very positive feedback from professor [Liyue Shen](https://liyueshen.engin.umich.edu/). Click to view our [presentation slides](https://docs.google.com/presentation/d/1wTnbqkB1XiFjOb6TpxRg1GLOKs_EYBjrTMspM2bmlOg/edit?usp=sharing) and [final report](https://drive.google.com/file/d/1IM8tzWKQS9wk2Rhvjx5gOQ3uaKe3rNpH/view?usp=sharing).
+- Applied image augmentation using Stable Diffusion and Laplacian pyramid methods to enrich training samples and enhance generation robustness.
+- Proposed and implemented an original text augmentation technique that refines prompts for more detailed and diverse output.
+- The pipeline enables efficient “one shot” generation, facilitating diverse image synthesis from a single prompt with minimal resources.
+
+**Pipeline Illustration:**  
+<div style="display: flex; justify-content: flex-start; margin: 18px 0 22px 60px;">
+  <img src="images/one_shot_pipeline.png" alt="One Shot Generation Pipeline" style="width:100%; max-width:780px; border-radius:12px; box-shadow:0 2px 12px rgba(61,90,254,0.11);" />
+</div>
+<div style="font-size:15px; color:#555; margin-top:-10px; margin-left:30px;">
+  <em>Project pipeline: combining text augmentation, Stable Diffusion, and Laplacian pyramid for diverse generation</em>
+</div>
 
 ---
 
@@ -108,7 +157,7 @@ In Winter 2025, I took the course [System Design of a Search Engine](https://web
 - *2023.10* China Undergraduate National Scholarship (top 1.5%)
 
 
-# 📖 Education
+# 📖 Educations
 
 <div style="display: flex; gap:28px; flex-wrap: wrap; margin: 18px 0 18px 0;">
 
@@ -141,7 +190,7 @@ In Winter 2025, I took the course [System Design of a Search Engine](https://web
       Sep 2022 – Aug 2026 <span style="color:#3d5afe; font-size:13px;">(Expected)</span>
     </div>
     <div style="font-size:15px; margin-bottom:3px;">
-      <b>GPA:</b> 3.92 / 4.0 <span style="color:#4caf50; font-size:13px;">(Top 1%)</span>
+      <b>GPA:</b> 3.9 / 4.0 <span style="color:#4caf50; font-size:13px;">(Top 1%)</span>
     </div>
     <div style="font-size:14px; color:#444;">
       <b>Selected A+ Courses:</b> Data Structures and Algorithms, Advanced Mathematics, Design and Manufacturing ...
@@ -203,7 +252,7 @@ In Winter 2025, I took the course [System Design of a Search Engine](https://web
   </div>
   <div class="paper-box-image">
   <div>
-    <div class="badge">Virtual Teammate</div>
+    <div class="badge">CUYMC First Prize</div>
     <div class="three-gif-row">
       <img src="images/hantian1.gif" alt="Demo 1" />
       <img src="images/hantian2.gif" alt="Demo 2" />
