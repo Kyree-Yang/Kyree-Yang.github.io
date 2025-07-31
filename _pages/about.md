@@ -150,7 +150,7 @@ This is a class project from [EECS 442 Computer Vision](https://www.eecs.umich.e
 - *2025.01* Included on Umich Fall 2024 [Dean's Honor List](https://studentawards.engin.umich.edu/deanslist/)
 - *2024.12* 2024 First-Class China Undergraduate Excellence Scholarship (top 1%)
 - *2024.07* The Tang Junyuan Scholarship (top 0.5%)
-- *2024.06* The [Fan Xuji](https://en.wikipedia.org/wiki/Fan_Xuji) Scholarship (top 0.5%)
+- *2024.06* [The Fan Xuji Scholarship](https://www.ji.sjtu.edu.cn/off-the-press/2024-06-21/146468/) (top 0.5%)
 - *2023.12* China Undergraduate Outstanding Scholarship (top 1%)
 - *2023.12* 2023 First-Class China Undergraduate Excellence Scholarship (top 1%)
 - *2023.11* The John Wu and Jane Sun Excellence Scholarship (top 1%)
@@ -232,7 +232,7 @@ This is a class project from [EECS 442 Computer Vision](https://www.eecs.umich.e
   <div class="paper-box-text">
     <p><strong>2024.02</strong>, <a href="https://www.comap.com/contests/mcm-icm">MCM</a>, <em>Outstanding Winner</em> (top &lt;1%)</p>
     <p>
-      In the Mathematical Contest in Modeling, my team was awarded the highest distinction, the Outstanding Winner Prize. In this competition, we discussed the momentum shifts in tennis by analyzing match data from the 2023 Wimbledon Championships. The topic is really fascinating for me, since I myself am a tennis lover. I contributed to the use of Exponential Weighted Moving Average (EWMA) to define and detect momentum swings. Here's a view of our <a href="https://www.instagram.com/sjtu_1896/p/C7i6zT4tdG6/?img_index=1" target="_blank">story</a>. Our full paper could be found <a href="https://drive.google.com/file/d/1sfivP-A_PA-UUqpr1lz6x69M1KH5CZxx/view?usp=sharing" target="_blank">here</a>.
+      In the Mathematical Contest in Modeling, my team was awarded the highest distinction, the Outstanding Winner Prize. In this competition, we discussed the momentum shifts in tennis by analyzing match data from the 2023 Wimbledon Championships. The topic is really fascinating for me, since I myself am a tennis lover. I contributed to the use of Exponential Weighted Moving Average (EWMA) to define and detect momentum swings. Here's a view of our <a href="https://www.ji.sjtu.edu.cn/off-the-press/2024-05-28/146005/" target="_blank">story</a>. Our full paper could be found <a href="https://drive.google.com/file/d/1sfivP-A_PA-UUqpr1lz6x69M1KH5CZxx/view?usp=sharing" target="_blank">here</a>.
     </p>
   </div>
   <div class="paper-box-image">
@@ -247,7 +247,7 @@ This is a class project from [EECS 442 Computer Vision](https://www.eecs.umich.e
   <div class="paper-box-text">
     <p><strong>2024.02 - 2024.04</strong>, <a href="https://www.chinausyoungmaker.org/">CUYMC</a>, <em>First Prize</em> </p>
     <p>
-      In the China-US Young Maker Competition, I designed a digital virtual human to make our intelligent elderly care project more approachable and user-friendly for seniors. By integrating large language models (LLMs) into the Unreal Engine 5 (UE5) platform, I enhanced the system’s interactivity and responsiveness. This work received <a href="https://drive.google.com/file/d/1lClXiM0LWnZ-DQd9cYq3U_eHx9oSAvxb/view?usp=sharing" target="_blank">software copyright</a> recognition in China. Here's a view of our <a href="https://www.instagram.com/p/C9tw3lQss1x/?img_index=1" target="_blank">story</a>.
+      In the China-US Young Maker Competition, I designed a digital virtual human to make our intelligent elderly care project more approachable and user-friendly for seniors. By integrating large language models (LLMs) into the Unreal Engine 5 (UE5) platform, I enhanced the system’s interactivity and responsiveness. This work received <a href="https://drive.google.com/file/d/1lClXiM0LWnZ-DQd9cYq3U_eHx9oSAvxb/view?usp=sharing" target="_blank">software copyright</a> recognition in China. Here's a view of our <a href="https://www.ji.sjtu.edu.cn/off-the-press/2024-07-22/146816/" target="_blank">story</a>.
     </p>
   </div>
   <div class="paper-box-image">
@@ -298,7 +298,7 @@ This is a class project from [EECS 442 Computer Vision](https://www.eecs.umich.e
   <div class="paper-box-text">
     <p><strong>2023.01 - 2023.02</strong>, <a href="https://en.wikipedia.org/wiki/Eryuan_County">Eryuan County</a>, Yunnan, China.</p>
     <p>
-      Together with more than twenty other members of the Miyuan Youth Volunteer Team, I traveled to Eryuan in Yunnan Province, where we spent an unforgettable time with local middle school students from several schools. I was responsible for tutoring the children in mathematics, science, and English. Unexpectedly, living, eating, and sharing daily life with the students taught me even more than I was able to teach them, allowing me to grow in ways I hadn’t anticipated.
+      Together with more than twenty other members of the Miyuan Youth Volunteer Team, I traveled to Eryuan in Yunnan Province, where we spent an unforgettable time with local middle school students from several schools. I was responsible for tutoring the children in mathematics, science, and English. Unexpectedly, living, eating, and sharing daily life with the students taught me even more than I was able to teach them, allowing me to grow in ways I hadn’t anticipated. Our team received the honor of [SJTU’s 2023 Person of the Year](https://www.ji.sjtu.edu.cn/off-the-press/2023-12-05/142729/).
     </p>
   </div>
   <div class="paper-box-image">
