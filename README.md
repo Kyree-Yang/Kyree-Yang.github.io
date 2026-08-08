@@ -1,72 +1,70 @@
+# kyree-yang.github.io
 
-<h1 align="center">
-AcadHomepage
-</h1>
+Personal site for Ruikai Yang. React 19 + Vite + TypeScript + Tailwind v4, deployed to GitHub Pages
+by GitHub Actions.
 
-<div align="center">
+Replaces the previous single-page Jekyll build (August 2026).
 
-[![](https://img.shields.io/github/stars/RayeRen/acad-homepage.github.io)](https://github.com/RayeRen/acad-homepage.github.io)
-[![](https://img.shields.io/github/forks/RayeRen/acad-homepage.github.io)](https://github.com/RayeRen/acad-homepage.github.io)
-[![](https://img.shields.io/github/issues/RayeRen/acad-homepage.github.io)](https://github.com/RayeRen/acad-homepage.github.io)
-[![](https://img.shields.io/github/license/RayeRen/acad-homepage.github.io)](https://github.com/RayeRen/acad-homepage.github.io/blob/main/LICENSE)  | [中文文档](./docs/README-zh.md) 
-</div>
+## Develop
 
-<p align="center">A Modern and Responsive Academic Personal Homepage</p>
+```bash
+npm install
+npm run dev        # http://localhost:5173
+npm run build      # tsc -b && vite build -> dist/
+npm run preview
+```
 
-<p align="center">
-    <br>
-    <img src="docs/screenshot.png" width="100%"/>
-    <br>
-</p>
+## Visualizations
 
-Some examples:
-- [Demo Page](https://rayeren.github.io/acad-homepage.github.io/)
-- [Personal Homepage of the author](https://rayeren.github.io/)
+Every chart on the site is hand-written SVG — there is no chart library. Each one has the same
+signature:
 
-## Key Features
-- **Automatically update google scholar citations**: using the google scholar crawler and github action, this REPO can update the author citations and publication citations automatically.
-- **Support Google analytics**: you can trace the traffics of your homepage by easy configuration.
-- **Responsive**: this homepage automatically adjust for different screen sizes and viewports.
-- **Beautiful and Simple Design**: this homepage is beautiful and simple, which is very suitable for academic personal homepage.
-- **SEO**: search Engine Optimization (SEO) helps search engines find the information you publish on your homepage easily, then rank it against similar websites.
+```tsx
+function SomeViz({ t, bare }: { t?: number; bare?: boolean })
+```
 
-## Quick Start
+and is a **pure function of `t ∈ [0,1)`**: no accumulated state, no `Math.random()`, no `Date.now()`.
+When `t` is omitted the component drives itself through `useAnimationClock`, which pauses off-screen
+and freezes entirely under `prefers-reduced-motion`. When `t` is supplied the component renders that
+exact frame.
 
-1. Fork this REPO and rename to `USERNAME.github.io`, where `USERNAME` is your github USERNAME.
-1. Configure the google scholar citation crawler:
-    1. Find your google scholar ID in the url of your google scholar page (e.g., https://scholar.google.com/citations?user=SCHOLAR_ID), where `SCHOLAR_ID` is your google scholar ID.
-    1. Set GOOGLE_SCHOLAR_ID variable to your google scholar ID in `Settings -> Secrets -> Actions -> New repository secret` of the REPO website with `name=GOOGLE_SCHOLAR_ID` and `value=SCHOLAR_ID`.
-    1. Click the `Action` of the REPO website and enable the workflows by clicking *"I understand my workflows, go ahead and enable them"*. This github action will generate google scholar citation stats data `gs_data.json` in `google-scholar-stats` branch of your REPO. When you update your main branch, this action will be triggered. This action will also be trigger 08:00 UTC everyday.
-1. Generate favicon using [favicon-generator](https://redketchup.io/favicon-generator) and download all generated files to `REPO/images`.
-1. Modify the configuration of your homepage `_config.yml`:
-    1. `title`: the title of your homepage
-    1. `description`: the description of your homepage
-    1. `repository`: USER_NAME/REPO_NAME  
-    1. `google_analytics_id` (optional): google analytics ID
-    1. SEO Related keys (optional): get these keys from search engine consoles (e.g. Google, Bing and Baidu) and paste here.
-    1. `author`: the author information of this homepage, including some other websites, emails, city and univeristy.
-    1. More configuration details are described in the comments.
-1. Add your homepage content in `_pages/about.md`.
-    1. You can use html+markdown syntax just same as jekyll.
-    1. You can use a `<span>` tag with class `show_paper_citations` and attribute `data` to display the citations of your paper. Set the data to the google scholar paper ID. For
-        ```html
-        <span class='show_paper_citations' data='DhtAFkwAAAAJ:ALROH1vI_8AC'></span>
-        ``` 
-        > Q: How to get the google scholar paper ID?   
-        > A: Enter your google scholar homepage and click the paper name. Then you can see the paper ID from `citation_for_view=XXXX`, where `XXXX` is the required paper ID.
-1. Your page will be published at `https://USERNAME.github.io`.
+That single property is what lets the same component animate on the page, hold still for a reader who
+asked for no motion, and be captured frame-by-frame into a `.gif`.
 
-## Debug Locally
+## GIF export
 
-1. Clone your REPO to local using `git clone`.
-1. Install Jekyll building environment, including `Ruby`, `RubyGems`, `GCC` and `Make` following [the installation guide](https://jekyllrb.com/docs/installation/#requirements).
-1. Run `bash run_server.sh` to start Jekyll livereload server.
-1. Open http://127.0.0.1:4000 in your browser.
-1. If you change the source code of the website, the livereload server will automatically refresh.
-1. When you finish the modification of your homepage, `commit` your changings and `push` to your remote REPO using `git` command.
+```bash
+npm run build
+npm run gif                 # all of them
+npm run gif -- rtl-mirror   # just one
+npm run gif:check           # what CI asserts
+```
 
-# Acknowledges
+`scripts/export-gifs.mjs` serves `dist/`, walks `/_gif/:id?t=…` in headless Chrome one frame at a
+time, and stitches the frames with ffmpeg (`palettegen` + `paletteuse`). Output lands in
+`public/gif/` and is **committed**, because CI has neither Chrome nor ffmpeg — `scripts/check-gifs.mjs`
+just asserts each file exists, is registered, and stays under 400 KB.
 
-- AcadHomepage incorporates Font Awesome, which is distributed under the terms of the SIL OFL 1.1 and MIT License.
-- AcadHomepage is influenced by the github repo [mmistakes/minimal-mistakes](https://github.com/mmistakes/minimal-mistakes), which is distributed under the MIT License.
-- AcadHomepage is influenced by the github repo [academicpages/academicpages.github.io](https://github.com/academicpages/academicpages.github.io), which is distributed under the MIT License.
+Requires Chrome and `ffmpeg` locally. Chrome's new headless mode hangs on `http://` captures on macOS,
+so the legacy mode is pinned deliberately; don't "modernize" that flag.
+
+Adding a visualization to the export set means touching two places: `MANIFEST` in
+`scripts/export-gifs.mjs` and `GIF_REGISTRY` in `src/gif/registry.tsx`. `check-gifs.mjs` fails the
+build if they disagree.
+
+## Deploy
+
+Pushing to `main` runs `.github/workflows/pages.yml`, which builds and publishes `dist/`.
+
+**One-time repository setting:** Settings → Pages → Source must be **GitHub Actions**, not
+"Deploy from a branch". The old Jekyll site was served straight from the branch root; this one is not.
+
+`google_scholar_crawler.yaml` is untouched and independent — it force-pushes to the orphan
+`google-scholar-stats` branch and has nothing to do with the site build.
+
+## Media
+
+Photographs and videos live in `public/media/`, documents in `public/docs/`. Both are pre-optimized;
+nothing at full resolution ships. The predecessor site referenced 106 MB of images, 83 MB of which
+were six animated GIFs used as video. Those are now `.webm` + `.mp4` with a poster frame, and the
+photos ship WebP with a JPEG fallback.

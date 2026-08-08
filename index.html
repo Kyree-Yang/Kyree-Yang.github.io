@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-var.woff2" crossorigin />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="/fonts/jetbrains-mono-var.woff2"
+      crossorigin
+    />
+
+    <title>Ruikai Yang — systems that run unattended</title>
+    <meta
+      name="description"
+      content="Ruikai Yang — LLM-agent infrastructure, distributed backends, and PDE solvers for robot motion. Every number carries its denominator."
+    />
+    <meta name="author" content="Ruikai Yang" />
+    <link rel="canonical" href="https://kyree-yang.github.io/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Ruikai Yang — systems that run unattended" />
+    <meta
+      property="og:description"
+      content="LLM-agent infrastructure, distributed backends, and PDE solvers for robot motion."
+    />
+    <meta property="og:url" content="https://kyree-yang.github.io/" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Ruikai Yang",
+        "url": "https://kyree-yang.github.io/",
+        "jobTitle": "Software Engineer",
+        "sameAs": [
+          "https://github.com/Kyree-Yang",
+          "https://www.linkedin.com/in/ruikai-yang-17a940344",
+          "https://scholar.google.com/citations?user=fXi8G90AAAAJ"
+        ],
+        "alumniOf": [
+          { "@type": "CollegeOrUniversity", "name": "Georgia Institute of Technology" },
+          { "@type": "CollegeOrUniversity", "name": "University of Michigan" },
+          { "@type": "CollegeOrUniversity", "name": "Shanghai Jiao Tong University" }
+        ]
+      }
+    </script>
+
+    <script>
+      // Theme boot: resolve before first paint so a hard reload never flashes.
+      (function () {
+        try {
+          var stored = localStorage.getItem('theme');
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          document.documentElement.classList.toggle(
+            'dark',
+            stored ? stored === 'dark' : prefersDark,
+          );
+        } catch (e) {}
+      })();
+    </script>
+    <script>
+      // GitHub Pages SPA fallback: 404.html stashes the requested URL, this
+      // replays it into the router. Same-origin check guards a redirect loop.
+      (function () {
+        var redirect = sessionStorage.redirect;
+        delete sessionStorage.redirect;
+        if (redirect && redirect.indexOf(location.origin) === 0 && redirect !== location.href) {
+          history.replaceState(null, '', redirect);
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Ruikai Yang</title>
+    <script>
+      // GitHub Pages serves 404.html for unknown paths. Stash the requested URL
+      // and bounce to the SPA entry, which replays it into the router.
+      sessionStorage.redirect = location.href;
+      location.replace('/');
+    </script>
+  </head>
+  <body></body>
+</html>

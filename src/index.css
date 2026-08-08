@@ -1,0 +1,254 @@
+@import 'tailwindcss';
+
+/* Dark mode is class-driven; index.html resolves it before first paint. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/inter-var.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/fonts/jetbrains-mono-var.woff2') format('woff2-variations');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ---------------------------------------------------------------------------
+   Tokens.
+   One primary blue, five accent hues, one radius knob, hairline borders.
+   Surfaces are defined by their border, not by shadow — so the same component
+   reads correctly on both themes without a second set of shadow values.
+
+   Semantic rule, binding for every visualization:
+     emerald = something that succeeded
+     amber   = honest bad news the reader must not skim past
+     rose    = something that failed hard / a gate that fired
+     faint   = something that never happened
+   Never render a zero-coverage result in emerald.
+--------------------------------------------------------------------------- */
+:root {
+  --bg: #ffffff;
+  --bg-subtle: #f8fafc;
+  --surface: #ffffff;
+  --surface-2: #f1f5f9;
+  --fg: #0f172a;
+  --fg-muted: #64748b;
+  --fg-faint: #94a3b8;
+  --border: #e2e8f0;
+  --border-strong: #cbd5e1;
+
+  --primary: #2563eb;
+  --primary-fg: #ffffff;
+  --primary-soft: rgb(37 99 235 / 0.1);
+
+  --accent-violet: #7c3aed;
+  --accent-cyan: #0891b2;
+  --accent-amber: #b45309;
+  --accent-emerald: #059669;
+  --accent-rose: #e11d48;
+
+  --grid: #e6ebf2;
+  --elevate: rgb(15 23 42 / 0.035);
+  --elevate-2: rgb(15 23 42 / 0.07);
+  --shadow-pop: 0 1px 2px rgb(15 23 42 / 0.05), 0 10px 28px -14px rgb(15 23 42 / 0.22);
+
+  --radius: 10px;
+  --radius-sm: 6px;
+  --radius-lg: 16px;
+  --radius-phone: 26px;
+  --radius-pill: 999px;
+
+  color-scheme: light;
+}
+
+.dark {
+  --bg: #0b0f16;
+  --bg-subtle: #0e131b;
+  --surface: #121821;
+  --surface-2: #1a222d;
+  --fg: #e8edf5;
+  --fg-muted: #96a3b5;
+  --fg-faint: #6b7889;
+  --border: #232c39;
+  --border-strong: #354152;
+
+  --primary: #60a5fa;
+  --primary-fg: #0b0f16;
+  --primary-soft: rgb(96 165 250 / 0.16);
+
+  --accent-violet: #a78bfa;
+  --accent-cyan: #22d3ee;
+  --accent-amber: #fbbf24;
+  --accent-emerald: #34d399;
+  --accent-rose: #fb7185;
+
+  --grid: #1b2431;
+  --elevate: rgb(255 255 255 / 0.05);
+  --elevate-2: rgb(255 255 255 / 0.1);
+  --shadow-pop: 0 1px 2px rgb(0 0 0 / 0.55), 0 14px 34px -18px rgb(0 0 0 / 0.8);
+
+  color-scheme: dark;
+}
+
+/* Expose the tokens to Tailwind so `bg-surface`, `text-muted`, … all work. */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-subtle: var(--bg-subtle);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-fg: var(--fg);
+  --color-muted: var(--fg-muted);
+  --color-faint: var(--fg-faint);
+  --color-line: var(--border);
+  --color-line-strong: var(--border-strong);
+  --color-primary: var(--primary);
+  --color-primary-fg: var(--primary-fg);
+  --color-violet: var(--accent-violet);
+  --color-cyan: var(--accent-cyan);
+  --color-amber: var(--accent-amber);
+  --color-emerald: var(--accent-emerald);
+  --color-rose: var(--accent-rose);
+
+  --radius-card: var(--radius);
+
+  --font-sans:
+    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', 'PingFang SC',
+    Arial, sans-serif;
+  --font-mono:
+    'JetBrains Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, 'Liberation Mono', monospace;
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--primary-soft);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Numbers that animate must not reflow while they count. */
+  .tnum {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum';
+  }
+}
+
+@layer components {
+  /* Background-agnostic hover feedback: one overlay instead of per-component
+     hover colors. Borrowed from the dashboard's elevate system. */
+  .elevate {
+    position: relative;
+  }
+  .elevate::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background-color: transparent;
+    transition: background-color 130ms ease;
+    pointer-events: none;
+  }
+  .elevate:hover::after {
+    background-color: var(--elevate);
+  }
+  .elevate:active::after {
+    background-color: var(--elevate-2);
+  }
+
+  .card {
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+
+  .shadow-pop {
+    box-shadow: var(--shadow-pop);
+  }
+
+  .hairline {
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* Faint blueprint grid used behind hero and visualization panels. */
+  .grid-bg {
+    background-image:
+      linear-gradient(to right, var(--grid) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+    background-size: 32px 32px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
+  }
+
+  /* Route-change entrance. Remounted per pathname, so the animation restarts. */
+  .page-enter {
+    animation: page-enter 220ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  @keyframes page-enter {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* Reveal-on-scroll, CSS-only. Reveal.tsx toggles data-shown. */
+  .reveal {
+    opacity: 0;
+    transform: translateY(12px);
+    transition:
+      opacity 420ms ease,
+      transform 420ms ease;
+  }
+  .reveal[data-shown='true'] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}

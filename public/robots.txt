@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /_gif/
+
+Sitemap: https://kyree-yang.github.io/sitemap.xml

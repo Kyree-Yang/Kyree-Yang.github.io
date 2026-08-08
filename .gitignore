@@ -1,3 +1,14 @@
 _site/
 push.sh
 .DS_Store
+
+# Vite app
+node_modules/
+dist/
+*.tsbuildinfo
+
+# GIF export scratch
+scripts/.gif-frames/
+
+# route screenshots
+scripts/.shots/
