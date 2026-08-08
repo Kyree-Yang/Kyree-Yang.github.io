@@ -1,8 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import { HeroConsole } from '@/components/home/HeroConsole';
-import { ProofStrip } from '@/components/home/ProofStrip';
-import { Spine } from '@/components/home/Spine';
+import { Experience } from '@/components/home/Experience';
 import { SupportingActs } from '@/components/home/SupportingActs';
 import { Seo } from '@/components/shell/Seo';
 import { DocLink } from '@/components/ui/DocLink';
@@ -50,8 +49,7 @@ export default function Home() {
       <Seo title={siteMeta.title} description={siteMeta.description} path="/" />
 
       <HeroConsole />
-      <ProofStrip />
-      <Spine />
+      <Experience />
       <SupportingActs />
 
       <Section id="timeline">

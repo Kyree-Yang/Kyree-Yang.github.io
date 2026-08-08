@@ -182,8 +182,9 @@ export function PipelineRing({ t, bare }: { t?: number; bare?: boolean }) {
             <text x={0} y={92} fill={VIZ.faint}>
               20 steps
             </text>
+            {/* Only ~200px of viewBox remains right of x=360; longer clips. */}
             <text x={0} y={110} fill={VIZ.faint}>
-              7 hooks · 54 hard-block exit points
+              7 hooks · 54 hard blocks
             </text>
             <text x={0} y={128} fill={VIZ.faint}>
               2 human stop points

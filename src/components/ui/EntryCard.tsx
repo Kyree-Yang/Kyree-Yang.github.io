@@ -12,6 +12,7 @@ export function EntryCard({
   title,
   tagline,
   dates,
+  eyebrow,
   metrics,
   caveat,
   viz,
@@ -21,6 +22,8 @@ export function EntryCard({
   title: string;
   tagline: string;
   dates: string;
+  /** Replaces the date line — used when an enclosing block already states the dates. */
+  eyebrow?: string;
   /** Exactly three. */
   metrics: { label: string; value: string }[];
   caveat: string;
@@ -35,7 +38,9 @@ export function EntryCard({
         emphasis ? 'rounded-[var(--radius-lg)] p-6 shadow-pop' : 'p-5',
       )}
     >
-      <div className="font-mono text-[11px] tracking-[0.14em] text-faint uppercase">{dates}</div>
+      <div className="font-mono text-[11px] tracking-[0.14em] text-faint uppercase">
+        {eyebrow ?? dates}
+      </div>
 
       <h3 className="mt-2 flex items-start gap-2 text-lg font-semibold tracking-[-0.01em]">
         <span>{title}</span>

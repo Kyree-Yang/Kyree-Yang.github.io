@@ -47,22 +47,25 @@ for (const { id } of MANIFEST) {
   console.log(`✓ ${id}.gif  ${(stat.size / 1024).toFixed(0)} KB`);
 }
 
-// Staleness is advisory: a GIF older than its source is probably out of date.
+// Staleness is advisory: a GIF older than the component it was rendered from is
+// probably out of date. Compare against that component only — comparing against
+// the newest file in the viz directory flags all twelve every time one changes.
 const vizDir = path.join(ROOT, 'src', 'components', 'viz');
-if (fs.existsSync(vizDir)) {
-  const newestViz = fs
-    .readdirSync(vizDir)
-    .map((f) => fs.statSync(path.join(vizDir, f)).mtimeMs)
-    .reduce((a, b) => Math.max(a, b), 0);
-  const stale = MANIFEST.filter(({ id }) => {
-    const file = path.join(GIF_DIR, `${id}.gif`);
-    return fs.existsSync(file) && fs.statSync(file).mtimeMs < newestViz;
-  });
-  if (stale.length) {
-    console.warn(
-      `! ${stale.length} gif(s) older than the newest viz source: ${stale.map((s) => s.id).join(', ')}`,
-    );
-  }
+const componentFor = Object.fromEntries(
+  [...registrySrc.matchAll(/'([\w-]+)':\s*\(t\)\s*=>\s*<(\w+)\b/g)].map((m) => [m[1], m[2]]),
+);
+
+const stale = MANIFEST.filter(({ id }) => {
+  const gif = path.join(GIF_DIR, `${id}.gif`);
+  const component = componentFor[id] && path.join(vizDir, `${componentFor[id]}.tsx`);
+  if (!fs.existsSync(gif) || !component || !fs.existsSync(component)) return false;
+  return fs.statSync(gif).mtimeMs < fs.statSync(component).mtimeMs;
+});
+
+if (stale.length) {
+  console.warn(
+    `! ${stale.length} gif(s) older than their source component: ${stale.map((s) => s.id).join(', ')} — run \`npm run gif\``,
+  );
 }
 
 process.exit(failed ? 1 : 0);

@@ -1,6 +1,6 @@
 /** Site-wide chrome: navigation, the route directory, the /work index, and the colophon. */
 
-import type { Entry, Tone } from './types';
+import type { Entry } from './types';
 
 export const siteMeta = {
   name: 'Ruikai Yang',
@@ -18,7 +18,7 @@ export const navItems: { label: string; to: string }[] = [
 
 /** The nine public routes, used by the footer directory and by the 404 page. */
 export const routeDirectory: { to: string; label: string; description: string }[] = [
-  { to: '/', label: 'Home', description: 'The six numbers, and the pages that defend them.' },
+  { to: '/', label: 'Home', description: 'Who I am, and the two agent systems I built this summer.' },
   { to: '/work', label: 'Work', description: 'Five systems, newest first, with their caveats attached.' },
   {
     to: '/work/autonomous-bug-fix',
@@ -187,54 +187,6 @@ export const colophon: {
     { label: 'unreferenced originals', value: 'dropped, ~56 MB' },
   ],
 };
-
-export type ProofCell = {
-  /** Rendered as-is when `count` is absent; otherwise `count` counts up inside prefix/suffix. */
-  value: string;
-  count?: number;
-  prefix?: string;
-  suffix?: string;
-  label: string;
-  to: string;
-  tone: Tone;
-};
-
-/** Six numbers, each linking to the page that shows its working. */
-export const proofStrip: ProofCell[] = [
-  {
-    value: '~42,500',
-    count: 42500,
-    prefix: '~',
-    label: 'lines shipped solo in 12 weeks',
-    to: '/work/autonomous-bug-fix',
-    tone: 'primary',
-  },
-  {
-    value: '66 / 56',
-    label: 'merge requests / green pipelines',
-    to: '/work/autonomous-bug-fix',
-    tone: 'emerald',
-  },
-  {
-    value: '13,123',
-    count: 13123,
-    label: 'lines of design-to-code workflow engine',
-    to: '/work/design-lab',
-    tone: 'violet',
-  },
-  {
-    value: '30M',
-    count: 30,
-    suffix: 'M',
-    label: 'pages indexed on a 12-node cluster',
-    to: '/work/search-engine',
-    tone: 'cyan',
-  },
-  { value: '−40%', label: 'solver runtime, analytical Jacobians', to: '/work/aghf', tone: 'primary' },
-  { value: 'IROS 2026', label: 'co-author', to: '/work/aghf', tone: 'emerald' },
-];
-
-export const proofStripNote = 'Six numbers, six pages that show their working.';
 
 export const notFound = {
   title: 'Not found',
