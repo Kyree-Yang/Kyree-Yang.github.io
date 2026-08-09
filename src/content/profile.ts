@@ -44,7 +44,7 @@ export const contactLinks: { label: string; href: string; note?: string }[] = [
 export const hero = {
   eyebrow: 'ENGINEERING RUNBOOK',
   title: identity.display,
-  lead: "I've spent the last two years building systems that have to run without supervision: LLM-agent pipelines on a production mobile codebase, a from-scratch search engine, a PDE solver that reached a real robot arm. Building agents convinced me that most of what they can and can't do is decided one layer down, in the models. The next two years are for that layer. This site is the runbook: what each system did, and what never worked.",
+  lead: "I'm a master's student in computer science at Georgia Tech, graduating at the end of 2027, and I work on LLM agents: this past summer I built two agent systems that ran unattended against a production mobile codebase. Building them convinced me that most of what an agent can and can't do is decided one layer down, in the models, and that layer is what I'm here to study. This site is the runbook: what each system did, and what never worked.",
   portrait: {
     avif: '/media/portrait-hero.avif',
     webp: '/media/portrait-hero.webp',
