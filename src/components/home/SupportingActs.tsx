@@ -6,14 +6,8 @@ import { LazyViz } from '@/components/ui/LazyViz';
 import { Reveal } from '@/components/ui/Reveal';
 import { VideoCard } from '@/components/ui/VideoCard';
 import { PipelineDiagram } from '@/components/viz/PipelineDiagram';
-import { cn } from '@/lib/utils';
 
-const CRAWLER_CELLS = [
-  { value: '30M', label: 'pages' },
-  { value: '7,500', label: 'threads' },
-  { value: '500 GB', label: 'index' },
-  { value: '300–2,000 ms', label: 'query latency' },
-];
+
 
 function Act({ title, to, children }: { title: string; to: string; children: React.ReactNode }) {
   return (
@@ -49,19 +43,12 @@ export function SupportingActs() {
             </Act>
 
             <Act title="Crawler Crew" to="/work/search-engine">
-              <div className="card grid grid-cols-2 overflow-hidden">
-                {CRAWLER_CELLS.map((cell, i) => (
-                  <div
-                    key={cell.label}
-                    className={cn('p-3 sm:p-5', i % 2 === 0 && 'border-r', i < 2 && 'border-b')}
-                  >
-                    <div className="tnum text-[15px] font-semibold tracking-tight text-cyan sm:text-[17px]">
-                      {cell.value}
-                    </div>
-                    <div className="mt-0.5 text-xs leading-snug text-muted">{cell.label}</div>
-                  </div>
-                ))}
-              </div>
+              <VideoCard
+                src="/media/super_quality"
+                poster="/media/super_quality-poster.jpg"
+                caption="live query against 30M pages, from-scratch C++"
+                clickToPlay
+              />
             </Act>
 
             <Act title="Diffusion-Pyramid" to="/work/diffusion-pyramid">

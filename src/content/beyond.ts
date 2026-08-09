@@ -158,6 +158,30 @@ export const activities: Activity[] = [
 /** Closing grid: the recognition photographs. */
 export const beyondGallery: BeyondPhoto[] = [
   {
+    src: '/media/eryuan-teaching.jpg',
+    webp: '/media/eryuan-teaching.webp',
+    alt: 'Teaching a water-purification science lesson to middle-school students in Eryuan County.',
+    caption: 'Water-purification lesson, Eryuan, Yunnan',
+  },
+  {
+    src: '/media/tengger-fire.jpg',
+    webp: '/media/tengger-fire.webp',
+    alt: 'Tending the camp stove during the Tengger Desert sand-control trip.',
+    caption: 'Camp logistics on the Tengger trip, 2024',
+  },
+  {
+    src: '/media/mcm-team.jpg',
+    webp: '/media/mcm-team.webp',
+    alt: 'With both MCM 2024 teammates after the Outstanding Winner result.',
+    caption: 'The MCM team, 2024',
+  },
+  {
+    src: '/media/wu-sun-scholarship.jpg',
+    webp: '/media/wu-sun-scholarship.webp',
+    alt: 'Award ceremony of the John Wu and Jane Sun Excellence Scholarship.',
+    caption: 'John Wu and Jane Sun Excellence Scholarship ceremony, Nov 2023',
+  },
+  {
     src: '/media/Oprize.jpg',
     webp: '/media/Oprize.webp',
     alt: 'MCM 2024 Outstanding Winner recognition.',

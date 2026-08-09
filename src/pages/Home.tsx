@@ -6,8 +6,8 @@ import { SupportingActs } from '@/components/home/SupportingActs';
 import { Seo } from '@/components/shell/Seo';
 import { DocLink } from '@/components/ui/DocLink';
 import { LazyViz } from '@/components/ui/LazyViz';
-import { PhotoGrid } from '@/components/ui/PhotoGrid';
 import { Container, Section, SectionHeading } from '@/components/ui/primitives';
+import { PhotoStrip, type StripPhoto } from '@/components/ui/PhotoStrip';
 import { Reveal } from '@/components/ui/Reveal';
 import { DegreeGantt } from '@/components/viz/DegreeGantt';
 import { doc } from '@/content/docs';
@@ -22,24 +22,62 @@ const RECOGNITION = [
   'Tang Junyuan Scholarship (top 0.5%)',
 ];
 
-const BEYOND_PHOTOS = [
+/** The field-work strip: five frames, scrolls sideways like a contact sheet. */
+const BEYOND_PHOTOS: StripPhoto[] = [
   {
     src: '/media/green_grid.jpg',
     webp: '/media/green_grid.webp',
     alt: 'The planting site in the Tengger Desert.',
-    caption: 'Sand prevention and desertification control, Minqin area.',
+    caption: 'Sand-control planting line · Minqin edge, Tengger Desert',
+  },
+  {
+    src: '/media/tengger-fire.jpg',
+    webp: '/media/tengger-fire.webp',
+    alt: 'Tending the camp stove during the Tengger Desert sand-control trip.',
+    caption: 'Camp logistics on the same trip — tending the stove',
+    aspect: '3/2',
+  },
+  {
+    src: '/media/eryuan-teaching.jpg',
+    webp: '/media/eryuan-teaching.webp',
+    alt: 'Teaching a water-purification science lesson to middle-school students in Eryuan County.',
+    caption: 'Teaching a water-purification lesson · Eryuan, Yunnan',
+    aspect: '3/2',
   },
   {
     src: '/media/eryuan.jpg',
     webp: '/media/eryuan.webp',
     alt: 'Conducting a physics experiment with students in Eryuan County.',
-    caption: 'Tutoring mathematics, science, and English in Eryuan County.',
+    caption: 'Physics experiment with the same class · Eryuan, Yunnan',
   },
   {
     src: '/media/tenvolunteer.jpg',
     webp: '/media/tenvolunteer.webp',
     alt: 'Named among the Top Ten Volunteers, 2023.',
-    caption: 'Named among the Top Ten Volunteers, 2023',
+    caption: 'Top Ten Volunteers · 2023',
+  },
+];
+
+/** Faces behind the Recognition list — teaching, the MCM team, the award. */
+const RECOGNITION_PHOTOS: StripPhoto[] = [
+  {
+    src: '/media/mcm-team.jpg',
+    webp: '/media/mcm-team.webp',
+    alt: 'With both MCM 2024 teammates after the Outstanding Winner result.',
+    caption: 'MCM 2024 Outstanding Winner · with the team',
+  },
+  {
+    src: '/media/wu-sun-scholarship.jpg',
+    webp: '/media/wu-sun-scholarship.webp',
+    alt: 'Award ceremony of the John Wu and Jane Sun Excellence Scholarship.',
+    caption: 'John Wu and Jane Sun Excellence Scholarship · Nov 2023',
+    aspect: '3/2',
+  },
+  {
+    src: '/media/TA.jpg',
+    webp: '/media/TA.webp',
+    alt: 'Holding a PHYS1500J recitation as teaching assistant at SJTU.',
+    caption: 'PHYS1500J recitation, teaching assistant · Summer 2024',
   },
 ];
 
@@ -96,31 +134,40 @@ export default function Home() {
         <Container>
           <Reveal>
             <SectionHeading title="Recognition" />
-            <ul className="card divide-y overflow-hidden">
-              {RECOGNITION.map((line) => (
-                <li
-                  key={line}
-                  className="flex items-start gap-3 px-4 py-3 text-[15px] leading-relaxed sm:px-5"
+            <div className="grid gap-8 lg:grid-cols-[minmax(0,26rem)_minmax(0,1fr)] lg:gap-12">
+              <div>
+                <ul className="card divide-y overflow-hidden">
+                  {RECOGNITION.map((line) => (
+                    <li
+                      key={line}
+                      className="flex items-start gap-3 px-4 py-3 text-[15px] leading-relaxed sm:px-5"
+                    >
+                      <span
+                        aria-hidden
+                        className="mt-[10px] size-1.5 shrink-0 rounded-full bg-primary/70"
+                      />
+                      <span>{line}</span>
+                    </li>
+                  ))}
+                </ul>
+                <Link
+                  to="/cv#honors"
+                  className="mt-5 inline-flex text-sm font-medium text-primary underline decoration-line-strong underline-offset-[3px] hover:decoration-primary"
                 >
-                  <span aria-hidden className="mt-[10px] size-1.5 shrink-0 rounded-full bg-primary/70" />
-                  <span>{line}</span>
-                </li>
-              ))}
-            </ul>
-            <Link
-              to="/cv#honors"
-              className="mt-5 inline-flex text-sm font-medium text-primary underline decoration-line-strong underline-offset-[3px] hover:decoration-primary"
-            >
-              8 awards, 6 teaching and leadership roles →
-            </Link>
+                  8 awards, 6 teaching and leadership roles →
+                </Link>
+              </div>
+              <PhotoStrip photos={RECOGNITION_PHOTOS} label="Recognition photos" />
+            </div>
           </Reveal>
         </Container>
       </Section>
 
       <Section id="beyond" className="border-t bg-bg-subtle">
         <Container>
-          <PhotoGrid items={BEYOND_PHOTOS} />
           <Reveal>
+            <p className="eyebrow mb-6">beyond the lab</p>
+            <PhotoStrip photos={BEYOND_PHOTOS} label="Field-work photos" fade="subtle" />
             <Link
               to="/beyond"
               className="mt-6 inline-flex text-sm font-medium text-primary underline decoration-line-strong underline-offset-[3px] hover:decoration-primary"
