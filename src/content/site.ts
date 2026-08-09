@@ -7,7 +7,7 @@ export const siteMeta = {
   url: 'https://kyree-yang.github.io',
   title: 'Ruikai Yang — engineering runbook',
   description:
-    'Ruikai Yang builds LLM-agent infrastructure, distributed backends, and PDE-based motion planning. This site is the runbook: what each system actually did, how often, and what never worked.',
+    'Ruikai Yang builds LLM-agent infrastructure, distributed backends, and PDE motion planning, and is headed into ML research at Georgia Tech. This site is the runbook: what each system did, and what never worked.',
 } as const;
 
 export const navItems: { label: string; to: string }[] = [

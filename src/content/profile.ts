@@ -44,7 +44,7 @@ export const contactLinks: { label: string; href: string; note?: string }[] = [
 export const hero = {
   eyebrow: 'ENGINEERING RUNBOOK',
   title: identity.display,
-  lead: 'I build LLM-agent pipelines, distributed backends, and PDE solvers for robot motion. Most of it has to run overnight with nobody watching, which is why this site reads like a runbook: what each system actually did, and what never worked.',
+  lead: "I've spent the last two years building systems that have to run without supervision: LLM-agent pipelines on a production mobile codebase, a from-scratch search engine, a PDE solver that reached a real robot arm. Building agents convinced me that most of what they can and can't do is decided one layer down, in the models. That layer is where I'm going next: ML research during my MSCS at Georgia Tech, and MLE or ML-researcher work after it. This site is the runbook: what each system did, and what never worked.",
   portrait: {
     avif: '/media/portrait-hero.avif',
     webp: '/media/portrait-hero.webp',
