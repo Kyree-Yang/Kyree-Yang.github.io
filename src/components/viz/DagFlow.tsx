@@ -66,7 +66,7 @@ export function DagFlow({ t, bare }: { t?: number; bare?: boolean }) {
         title="12-node delivery DAG"
         caption="Structural work first, then layout, then color, then text — text runs last because translated strings are what stress the layout. Seven stages dispatch to isolated subagents; three must ask the designer a question; two belong to an engineer and are never auto-completed."
       >
-        <svg viewBox="0 0 580 268" className="w-full" role="img" aria-label="Twelve-node delivery DAG">
+        <svg viewBox="0 0 600 268" className="w-full" role="img" aria-label="Twelve-node delivery DAG">
           {/* edges */}
           {NODES.slice(0, -1).map((n, i) => {
             const x1 = nx(i);

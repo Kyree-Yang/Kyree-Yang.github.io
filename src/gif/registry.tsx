@@ -10,6 +10,7 @@ import { NetworkStates } from '@/components/viz/NetworkStates';
 import { ShardFanout } from '@/components/viz/ShardFanout';
 import { AghfMorph } from '@/components/viz/AghfMorph';
 import { DegreeGantt } from '@/components/viz/DegreeGantt';
+import { ArchitectureMap } from '@/components/viz/ArchitectureMap';
 
 /**
  * Ids here must match scripts/export-gifs.mjs MANIFEST. Every component is a
@@ -29,4 +30,5 @@ export const GIF_REGISTRY: Record<string, (t: number) => React.ReactNode> = {
   'search-shards': (t) => <ShardFanout t={t} bare />,
   'aghf-morph': (t) => <AghfMorph t={t} bare />,
   'degree-gantt': (t) => <DegreeGantt t={t} bare />,
+  'abf-architecture': (t) => <ArchitectureMap t={t} bare />,
 };

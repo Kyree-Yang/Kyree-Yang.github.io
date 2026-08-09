@@ -44,13 +44,14 @@ const GIFS: { id: string; title: string; w: number; h: number }[] = [
   { id: 'abf-funnel', title: 'Outcome funnel · the honest shape', w: 760, h: 426 },
   { id: 'abf-cas', title: 'Claiming a job under concurrency', w: 760, h: 336 },
   { id: 'abf-signal', title: 'Click → agent spawn', w: 760, h: 386 },
-  { id: 'designlab-dag', title: '12-node delivery DAG', w: 760, h: 392 },
+  { id: 'designlab-dag', title: '12-node delivery DAG', w: 760, h: 362 },
   { id: 'i18n-delta-loop', title: 'Translation wait · 300s → 5.1s', w: 760, h: 362 },
   { id: 'rtl-mirror', title: 'RTL mirroring', w: 760, h: 362 },
   { id: 'weak-network', title: 'Weak-network state machine', w: 760, h: 362 },
   { id: 'search-shards', title: 'Query fan-out across 12 nodes', w: 760, h: 370 },
   { id: 'aghf-morph', title: 'Trajectory relaxing under geometric heat flow', w: 760, h: 362 },
   { id: 'degree-gantt', title: 'Concurrent, not sequential', w: 760, h: 344 },
+  { id: 'abf-architecture', title: 'Two planes and the one wire between them', w: 980, h: 816 },
 ];
 
 function EntryRow({ row }: { row: WorkRow }) {

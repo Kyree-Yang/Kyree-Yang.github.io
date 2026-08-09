@@ -9,6 +9,7 @@ import { MetricWall } from '@/components/ui/MetricWall';
 import { Bullets, Container, Section, SectionHeading } from '@/components/ui/primitives';
 import { Prose } from '@/components/ui/Prose';
 import { Reveal } from '@/components/ui/Reveal';
+import { ArchitectureMap } from '@/components/viz/ArchitectureMap';
 import { CasRace } from '@/components/viz/CasRace';
 import { DenominatorSlider } from '@/components/viz/DenominatorSlider';
 import { LayerStack } from '@/components/viz/LayerStack';
@@ -22,6 +23,7 @@ import { abf } from '@/content/abf';
 /** Content modules stay JSX-free, so `section.viz` carries keys and the page owns the elements. */
 const VIZ_NODES: Record<string, ReactNode> = {
   PipelineRing: <PipelineRing />,
+  ArchitectureMap: <ArchitectureMap />,
   LayerStack: <LayerStack />,
   CasRace: <CasRace />,
   SignalLatency: <SignalLatency />,
@@ -34,6 +36,7 @@ const VIZ_NODES: Record<string, ReactNode> = {
 /** Reserved height per viz, so mounting one never shoves the page under the cursor. */
 const VIZ_HEIGHT: Record<string, number> = {
   PipelineRing: 540,
+  ArchitectureMap: 900,
   LayerStack: 460,
   CasRace: 400,
   SignalLatency: 430,
@@ -47,6 +50,7 @@ const VIZ_HEIGHT: Record<string, number> = {
 const RAIL_LABELS: Record<string, string> = {
   'what-it-does': 'What it does',
   'four-layers': 'Four layers',
+  architecture: 'Two planes',
   enforcement: 'Enforcement',
   'execution-plane': 'Execution plane',
   'signal-path': 'Signal path',
@@ -62,6 +66,12 @@ const railItems = [
   ...abf.sections.map((s) => ({ id: s.id, label: RAIL_LABELS[s.id] ?? s.heading })),
   { id: 'caveats', label: 'Caveats' },
 ];
+
+const paragraphs = (body: string) =>
+  body
+    .split(/\n{2,}/)
+    .map((p) => p.trim())
+    .filter(Boolean);
 
 export default function AutonomousBugFix() {
   return (
@@ -98,7 +108,9 @@ export default function AutonomousBugFix() {
               <Reveal>
                 <SectionHeading eyebrow={String(i + 1).padStart(2, '0')} title={s.heading} />
                 <Prose>
-                  <p>{s.body}</p>
+                  {paragraphs(s.body).map((p) => (
+                    <p key={p}>{p}</p>
+                  ))}
                 </Prose>
                 {s.bullets && (
                   <div className="mt-6 max-w-[68ch]">

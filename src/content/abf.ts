@@ -114,13 +114,30 @@ export const abf: Entry = {
       body: `The system separates the thing that reasons about code from the thing that schedules work, from the thing humans click on, from the thing that talks to people. Each layer can fail without taking the others down, and each was measured independently.`,
       bullets: [
         'Fix engine (8,385 lines) — an agent-harness plugin: 20-step state machine, 7 enforcement hooks, 6 skills, 3 reviewer/designer subagents, 22 reverse-engineered CI, merge-request, and tracker reader scripts',
-        'Scheduler and daemon layer (4,909 lines) — 5 control-plane runners, CI watchdog, signal listener, assignee sync, all long-lived on one machine',
+        'Scheduler and daemon layer (4,909 lines) — 5 scheduler runners, CI watchdog, signal listener, assignee sync, all long-lived on the laptop',
         'Web dashboard (29,179 lines) — NestJS + React full-stack app: 25 endpoints, 4 tables, a 16-state business state machine, bilingual UI',
         'Chat and notification layer (~900 lines) — outbound interactive cards, an inbound Q&A bot, and a local CONNECT proxy underneath both',
         'The control plane (cloud) and execution plane (laptop) are coupled through exactly one database table plus one outbound signal channel — the laptop accepts no inbound connections',
         'Context budget was a first-class design constraint: the 2,809-line main skill loads in three tiers so a long headless run never blows its window',
       ],
       viz: ['LayerStack'],
+    },
+
+    {
+      id: 'architecture',
+      heading: 'Two planes and the one wire between them',
+      body: `The laptop that does the work sits inside an office network and accepts no inbound connections. Nothing in the cloud can call it — not the dashboard, not a webhook, not a retry after a dropped job. Every wire between the two planes therefore has to originate on the laptop, and the architecture is mostly a consequence of that one fact.
+
+What it forces is a push channel with no content in it. A button in the web UI does exactly one thing: increment a version number on a single control-signal row. The number says nothing about which job, which action, or which user — it only says that something moved. The laptop, holding an outbound connection open, notices the increment and re-reads the database to find out what actually changed. The practical payoff is that adding a new button to the UI needs no protocol change on either side, because there is no protocol to change.
+
+The result is a deliberately lopsided system. The two planes share exactly one Postgres table plus that one signal; everything else — 25 endpoints, five runners, the 20-step machine, the worktrees — lives entirely on one side or the other. The web tier reaches the database through HTTP, a service layer, and an ORM. The worker speaks no HTTP to the database at all — its only HTTP is the signal connection it dials itself.`,
+      bullets: [
+        'Outbound-only is a constraint, not a preference: the office network refuses inbound connections, so the control plane cannot reach the worker at all. Any button increments a version; the worker dials out, sees it moved, and re-reads the database to learn what changed — the signal itself carries no business semantics',
+        'Three tiers under the push channel: the gateway strips the WebSocket upgrade header, so the live channel is SSE with a 15 s heartbeat and a deliberate reconnect every 10 minutes; if that fails it drops to long-poll, and under that the 90 s full tick remains as the floor. Click to spawned process is 1–2 seconds',
+        `The write path is asymmetric: the web tier goes /api/* → service → ORM, while the worker skips that path entirely and writes to the database directly. The service layer's state-machine validation therefore does not apply to the worker, whose correctness rests entirely on each runner's own compare-and-swap`,
+        'Of the 20 steps, exactly one — step 15, on-device verification — is a scheduled human stop; the only other way a run waits for a person is the "this may not be a real bug" escape hatch, which is an escalation rather than a step. It is the most important valve in the system and also its largest queue: 34 of 73 runs end there',
+      ],
+      viz: ['ArchitectureMap'],
     },
 
     {
@@ -240,7 +257,7 @@ export const abf: Entry = {
         'Result on the 5 comparable tickets: 4 hit the real causal chain, 1 did not — conceded in writing, with the exact reason (the patch sat downstream of a gating predicate that was itself the defect)',
         'Blast radius measured in logical lines rather than adjectives: larger on one ticket, comparable on two, clearly smaller on one',
         'Root cause of the "large blast radius" perception was my own delivery hygiene — 6 of 8 merge requests were reviewed with 20–25 debug log lines still attached, because the strip step was documented but not hook-enforced',
-        'Reported with equal weight, not buried: one reference fix we were being compared against was itself an AI-generated patch, merged with no kill switch, and reverted by the flag owner the following day',
+        'Reported with equal weight, not buried: the review surfaced facts that helped my case as well as facts that hurt it, and both went into the same document — half an evidence set is not an evidence set',
         'Also self-reported: two "verified pass" results had come from a convergence rule treating an externally closed ticket as equivalent to on-device verification — a rule that was wrong and that I removed',
         `The audit trail, including the losing arguments, is archived alongside the winning ones; the run archives contain entries where a later round explicitly overturns an earlier round's own PASS`,
       ],

@@ -41,13 +41,17 @@ export const MANIFEST = [
   { id: 'abf-funnel', w: 760, h: 426, frames: 40, fps: 16 },
   { id: 'abf-cas', w: 760, h: 336, frames: 48, fps: 16 },
   { id: 'abf-signal', w: 760, h: 386, frames: 44, fps: 16 },
-  { id: 'designlab-dag', w: 760, h: 392, frames: 52, fps: 16 },
+  { id: 'designlab-dag', w: 760, h: 362, frames: 52, fps: 16 },
   { id: 'i18n-delta-loop', w: 760, h: 362, frames: 44, fps: 16 },
   { id: 'rtl-mirror', w: 760, h: 362, frames: 44, fps: 16 },
   { id: 'weak-network', w: 760, h: 362, frames: 56, fps: 16 },
   { id: 'search-shards', w: 760, h: 370, frames: 40, fps: 16 },
   { id: 'aghf-morph', w: 760, h: 362, frames: 40, fps: 16 },
   { id: 'degree-gantt', w: 760, h: 344, frames: 36, fps: 16 },
+  // 1760x1400 viewBox; captured wide so the three-plane filter cycle stays legible.
+  // Dense diagram: only four filter states to show, and a smaller palette costs
+  // nothing visually because the figure is flat fills and hairlines.
+  { id: 'abf-architecture', w: 980, h: 816, frames: 28, fps: 9, colors: 48 },
 ];
 
 const MIME = {
@@ -204,7 +208,7 @@ async function main() {
       const palette = path.join(dir, 'palette.png');
       const gif = path.join(OUT, `${m.id}.gif`);
       ff(['-y', '-v', 'error', '-i', pattern,
-          '-vf', `scale=${m.w}:-1:flags=lanczos,palettegen=max_colors=96:stats_mode=diff`, palette]);
+          '-vf', `scale=${m.w}:-1:flags=lanczos,palettegen=max_colors=${m.colors ?? 96}:stats_mode=diff`, palette]);
       ff(['-y', '-v', 'error',
           '-framerate', String(m.fps), '-i', pattern, '-i', palette,
           '-lavfi', `scale=${m.w}:-1:flags=lanczos[x];[x][1:v]paletteuse=dither=bayer:bayer_scale=5:diff_mode=rectangle`,
