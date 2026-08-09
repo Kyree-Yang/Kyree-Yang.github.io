@@ -1,16 +1,15 @@
 import { cn } from '@/lib/utils';
 
 /**
- * Breaks a block out of its column and back to the viewport width.
+ * Full-column block for oversize figures.
  *
- * `margin-inline: calc(50% - 50vw)` is the standard trick, and it is the reason
- * `main` carries `overflow-x: clip` — on platforms with classic scrollbars 100vw
- * is wider than the client area, and without the clip that difference becomes a
- * horizontal scrollbar on every page. `clip` is deliberate rather than `hidden`:
- * `hidden` would make `main` a scroll container and break `position: sticky` in
- * the jump rail.
- *
- * Used for the architecture figure, which is unreadable at prose width.
+ * This used to bleed to 100vw with `margin-inline: calc(50% - 50vw)`, but that
+ * trick centers on the PARENT's midline — inside the entry grid (content column
+ * + 13rem jump rail) the parent sits left of the viewport center, so the block
+ * slid off the left edge and `main`'s overflow-x clip ate its title. Since the
+ * architecture figure now carries a viewport-height cap, the plain content
+ * column is already wider than the figure's height-limited render, so no
+ * breakout is needed at all — the escape hatch died of obsolescence.
  */
 export function FullBleed({
   children,
@@ -23,17 +22,7 @@ export function FullBleed({
   max?: number;
 }) {
   return (
-    <div
-      // At xl the entry pages show a sticky jump rail in the right column. A
-      // full-bleed block would otherwise run underneath it and the two would
-      // overlap, so reserve the rail's width back at that breakpoint only.
-      className={cn('mx-auto w-full px-5 sm:px-8 xl:pr-[15rem]', className)}
-      style={{
-        marginInline: 'calc(50% - 50vw)',
-        width: '100vw',
-        maxWidth: '100vw',
-      }}
-    >
+    <div className={cn('w-full', className)}>
       <div className="mx-auto w-full" style={{ maxWidth: max }}>
         {children}
       </div>

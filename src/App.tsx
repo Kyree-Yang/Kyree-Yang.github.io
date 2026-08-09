@@ -13,6 +13,7 @@ const DesignLab = lazy(() => import('./pages/work/DesignLab'));
 const Aghf = lazy(() => import('./pages/work/Aghf'));
 const SearchEngine = lazy(() => import('./pages/work/SearchEngine'));
 const DiffusionPyramid = lazy(() => import('./pages/work/DiffusionPyramid'));
+const Mcm = lazy(() => import('./pages/work/Mcm'));
 const Cv = lazy(() => import('./pages/Cv'));
 const Beyond = lazy(() => import('./pages/Beyond'));
 
@@ -69,6 +70,14 @@ export default function App() {
           element={
             <Suspense fallback={<RouteSkeleton />}>
               <DiffusionPyramid />
+            </Suspense>
+          }
+        />
+        <Route
+          path="work/mcm-2024"
+          element={
+            <Suspense fallback={<RouteSkeleton />}>
+              <Mcm />
             </Suspense>
           }
         />

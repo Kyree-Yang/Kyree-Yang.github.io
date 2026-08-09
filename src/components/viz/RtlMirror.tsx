@@ -93,6 +93,18 @@ export function RtlMirror({ t, bare }: { t?: number; bare?: boolean }) {
 
             <line x1={PAD} y1={48} x2={W - PAD} y2={48} stroke={VIZ.line} />
 
+            {/* checkout progress: fills from the reading edge, so its
+                direction reverses under mirroring */}
+            <rect x={PAD} y={55} width={W - 2 * PAD} height={3.5} rx={1.75} fill={VIZ.line} />
+            <rect
+              x={mirror(PAD, (W - 2 * PAD) * 0.62)}
+              y={55}
+              width={(W - 2 * PAD) * 0.62}
+              height={3.5}
+              rx={1.75}
+              fill={VIZ.cyan}
+            />
+
             {/* body copy: aligns to the reading edge */}
             <text
               x={isRtl ? W - PAD : PAD}
@@ -155,16 +167,19 @@ export function RtlMirror({ t, bare }: { t?: number; bare?: boolean }) {
             </text>
           </g>
 
-          {/* annotations */}
+          {/* annotations — both states carry the same three callouts, each
+              naming a property that mirrors: text alignment, icon side,
+              progress direction. Parity means the RTL pane demonstrates the
+              flip instead of gesturing at it. */}
           <g transform="translate(252 30)" fontSize={11.5} fontFamily="var(--font-mono)">
             <text y={0} fill={isRtl ? VIZ.emerald : VIZ.faint}>
-              {isRtl ? '✓ chevrons flipped programmatically' : 'chevrons point at the back edge'}
+              {isRtl ? '✓ text alignment — starts at the right' : 'text alignment: starts at the left'}
             </text>
             <text y={22} fill={isRtl ? VIZ.emerald : VIZ.faint}>
-              {isRtl ? '✓ digits stay LTR, bidi-isolated' : 'currency formatted per locale'}
+              {isRtl ? '✓ icon side — chevrons flipped via scaleX' : 'icon side: chevrons on the left'}
             </text>
             <text y={44} fill={isRtl ? VIZ.emerald : VIZ.faint}>
-              {isRtl ? '✓ leading/trailing, never left/right' : 'logical edges, not absolute ones'}
+              {isRtl ? '✓ progress direction — fills right-to-left' : 'progress direction: fills left-to-right'}
             </text>
           </g>
 

@@ -38,6 +38,7 @@ const ENTRIES = [
   { to: '/work/aghf', label: 'AGHF trajectory optimization' },
   { to: '/work/search-engine', label: 'Crawler Crew' },
   { to: '/work/diffusion-pyramid', label: 'Diffusion-Pyramid' },
+  { to: '/work/mcm-2024', label: 'MCM 2024 · Momentum in Tennis' },
 ];
 
 function ColumnHeading({ children }: { children: React.ReactNode }) {

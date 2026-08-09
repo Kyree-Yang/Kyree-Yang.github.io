@@ -29,6 +29,7 @@ const ROUTES = [
   ['aghf', '/work/aghf'],
   ['search', '/work/search-engine'],
   ['diffusion', '/work/diffusion-pyramid'],
+  ['mcm', '/work/mcm-2024'],
   ['cv', '/cv'],
   ['beyond', '/beyond'],
   ['notfound', '/nope'],

@@ -3,19 +3,14 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Download } from 'lucide-react';
 
 import { Seo } from '@/components/shell/Seo';
-import { Container, Section, SectionHeading, StatValue } from '@/components/ui/primitives';
+import { Container, Section, SectionHeading } from '@/components/ui/primitives';
 import { FilterChips } from '@/components/ui/FilterChips';
-import { LazyViz } from '@/components/ui/LazyViz';
 import { Prose } from '@/components/ui/Prose';
 import { Reveal } from '@/components/ui/Reveal';
-import { AghfMorph } from '@/components/viz/AghfMorph';
-import { DagFlow } from '@/components/viz/DagFlow';
-import { PipelineDiagram } from '@/components/viz/PipelineDiagram';
-import { PipelineRing } from '@/components/viz/PipelineRing';
-import { ShardFanout } from '@/components/viz/ShardFanout';
 import { colophon, workFilters, workHeader, workIndex } from '@/content/site';
 import type { WorkRow } from '@/content/site';
 import type { Entry } from '@/content/types';
+import { cn } from '@/lib/utils';
 
 type Category = Entry['category'];
 
@@ -23,19 +18,6 @@ type Category = Entry['category'];
 const CATEGORY_OPTIONS = workFilters.filter(
   (f): f is { id: Category; label: string } => f.id !== 'all',
 );
-
-/**
- * Index rows render the entry's viz `bare`: no frame, no caption, and — for
- * AghfMorph — no scrubber, which is what keeps the row free of controls nested
- * inside its link. Heights only reserve space until the viz mounts.
- */
-const ROW_VIZ: Record<string, { Viz: React.ComponentType<{ bare?: boolean }>; height: number }> = {
-  PipelineRing: { Viz: PipelineRing, height: 235 },
-  DagFlow: { Viz: DagFlow, height: 175 },
-  AghfMorph: { Viz: AghfMorph, height: 155 },
-  ShardFanout: { Viz: ShardFanout, height: 155 },
-  PipelineDiagram: { Viz: PipelineDiagram, height: 130 },
-};
 
 /** Ids and dimensions mirror the MANIFEST in scripts/export-gifs.mjs. */
 const GIFS: { id: string; title: string; w: number; h: number }[] = [
@@ -51,66 +33,99 @@ const GIFS: { id: string; title: string; w: number; h: number }[] = [
   { id: 'search-shards', title: 'Query fan-out across 12 nodes', w: 760, h: 370 },
   { id: 'aghf-morph', title: 'Trajectory relaxing under geometric heat flow', w: 760, h: 362 },
   { id: 'degree-gantt', title: 'Concurrent, not sequential', w: 760, h: 344 },
-  { id: 'abf-architecture', title: 'Two planes and the one wire between them', w: 980, h: 816 },
+  { id: 'abf-architecture', title: 'Two planes and the one wire between them', w: 980, h: 660 },
 ];
 
-function EntryRow({ row }: { row: WorkRow }) {
-  const viz = ROW_VIZ[row.viz];
+/**
+ * Per-project spine color for the catalog: the cover carries a book-spine band
+ * in the project's own hue, so six cards read as one system with six voices.
+ * MCM gets the award wash — the same maize the honor chips use.
+ */
+const SPINE: Record<string, { band: string; value: string; dot: string }> = {
+  'autonomous-bug-fix': { band: 'bg-primary/10', value: 'text-primary', dot: 'bg-primary' },
+  'design-lab': { band: 'bg-amber/10', value: 'text-amber', dot: 'bg-amber' },
+  aghf: { band: 'bg-violet/10', value: 'text-violet', dot: 'bg-violet' },
+  'search-engine': { band: 'bg-cyan/10', value: 'text-cyan', dot: 'bg-cyan' },
+  'diffusion-pyramid': { band: 'bg-emerald/10', value: 'text-emerald', dot: 'bg-emerald' },
+  'mcm-2024': { band: 'bg-gold/15', value: 'text-fg', dot: 'bg-gold' },
+};
 
+/**
+ * Catalog card: one representative landscape frame with the project's spine
+ * band, then the record line and a one-row metric strip. The whole card is the
+ * link; "what broke" lives on the detail page, so the catalog stays scannable.
+ */
+function CoverCard({ row }: { row: WorkRow }) {
+  const isGif = row.cover.src.endsWith('.gif');
+  // The DagFlow export carries edge-to-edge legend text that object-cover
+  // would crop mid-word; letterbox that one instead.
+  const contain = row.slug === 'design-lab';
+  const spine = SPINE[row.slug] ?? SPINE.aghf;
+  const lead = row.metrics[0];
   return (
-    <article className="cut-card">
-      <div className="cut-inner grid p-0 lg:grid-cols-[1.1fr_1fr]">
-        <Link to={`/work/${row.slug}`} className="elevate group flex flex-col p-5 sm:p-6">
-          <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 font-mono text-[11px] tracking-[0.14em] text-faint uppercase">
-            <span>{row.dates}</span>
-            <span aria-hidden>·</span>
-            <span className="text-primary">{row.categoryLabel}</span>
-          </div>
-
-          <h3 className="mt-2.5 flex items-start gap-2 text-lg font-semibold tracking-[-0.01em] sm:text-xl">
-            <span>{row.title}</span>
-            <ArrowRight
-              aria-hidden
-              className="mt-1.5 size-4 shrink-0 text-faint transition-transform group-hover:translate-x-0.5 group-hover:text-primary"
-            />
-          </h3>
-
-          <p className="mt-1 text-[13px] text-faint">{row.role}</p>
-          <p className="mt-3 text-[15px] leading-relaxed text-muted">{row.tagline}</p>
-
-          <div className="mt-5 grid gap-2 sm:grid-cols-3">
-            {row.metrics.map((m) => (
-              <div
-                key={m.label}
-                className="rounded-[var(--radius-sm)] border bg-surface-2/50 px-2.5 py-1.5"
-              >
-                <div className="tnum font-mono text-[13px] font-semibold">
-                  <StatValue value={m.value} />
+    <Link to={`/work/${row.slug}`} className="group block h-full">
+      <article className="cut-card h-full">
+        <div className="cut-inner flex h-full flex-col p-0">
+          <div className="grid grid-cols-[minmax(0,1fr)_92px] border-b">
+            <div className="relative aspect-[16/10] overflow-hidden bg-bg-subtle">
+              <picture>
+                {row.cover.webp && <source srcSet={row.cover.webp} type="image/webp" />}
+                <img
+                  src={row.cover.src}
+                  alt={row.cover.alt}
+                  width={1200}
+                  height={750}
+                  loading="lazy"
+                  decoding="async"
+                  className={cn("size-full transition-transform duration-300 group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100", contain ? "object-contain" : "object-cover")}
+                />
+              </picture>
+              {isGif && (
+                <span className="absolute top-2.5 right-2.5 border bg-surface/90 px-2 py-0.5 font-mono text-[10px] tracking-[0.1em] text-faint uppercase">
+                  live drawing
+                </span>
+              )}
+            </div>
+            <div
+              className={cn('flex flex-col justify-between border-l p-3', spine.band)}
+            >
+              <span aria-hidden className={cn('size-2 rounded-full', spine.dot)} />
+              <div>
+                <div className={cn('tnum font-mono text-[17px] leading-tight font-bold whitespace-nowrap', spine.value)}>
+                  {lead.value}
                 </div>
-                <div className="mt-0.5 text-[11px] leading-snug text-faint">{m.label}</div>
+                <div className="mt-1 font-mono text-[9px] leading-snug tracking-[0.08em] text-faint uppercase">
+                  {lead.label}
+                </div>
               </div>
-            ))}
-          </div>
-
-          <div className="mt-auto border-t pt-5">
-            <div className="font-mono text-[10px] font-bold tracking-[0.14em] text-amber uppercase">
-              what broke
-            </div>
-            <p className="mt-1.5 text-[13px] leading-relaxed text-muted italic">{row.teaser}</p>
-          </div>
-        </Link>
-
-        {viz && (
-          <div className="flex items-center border-t bg-bg-subtle p-4 lg:border-t-0 lg:border-l">
-            <div className="w-full">
-              <LazyViz height={viz.height}>
-                <viz.Viz bare />
-              </LazyViz>
             </div>
           </div>
-        )}
-      </div>
-    </article>
+          <div className="elevate flex flex-1 flex-col p-4 transition-colors sm:p-5">
+            <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 font-mono text-[11px] tracking-[0.14em] text-faint uppercase">
+              <span>{row.dates}</span>
+              <span aria-hidden>·</span>
+              <span className="text-primary">{row.categoryLabel}</span>
+            </div>
+            <h3 className="mt-2 flex items-start gap-2 text-lg font-semibold tracking-[-0.01em] sm:text-xl">
+              <span>{row.title}</span>
+              <ArrowRight
+                aria-hidden
+                className="mt-1.5 size-4 shrink-0 text-faint transition-transform group-hover:translate-x-0.5 group-hover:text-primary"
+              />
+            </h3>
+            <p className="mt-2 text-[14px] leading-relaxed text-muted">{row.tagline}</p>
+            <p className="tnum mt-auto pt-3 font-mono text-[11.5px] text-faint">
+              {row.metrics.map((m, i) => (
+                <span key={m.label}>
+                  {i > 0 && <span aria-hidden> · </span>}
+                  <span className="text-muted">{m.value}</span> {m.label}
+                </span>
+              ))}
+            </p>
+          </div>
+        </div>
+      </article>
+    </Link>
   );
 }
 
@@ -122,7 +137,7 @@ export default function Work() {
     <>
       <Seo
         title="Work — Ruikai Yang"
-        description="Five systems, newest first: an autonomous bug-fix pipeline, a design-to-code agent DAG, PDE trajectory optimization, a from-scratch distributed search engine, and a diffusion pipeline."
+        description="Six projects, newest first: an autonomous bug-fix pipeline, a design-to-code agent DAG, PDE trajectory optimization, a from-scratch distributed search engine, a diffusion pipeline, and an MCM Outstanding Winner model."
         path="/work"
       />
 
@@ -150,10 +165,10 @@ export default function Work() {
 
       <Section>
         <Container>
-          <div className="space-y-5">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             {rows.map((row, i) => (
-              <Reveal key={row.slug} delay={i * 60}>
-                <EntryRow row={row} />
+              <Reveal key={row.slug} delay={i * 60} className="h-full">
+                <CoverCard row={row} />
               </Reveal>
             ))}
           </div>

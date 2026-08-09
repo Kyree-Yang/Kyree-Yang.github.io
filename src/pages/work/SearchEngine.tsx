@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { ChevronDown, Play } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 import { Seo } from '@/components/shell/Seo';
 import { CaveatList } from '@/components/ui/CaveatList';
@@ -96,6 +97,12 @@ export default function SearchEngine() {
       />
 
       <Section className="pb-4 sm:pb-6">
+        <Link
+          to="/work"
+          className="mb-6 inline-flex items-center gap-1.5 font-mono text-[12px] tracking-[0.08em] text-faint uppercase transition-colors hover:text-primary"
+        >
+          ← all work
+        </Link>
         <EntryMasthead
           eyebrow={searchEngine.eyebrow}
           title={searchEngine.title}
@@ -103,6 +110,7 @@ export default function SearchEngine() {
           dates={searchEngine.dates}
           role={searchEngine.role}
           stack={searchEngine.stack}
+          credits={searchEngine.credits}
           caveatTeaser={searchEngine.caveatTeaser}
         />
       </Section>

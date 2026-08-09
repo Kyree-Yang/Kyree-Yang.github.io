@@ -33,16 +33,16 @@ export const aghf: Entry = {
   order: 3,
   title: 'AGHF trajectory optimization',
   tagline:
-    'A path optimization method that evolves trajectories toward optimal solutions by applying affine-invariant geometric heat flow equations — taken from simulation to real hardware.',
+    'A path optimization method that evolves trajectories toward optimal solutions by applying the affine geometric heat flow (AGHF) PDE — taken from simulation to real hardware.',
   eyebrow: 'ENTRY 03 · SEP 2024 – APR 2026 · ROAHM LAB, UNIVERSITY OF MICHIGAN',
   dates: 'Sep 2024 – Apr 2026',
-  role: 'Research Assistant · advised by Prof. Ram Vasudevan · IROS 2026 co-author',
+  role: 'Research Assistant',
   category: 'robotics',
   categoryLabel: 'robotics',
   stack: ['C++', 'trajectory optimization', 'Lagrangian interpolation', 'dynamics'],
   headline: [
     { label: 'solver runtime', value: '−40%' },
-    { label: 'peer-reviewed', value: 'IROS 2026' },
+    { label: 'under review', value: 'IROS 2026' },
     { label: 'sim → hardware', value: 'validated' },
   ],
   caveatTeaser:
@@ -55,7 +55,7 @@ export const aghf: Entry = {
       note: 'Average reduction from the C++ analytical Jacobian modules',
       tone: 'emerald',
     },
-    { label: 'Peer-reviewed credit', value: 'IROS 2026', note: 'Co-author', tone: 'violet' },
+    { label: 'Under review', value: 'IROS 2026', note: 'Co-author', tone: 'violet' },
     { label: 'Research tenure', value: 20, suffix: ' months', note: 'Sep 2024 – Apr 2026' },
     {
       label: 'Deployment',
@@ -64,6 +64,7 @@ export const aghf: Entry = {
       tone: 'cyan',
     },
   ],
+  credits: 'ROAHM Lab · advised by Prof. Ram Vasudevan',
   sections: [
     {
       id: 'explainer',
@@ -79,11 +80,15 @@ export const aghf: Entry = {
         'Wrote the C++ modules that compute the analytical Jacobians inside the PDE trajectory-optimization framework; they cut solver execution time by 40% on average.',
         'Derived a time-scaling factor formulation and Lagrangian interpolation constraints to reparameterize the PDE evolution, letting the solver generalize across variable time horizons and strictly enforce state limits.',
         'Verified and extended the method with endpoint constraints for real-world feasibility, then transferred simulation results to hardware with reliable trajectory tracking and obstacle avoidance.',
-        'Co-authored the peer-reviewed paper on the method (IROS 2026).',
+        'Co-authored the paper on the method (under review, IROS 2026).',
       ],
     },
     { id: 'sim-hardware', heading: 'Sim → hardware', body: '' },
-    { id: 'publications', heading: 'Publications', body: '' },
+    {
+      id: 'publications',
+      heading: 'Publications',
+      body: "The solver code lives in the lab's private research repo; the paper is the public record of the method.",
+    },
     {
       id: 'origin',
       heading: 'Origin note',

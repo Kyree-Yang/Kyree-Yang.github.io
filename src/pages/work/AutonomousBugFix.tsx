@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { Link } from 'react-router-dom';
 
 import { Seo } from '@/components/shell/Seo';
 import { CaveatList } from '@/components/ui/CaveatList';
@@ -84,6 +85,12 @@ export default function AutonomousBugFix() {
       />
 
       <Container className="pt-12 sm:pt-16">
+        <Link
+          to="/work"
+          className="mb-6 inline-flex items-center gap-1.5 font-mono text-[12px] tracking-[0.08em] text-faint uppercase transition-colors hover:text-primary"
+        >
+          ← all work
+        </Link>
         <EntryMasthead
           eyebrow={abf.eyebrow}
           title={abf.title}
@@ -91,6 +98,7 @@ export default function AutonomousBugFix() {
           dates={abf.dates}
           role={abf.role}
           stack={abf.stack}
+          credits={abf.credits}
           caveatTeaser={abf.caveatTeaser}
         />
       </Container>
@@ -108,16 +116,18 @@ export default function AutonomousBugFix() {
             <Section key={s.id} id={s.id} className={i > 0 ? 'border-t' : undefined}>
               <Reveal>
                 <SectionHeading eyebrow={String(i + 1).padStart(2, '0')} title={s.heading} />
-                <Prose>
-                  {paragraphs(s.body).map((p) => (
-                    <p key={p}>{p}</p>
-                  ))}
-                </Prose>
-                {s.bullets && (
-                  <div className="mt-6 max-w-[68ch]">
-                    <Bullets items={s.bullets} />
-                  </div>
-                )}
+                <div className="gap-x-12 xl:grid xl:grid-cols-2">
+                  <Prose>
+                    {paragraphs(s.body).map((p) => (
+                      <p key={p}>{p}</p>
+                    ))}
+                  </Prose>
+                  {s.bullets && (
+                    <div className="mt-6 xl:mt-0">
+                      <Bullets items={s.bullets} />
+                    </div>
+                  )}
+                </div>
               </Reveal>
 
               {s.viz?.map((key) =>

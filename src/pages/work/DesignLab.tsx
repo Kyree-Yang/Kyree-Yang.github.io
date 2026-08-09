@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { Link } from 'react-router-dom';
 
 import { Seo } from '@/components/shell/Seo';
 import { CaveatList } from '@/components/ui/CaveatList';
@@ -82,6 +83,12 @@ export default function DesignLab() {
       />
 
       <Container className="pt-10 sm:pt-14">
+        <Link
+          to="/work"
+          className="mb-6 inline-flex items-center gap-1.5 font-mono text-[12px] tracking-[0.08em] text-faint uppercase transition-colors hover:text-primary"
+        >
+          ← all work
+        </Link>
         <EntryMasthead
           eyebrow={designlab.eyebrow}
           title={designlab.title}
@@ -89,6 +96,7 @@ export default function DesignLab() {
           dates={designlab.dates}
           role={designlab.role}
           stack={designlab.stack}
+          credits={designlab.credits}
           caveatTeaser={designlab.caveatTeaser}
         />
 
@@ -105,17 +113,19 @@ export default function DesignLab() {
                 <Reveal>
                   <SectionHeading eyebrow={String(i + 1).padStart(2, '0')} title={s.heading} />
 
-                  <Prose>
-                    {paragraphs(s.body).map((p) => (
-                      <p key={p}>{p}</p>
-                    ))}
-                  </Prose>
+                  <div className="gap-x-12 xl:grid xl:grid-cols-2">
+                    <Prose>
+                      {paragraphs(s.body).map((p) => (
+                        <p key={p}>{p}</p>
+                      ))}
+                    </Prose>
 
-                  {s.bullets && (
-                    <div className="mt-6 max-w-[68ch]">
-                      <Bullets items={s.bullets} />
-                    </div>
-                  )}
+                    {s.bullets && (
+                      <div className="mt-6 xl:mt-0">
+                        <Bullets items={s.bullets} />
+                      </div>
+                    )}
+                  </div>
 
                   {s.callout && (
                     <div className="mt-7 max-w-[68ch]">

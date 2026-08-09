@@ -13,7 +13,7 @@ export const diffusion: Entry = {
     'Improving the diversity and controllability of text-to-image diffusion through data augmentation.',
   eyebrow: 'ENTRY 05 · FALL 2024 · EECS 442 COMPUTER VISION',
   dates: 'Fall 2024',
-  role: '3-person team · guidance from Prof. Liyue Shen',
+  role: 'Team of three',
   category: 'vision',
   categoryLabel: 'vision',
   stack: ['computer vision', 'data augmentation', 'Laplacian pyramid', 'Stable Diffusion'],
@@ -40,6 +40,7 @@ export const diffusion: Entry = {
       tone: 'cyan',
     },
   ],
+  credits: 'EECS 442 · guidance from Prof. Liyue Shen',
   sections: [
     {
       id: 'pipeline',
@@ -57,8 +58,15 @@ export const diffusion: Entry = {
         "Built a pipeline enabling efficient one-shot generation from a single prompt with minimal resources.",
       ],
     },
-    { id: 'artifacts', heading: 'Artifacts', body: '' },
+    {
+      id: 'artifacts',
+      heading: 'Artifacts',
+      body: 'The code stayed in our private course repo and no cleaned public version exists; the slides and report below are the record.',
+    },
   ],
-  caveats: [],
+  caveats: [
+    'A one-semester course project by a team of three (EECS 442, Fall 2024): the gains are qualitative, and no diversity benchmark numbers are reported on this page.',
+    'One-shot generation traded diversity for control; we compared the two in side-by-side outputs rather than on a benchmark, so "more diverse" is a judgment by eye, not a measured claim.',
+  ],
   docs: ['diffusion-pyramid-slides', 'diffusion-pyramid-report'],
 };

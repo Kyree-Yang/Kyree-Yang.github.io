@@ -49,7 +49,7 @@ export function VideoCard({
   };
 
   const media = (
-    <div className="relative size-full bg-bg-subtle" style={bare ? undefined : { aspectRatio: aspect }}>
+    <div className={bare ? "relative size-full bg-bg-subtle" : "relative w-full bg-bg-subtle"} style={bare ? undefined : { aspectRatio: aspect }}>
         <video
           ref={ref}
           muted

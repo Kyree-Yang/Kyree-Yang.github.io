@@ -203,7 +203,7 @@ export const research: Research = {
   advisor: 'Prof. Ram Vasudevan',
   credit: 'IROS 2026 co-author',
   summary:
-    'AGHF — Affine Geometric Heat Flow — is a path optimization method that evolves trajectories toward optimal solutions by applying affine-invariant geometric heat flow equations. I worked on the solver internals and on taking the method from simulation to real hardware.',
+    'AGHF is a path optimization method that evolves trajectories toward optimal solutions by applying the affine geometric heat flow (AGHF) PDE. I worked on the solver internals and on taking the method from simulation to real hardware.',
   bullets: [
     'Wrote the C++ modules that compute the analytical Jacobians inside the PDE trajectory-optimization framework; they cut solver execution time by 40% on average.',
     'Derived a time-scaling factor formulation and Lagrangian interpolation constraints to reparameterize the PDE evolution, letting the solver generalize across variable time horizons and strictly enforce state limits.',
@@ -218,11 +218,16 @@ export type Publication = {
   doc: string;
   /** The paper's own figure, extracted from the PDF, shown under the title. */
   figure?: { src: string; webp: string; alt: string; caption: string };
+  /** Stated only as far as the public record allows; never an invented list. */
+  authors: string;
+  venue: string;
+  /** Copyable citation block. @misc until a canonical venue entry exists. */
+  bibtex: string;
 };
 
 export const publications: Publication[] = [
   {
-    year: '2025',
+    year: '2026',
     title:
       'Phasing Through the Flames: Rapid Motion Planning with the AGHF PDE for Arbitrary Objective Functions and Constraints',
     doc: 'aghfPaper',
@@ -232,6 +237,14 @@ export const publications: Publication[] = [
       alt: 'Kinova Gen3 trajectory before and after optimization: the orange initial guess passes through obstacles; the green optimized sweep avoids them.',
       caption: 'initial guess in collision → optimized, constraint-satisfying · Kinova Gen3',
     },
+    authors: 'with the ROAHM Lab (under review — author list withheld)',
+    venue: 'IROS 2026 · co-authored',
+    bibtex: `@misc{aghf2026phasing,
+  title = {Phasing Through the Flames: Rapid Motion Planning with the AGHF PDE for Arbitrary Objective Functions and Constraints},
+  year = {2026},
+  note = {Under review, IROS 2026},
+  howpublished = {\\url{https://kyree-yang.github.io/docs/aghf-phasing-through-the-flames.pdf}}
+}`,
   },
   {
     year: '2024',
@@ -243,6 +256,14 @@ export const publications: Publication[] = [
       alt: 'Framework diagram: whole-slide image patches through an image encoder, symptom prompts through a text encoder, matched features feeding a Datalog rule engine that outputs an Ishak score.',
       caption: 'WSI patches → image-text encoders → Datalog rule engine → Ishak score',
     },
+    // Author line quoted from page 1 of the vendored PDF, in the paper's own order.
+    authors: 'Haozhong Lan, Yan Sun, Yunqing Xu, Ruikai Yang, Wei He, and Hongming Cai',
+    venue: 'manuscript',
+    bibtex: `@misc{lan2024pathological,
+  author = {Lan, Haozhong and Sun, Yan and Xu, Yunqing and Yang, Ruikai and He, Wei and Cai, Hongming},
+  title = {A Pathological Diagnosis Method Combining Image-Text Large Model and Rule-Based Reasoning},
+  year = {2024}
+}`,
   },
 ];
 

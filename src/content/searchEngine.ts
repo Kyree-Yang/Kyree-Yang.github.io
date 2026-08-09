@@ -65,7 +65,7 @@ export const searchEngine: Entry = {
     'A search engine built from scratch in C++ by six people, with no external packages beyond the standard library. I owned the ranker.',
   eyebrow: 'ENTRY 04 · WINTER 2025 · EECS 440, UNIVERSITY OF MICHIGAN',
   dates: 'Winter 2025',
-  role: 'Prof. Nicole Hamilton · team of 6',
+  role: 'Ranker owner · team of six',
   category: 'distributed-systems',
   categoryLabel: 'distributed systems',
   stack: ['C++', 'Linux', 'sockets', 'memory-mapped I/O'],
@@ -91,6 +91,7 @@ export const searchEngine: Entry = {
       tone: 'amber',
     },
   ],
+  credits: 'EECS 440 · taught by Prof. Nicole Hamilton',
   sections: [
     {
       id: 'architecture',
@@ -108,7 +109,11 @@ export const searchEngine: Entry = {
         'UTF-8 adoption plus delta and variable-length encoding, cutting the on-disk index footprint roughly 50% and improving cache locality.',
       ],
     },
-    { id: 'artifacts', heading: 'Artifacts', body: '' },
+    {
+      id: 'artifacts',
+      heading: 'Artifacts',
+      body: 'The code sits in a private course repository shared by the six of us, and no cleaned public repo exists; the slides and final report below are the record.',
+    },
   ],
   caveats: [
     'This was a six-person course project. The crawler, indexer, and query service were team-owned; my scope was the ranker and the aggregator profiling, and the KPIs above describe the system the whole team built.',

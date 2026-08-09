@@ -19,7 +19,7 @@ export const navItems: { label: string; to: string }[] = [
 /** The nine public routes, used by the footer directory and by the 404 page. */
 export const routeDirectory: { to: string; label: string; description: string }[] = [
   { to: '/', label: 'Home', description: 'Who I am, and the two agent systems I built this summer.' },
-  { to: '/work', label: 'Work', description: 'Five systems, newest first, with their caveats attached.' },
+  { to: '/work', label: 'Work', description: 'Six projects, newest first, with their caveats attached.' },
   {
     to: '/work/autonomous-bug-fix',
     label: 'Autonomous Bug-Fix Pipeline',
@@ -46,6 +46,11 @@ export const routeDirectory: { to: string; label: string; description: string }[
     label: 'Diffusion-Pyramid',
     description: 'Text augmentation and a Laplacian pyramid for more diverse generation.',
   },
+  {
+    to: '/work/mcm-2024',
+    label: 'MCM 2024 · Momentum in Tennis',
+    description: 'An EWMA momentum model of the 2023 Wimbledon final. Outstanding Winner, top <1%.',
+  },
   { to: '/cv', label: 'CV', description: 'Education, experience, research, honors — re-weightable by track.' },
   {
     to: '/beyond',
@@ -56,7 +61,7 @@ export const routeDirectory: { to: string; label: string; description: string }[
 
 export const workHeader = {
   title: 'Work',
-  lead: 'Five systems, newest first. Each entry runs problem → constraint → design → what broke → what shipped → what I would still fix. Where a metric had two possible denominators, each page uses the harsher one and says which it is.',
+  lead: 'Six projects, newest first. Each entry runs problem → constraint → design → what broke → what shipped → what I would still fix. Where a metric had two possible denominators, each page uses the harsher one and says which it is.',
 } as const;
 
 export const workFilters: { id: Entry['category'] | 'all'; label: string }[] = [
@@ -65,6 +70,7 @@ export const workFilters: { id: Entry['category'] | 'all'; label: string }[] = [
   { id: 'distributed-systems', label: 'distributed systems' },
   { id: 'robotics', label: 'robotics' },
   { id: 'vision', label: 'vision' },
+  { id: 'modeling', label: 'modeling' },
 ];
 
 export type WorkRow = {
@@ -81,6 +87,8 @@ export type WorkRow = {
   teaser: string;
   /** Key of the bare mini-viz the row renders; resolved by the page. */
   viz: string;
+  /** Landscape catalog cover. GIF covers animate; jpg covers ship a webp sibling. */
+  cover: { src: string; webp?: string; alt: string };
 };
 
 export const workIndex: WorkRow[] = [
@@ -100,6 +108,10 @@ export const workIndex: WorkRow[] = [
     ],
     teaser: '34 of 73 runs ended waiting for a human with a phone.',
     viz: 'PipelineRing',
+    cover: {
+      src: '/gif/abf-architecture.gif',
+      alt: 'Animated two-plane architecture map: control plane in the cloud, execution plane on one laptop, and the single wire between them.',
+    },
   },
   {
     slug: 'design-lab',
@@ -118,6 +130,10 @@ export const workIndex: WorkRow[] = [
     teaser:
       'A node that does not compile-check its own output will confidently call design-system APIs that do not exist.',
     viz: 'DagFlow',
+    cover: {
+      src: '/gif/designlab-dag.gif',
+      alt: 'Animated 12-node delivery DAG with a token walking the spine.',
+    },
   },
   {
     slug: 'aghf',
@@ -125,7 +141,7 @@ export const workIndex: WorkRow[] = [
     tagline:
       'A path optimization method that evolves trajectories toward optimal solutions under an affine geometric heat flow PDE — taken from simulation to real hardware.',
     dates: 'Sep 2024 – Apr 2026',
-    role: 'Research Assistant · ROAHM Lab, University of Michigan',
+    role: 'Research Assistant',
     category: 'robotics',
     categoryLabel: 'robotics',
     metrics: [
@@ -135,6 +151,10 @@ export const workIndex: WorkRow[] = [
     ],
     teaser: 'The interpolation scheme had to be reworked before variable time horizons held state limits.',
     viz: 'AghfMorph',
+    cover: {
+      src: '/media/aghf_sim-poster.jpg',
+      alt: 'Simulation frame: the Kinova arm threading between obstacle boxes.',
+    },
   },
   {
     slug: 'search-engine',
@@ -142,7 +162,7 @@ export const workIndex: WorkRow[] = [
     tagline:
       'A search engine built from scratch in C++ by six people, with no external packages beyond the standard library. I owned the ranker.',
     dates: 'Winter 2025',
-    role: 'Ranker owner · EECS 440, University of Michigan',
+    role: 'Ranker owner · team of six',
     category: 'distributed-systems',
     categoryLabel: 'distributed systems',
     metrics: [
@@ -152,13 +172,18 @@ export const workIndex: WorkRow[] = [
     ],
     teaser: 'Tail latency was one straggler shard, not the average.',
     viz: 'ShardFanout',
+    cover: {
+      src: '/media/cover-crawler.jpg',
+      webp: '/media/cover-crawler.webp',
+      alt: 'The search engine returning ten results in 1.103 seconds for a live query.',
+    },
   },
   {
     slug: 'diffusion-pyramid',
     title: 'Diffusion-Pyramid',
     tagline: 'Improving the diversity and controllability of text-to-image diffusion through data augmentation.',
     dates: 'Fall 2024',
-    role: '3-person team · EECS 442, University of Michigan',
+    role: 'Team of three',
     category: 'vision',
     categoryLabel: 'vision',
     metrics: [
@@ -168,7 +193,43 @@ export const workIndex: WorkRow[] = [
     ],
     teaser: 'One-shot generation traded diversity for control; we compared the two in side-by-side outputs rather than on a benchmark.',
     viz: 'PipelineDiagram',
+    cover: {
+      src: '/media/cover-diffusion.jpg',
+      webp: '/media/cover-diffusion.webp',
+      alt: 'Text and image augmentation pipeline from the report: prompts and Laplacian-pyramid blending feeding Dreambooth.',
+    },
   },
+  {
+    slug: 'mcm-2024',
+    title: 'MCM 2024 · Momentum in Tennis',
+    tagline:
+      'An EWMA momentum definition and swing detector for point-by-point tennis data, built on the 2023 Wimbledon final. Outstanding Winner, top <1% of teams.',
+    dates: 'Feb 2024',
+    role: '3-person team · SJTU',
+    category: 'modeling',
+    categoryLabel: 'modeling',
+    metrics: [
+      { value: 'top <1%', label: 'Outstanding Winner' },
+      { value: '334', label: 'points, one final' },
+      { value: '40', label: 'match features' },
+    ],
+    teaser: 'Momentum was defined from points already won, so the model shows coherence, not causation.',
+    viz: 'none',
+    cover: {
+      src: '/media/mcm-momentum.jpg',
+      webp: '/media/mcm-momentum.webp',
+      alt: 'Momentum area chart across all five sets of the 2023 Wimbledon final, Alcaraz against Djokovic.',
+    },
+  },
+];
+
+/** Dated ledger for the home page — only events with public dates. */
+export const log: { date: string; text: string }[] = [
+  { date: '2026', text: 'AGHF paper under review at IROS 2026, co-authored with the ROAHM Lab.' },
+  { date: 'Aug 2026', text: 'MSCS begins at Georgia Tech.' },
+  { date: 'Aug 2026', text: 'Two agent systems shipped at TikTok Intelligent Creation (May – Aug).' },
+  { date: 'May 2026', text: 'B.S.E. in Computer Science at Michigan, Summa Cum Laude.' },
+  { date: 'Feb 2024', text: 'MCM Outstanding Winner, top <1% of teams.' },
 ];
 
 export const colophon: {

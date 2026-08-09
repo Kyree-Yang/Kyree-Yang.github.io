@@ -44,7 +44,7 @@ export type Entry = {
   eyebrow: string;
   dates: string;
   role: string;
-  category: 'agent-infrastructure' | 'distributed-systems' | 'robotics' | 'vision';
+  category: 'agent-infrastructure' | 'distributed-systems' | 'robotics' | 'vision' | 'modeling';
   categoryLabel: string;
   stack: string[];
   /** Exactly three, for the index row and the home spine card. */
@@ -54,6 +54,8 @@ export type Entry = {
   /** "What broke" line on the /work index. */
   teaser: string;
   metrics: Metric[];
+  /** Collaborators and advisor, e.g. 'with A and B · advised by Prof. C'. */
+  credits?: string;
   sections: Section[];
   caveats: string[];
   docs?: string[];

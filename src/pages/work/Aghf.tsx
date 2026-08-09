@@ -1,4 +1,5 @@
 import { TriangleAlert } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 import { Seo } from '@/components/shell/Seo';
 import { CaveatList } from '@/components/ui/CaveatList';
@@ -31,9 +32,15 @@ export default function Aghf() {
         path="/work/aghf"
       />
 
-      <Container size="read">
+      <Container>
         <Section className="pb-0 sm:pb-0">
           <Reveal>
+            <Link
+              to="/work"
+              className="mb-6 inline-flex items-center gap-1.5 font-mono text-[12px] tracking-[0.08em] text-faint uppercase transition-colors hover:text-primary"
+            >
+              ← all work
+            </Link>
             <EntryMasthead
               eyebrow={aghf.eyebrow}
               title={aghf.title}
@@ -41,7 +48,8 @@ export default function Aghf() {
               dates={aghf.dates}
               role={aghf.role}
               stack={aghf.stack}
-              caveatTeaser={aghf.caveatTeaser}
+              credits={aghf.credits}
+          caveatTeaser={aghf.caveatTeaser}
             />
             <div className="mt-6">
               <LinkRow links={aghfLinks} size="sm" />
@@ -61,7 +69,7 @@ export default function Aghf() {
             <div className="mt-8">
               {/* The disclaimer sits above the drawing, at body weight — a reader who only
                   looks at the picture still cannot mistake it for solver output. */}
-              <p className="mb-4 flex items-start gap-2.5 rounded-[var(--radius-sm)] border border-l-2 border-l-amber bg-surface-2/60 px-3.5 py-2.5 text-[13px] leading-relaxed text-muted">
+              <p className="mb-4 flex max-w-[72ch] items-start gap-2.5 rounded-[var(--radius-sm)] border border-l-2 border-l-amber bg-surface-2/60 px-3.5 py-2.5 text-[13px] leading-relaxed text-muted">
                 <TriangleAlert
                   aria-hidden
                   size={15}
@@ -88,7 +96,43 @@ export default function Aghf() {
         <Section id="contributions">
           <Reveal>
             <SectionHeading title={S.contributions.heading} />
-            <Bullets items={S.contributions.bullets ?? []} />
+            <div className="max-w-[68ch]">
+              <Bullets items={S.contributions.bullets ?? []} />
+            </div>
+
+            {/* The working record behind those bullets: the derivation notebook
+                and the solver's raw output, before any styling. */}
+            <div className="mt-10 grid gap-4 lg:grid-cols-2">
+              <figure className="cut-card">
+                <div className="cut-inner flex h-full flex-col p-0">
+                  <div className="flex-1 overflow-hidden border-b bg-white p-2">
+                    <picture className="contents">
+                      <source srcSet="/media/aghf-notebook.webp" type="image/webp" />
+                      <img
+                        src="/media/aghf-notebook.jpg"
+                        alt="Handwritten derivation notes: Chebyshev nodes and barycentric Lagrange interpolation, with margin notes mapping each symbol to its MATLAB and C++ variable name."
+                        width={1200}
+                        height={1553}
+                        loading="lazy"
+                        decoding="async"
+                        className="max-h-[420px] w-full object-contain"
+                      />
+                    </picture>
+                  </div>
+                  <figcaption className="bg-surface-2/60 px-3 py-2 font-mono text-[11.5px] leading-snug tracking-[0.02em] text-faint">
+                    the notebook behind the solver — barycentric Lagrange derivation, symbols
+                    mapped to code variables
+                  </figcaption>
+                </div>
+              </figure>
+              <VideoCard
+                aspect="1280 / 756"
+                src="/media/aghf-solver-raw"
+                poster="/media/aghf-solver-raw-poster.jpg"
+                caption="solver output, raw — Phase 1 control-torque trajectories, unstyled MATLAB export"
+                clickToPlay
+              />
+            </div>
           </Reveal>
         </Section>
 

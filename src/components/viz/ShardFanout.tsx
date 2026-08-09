@@ -108,23 +108,41 @@ export function ShardFanout({ t, bare }: { t?: number; bare?: boolean }) {
             ))}
           </g>
 
-          {/* Tail latency resolves only once the straggler lands. */}
-          <text x={300} y={200} fill={VIZ.faint} fontSize={10} fontFamily="var(--font-mono)">
-            tail query latency
-          </text>
-          <text
-            x={300}
-            y={220}
-            fill={tailResolved ? VIZ.emerald : VIZ.amber}
-            fontSize={15}
-            fontWeight={600}
-            fontFamily="var(--font-mono)"
-          >
-            {tailResolved ? '< 2 s' : '~8 s'}
-          </text>
-          <text x={362} y={220} fill={VIZ.faint} fontSize={10} fontFamily="var(--font-mono)">
-            once the straggler returns
-          </text>
+          {/* Latency claim, separated from the animation: both figures are
+              always printed, so any still frame reads correctly. The clock
+              only marks which row the straggler round is acting out. */}
+          <g fontFamily="var(--font-mono)">
+            <text x={300} y={188} fill={VIZ.faint} fontSize={10}>
+              tail query latency
+            </text>
+
+            {/* before row */}
+            <rect x={294} y={195} width={150} height={16} rx={3} fill={VIZ.amber} opacity={tailResolved ? 0 : 0.12} />
+            <text x={287} y={206} fill={VIZ.amber} fontSize={8} opacity={tailResolved ? 0 : 1}>
+              ▸
+            </text>
+            <text x={300} y={206} fill={VIZ.muted} fontSize={10}>
+              before profiling
+            </text>
+            <text x={438} y={206} textAnchor="end" fill={VIZ.amber} fontSize={12} fontWeight={600}>
+              ~8 s
+            </text>
+
+            {/* after row — the shipped number, emphasized */}
+            <rect x={294} y={213} width={150} height={17} rx={3} fill={VIZ.emerald} opacity={tailResolved ? 0.12 : 0} />
+            <text x={287} y={225} fill={VIZ.emerald} fontSize={8} opacity={tailResolved ? 1 : 0}>
+              ▸
+            </text>
+            <text x={300} y={225} fill={VIZ.fg} fontSize={10} fontWeight={600}>
+              after
+            </text>
+            <text x={438} y={225} textAnchor="end" fill={VIZ.emerald} fontSize={13.5} fontWeight={700}>
+              {'< 2 s'}
+            </text>
+            <text x={446} y={225} fill={VIZ.faint} fontSize={8.5}>
+              straggler profiled
+            </text>
+          </g>
 
           {/* Ingest chain: what the fan-out is serving from. */}
           <g transform="translate(4 238)" fontFamily="var(--font-mono)" fontSize={9.5}>

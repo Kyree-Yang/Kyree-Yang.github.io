@@ -22,6 +22,12 @@ const XW = 300;
 const x = (mo: number) => X0 + (mo / T_END) * XW;
 const TODAY = m(2026, 8);
 
+// The whole point of this figure is concurrency, so mark the overlap window
+// explicitly: Aug 2024 – May 2026, when both bachelor's degrees and the lab
+// ran at once. On the month scale that is x(23) ≈ 345.5 to x(44) ≈ 445.5.
+const OV_FROM = m(2024, 8);
+const OV_TO = m(2026, 5);
+
 export function DegreeGantt({ t, bare }: { t?: number; bare?: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
   const clock = useAnimationClock(t, 4600, ref);
@@ -32,6 +38,12 @@ export function DegreeGantt({ t, bare }: { t?: number; bare?: boolean }) {
   // that is still visible. The reduced-motion still (clock = 0.62) sits in
   // the hold, i.e. fully drawn and static.
   const fade = 1 - segment(clock, 0.9, 0.97);
+
+  // Overlap-window band geometry; fades in just after the lanes draw, so the
+  // reduced-motion still (clock = 0.62) shows it at full opacity.
+  const bandX = x(OV_FROM);
+  const bandW = x(OV_TO) - x(OV_FROM);
+  const bandIn = segment(clock, 0.26, 0.4) * fade;
 
   return (
     <div ref={ref}>
@@ -49,6 +61,23 @@ export function DegreeGantt({ t, bare }: { t?: number; bare?: boolean }) {
               </text>
             </g>
           ))}
+
+          {/* overlap band — behind the lanes, spanning the three concurrent
+              tracks (their bars occupy y 32–105); bracket + label underneath */}
+          <g opacity={bandIn}>
+            <rect x={bandX} y={26} width={bandW} height={86} fill={VIZ.line} fillOpacity={0.22} />
+            <path d={`M ${bandX} 116 v 4 h ${bandW} v -4`} fill="none" stroke={VIZ.faint} strokeWidth={1} />
+            <text
+              x={bandX + bandW - 4}
+              y={130}
+              textAnchor="end"
+              fill={VIZ.faint}
+              fontSize={8}
+              fontFamily="var(--font-mono)"
+            >
+              two degrees + lab, in parallel
+            </text>
+          </g>
 
           {LANES.map((l, i) => {
             const grow = segment(clock, 0.02 + i * 0.04, 0.17 + i * 0.04);

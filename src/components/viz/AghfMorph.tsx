@@ -5,8 +5,14 @@ import { VizFrame, VIZ } from './VizFrame';
 
 const M = 44; // samples along the path
 const ITERS = 90; // relaxation steps kept as keyframes
+// Geometry verified numerically (same flow as relaxations() below): the
+// straight-line initial guess passes 9.2 from obstacle 1's center (r 34 —
+// it cuts a ~65-unit chord straight through the disc, penetration depth
+// 24.8) and 51.6 from obstacle 2 (clear). The relaxed path at iteration 90
+// clears obstacle 1 by 44.8 (+10.8 beyond the radius) and obstacle 2 by
+// 63.1 (+35.1). At the reduced-motion frame k=79: 44.4 / 61.9, both clear.
 const OBSTACLES = [
-  { x: 190, y: 96, r: 34 },
+  { x: 204, y: 144, r: 34 },
   { x: 268, y: 168, r: 28 },
 ];
 const START = { x: 74, y: 176 };
@@ -37,7 +43,7 @@ function relaxations() {
         const dx = pts[i].x - o.x;
         const dy = pts[i].y - o.y;
         const d = Math.hypot(dx, dy) || 1e-6;
-        const clearance = o.r + 12;
+        const clearance = o.r + 16;
         if (d < clearance) {
           const push = ((clearance - d) / clearance) * 9;
           vx += (dx / d) * push;
@@ -78,8 +84,20 @@ export function AghfMorph({ t, bare }: { t?: number; bare?: boolean }) {
   const p = override ?? wrap(clock);
   // converge over the first 70% of the loop, then hold the solution
   const k = Math.floor(sat(p / 0.7) * (frames.length - 1));
-  const c0 = costs[0];
-  const ck = costs[k];
+
+  // Cost-vs-iteration sparkline: 90 units wide, descending as the action
+  // functional relaxes. Static geometry — only the marker follows the clock.
+  const spark = useMemo(() => {
+    const cMin = Math.min(...costs);
+    const cMax = Math.max(...costs);
+    const sx = (i: number) => (i / ITERS) * 90;
+    const sy = (c: number) => 62 + (1 - (c - cMin) / (cMax - cMin || 1)) * 30;
+    return {
+      sx,
+      sy,
+      d: costs.map((c, i) => `${i ? 'L' : 'M'} ${sx(i).toFixed(1)} ${sy(c).toFixed(1)}`).join(' '),
+    };
+  }, [costs]);
 
   return (
     <div ref={ref}>
@@ -123,25 +141,18 @@ export function AghfMorph({ t, bare }: { t?: number; bare?: boolean }) {
               {String(k).padStart(3, '0')} / {ITERS}
             </text>
 
-            <text x={0} y={54} fill={VIZ.faint} fontSize={10}>
-              action functional
+            <text x={0} y={54} fill={VIZ.faint} fontSize={8.5}>
+              action functional ↓
             </text>
-            <text x={0} y={74} fill={VIZ.primary} fontSize={16} fontWeight={600} className="tnum">
-              {(ck / c0).toFixed(3)}
-            </text>
-            {/* Keep this line short: the group starts at x=420 and the
-                viewBox ends at 560, so anything wider than ~135 units clips. */}
-            <text x={0} y={90} fill={VIZ.faint} fontSize={9.5}>
-              vs. initial guess
-            </text>
+            {/* The group starts at x=420 and the viewBox ends at 560, so the
+                90-unit sparkline leaves a safe right margin. */}
+            <path d={spark.d} fill="none" stroke={VIZ.primary} strokeWidth={1.4} strokeLinecap="round" />
+            <circle cx={spark.sx(k)} cy={spark.sy(costs[k])} r={2.5} fill={VIZ.primary} />
 
-            <rect x={0} y={104} width={104} height={6} rx={3} fill={VIZ.surface} />
-            <rect x={0} y={104} width={104 * sat(ck / c0)} height={6} rx={3} fill={VIZ.primary} />
-
-            <text x={0} y={140} fill={VIZ.emerald} fontSize={11}>
+            <text x={0} y={118} fill={VIZ.emerald} fontSize={11}>
               −40% solver time
             </text>
-            <text x={0} y={156} fill={VIZ.faint} fontSize={9.5}>
+            <text x={0} y={134} fill={VIZ.faint} fontSize={9.5}>
               analytical Jacobian, C++
             </text>
           </g>

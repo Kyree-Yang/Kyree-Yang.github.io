@@ -71,15 +71,17 @@ export function VerifyGate({ t, bare }: { t?: number; bare?: boolean }) {
 
   const sweep = segment(p, 0.02, 0.02 + 900 / DUR);
   const attempt = p < 0.45 || p > 0.55 ? 0 : 1 - Math.abs(p - 0.5) / 0.05;
-  const settle = segment(p, 0.8, 0.88);
+  const settle = segment(p, 0.54, 0.615);
 
+  // Bars (and their labels) finish by 0.61 so the reduced-motion still at
+  // clock = 0.62 shows every reason bar fully drawn and labeled.
   let cursor = 0;
   const bars = REASONS.map((r, i) => {
-    const start = 0.58 + i * (100 / DUR);
+    const start = 0.46 + i * 0.02;
     const full = (r.n / ATTEMPTS) * SPAN;
     const x = cursor;
     cursor += full + GAP;
-    return { ...r, x, full, grow: segment(p, start, start + 400 / DUR) };
+    return { ...r, x, full, grow: segment(p, start, start + 0.07) };
   });
 
   return (
@@ -89,7 +91,7 @@ export function VerifyGate({ t, bare }: { t?: number; bare?: boolean }) {
         title="Tier-1 self-verification · 46 attempts"
         caption="Guardrail direction was right — it never returned a false PASS. Coverage was zero."
       >
-        <svg viewBox="0 0 560 240" className="w-full" role="img" aria-label="46 verification attempts, 46 skips, zero verdicts">
+        <svg viewBox="0 0 560 256" className="w-full" role="img" aria-label="46 verification attempts, 46 skips, zero verdicts">
           <path d={arc(1)} fill="none" stroke={VIZ.line} strokeWidth={12} strokeLinecap="round" />
           {sweep > 0.002 && (
             <path d={arc(sweep)} fill="none" stroke={VIZ.faint} strokeWidth={12} strokeLinecap="round" />
@@ -145,9 +147,38 @@ export function VerifyGate({ t, bare }: { t?: number; bare?: boolean }) {
             />
           ))}
 
+          {/* in-SVG labels so the strip survives bare/GIF renders: the
+              dominant reason is named on its own bar, the rest carry counts */}
+          <text
+            x={2}
+            y={231}
+            fill={VIZ.amber}
+            fontSize={9.5}
+            fontFamily="var(--font-mono)"
+            className="tnum"
+            opacity={bars[0].grow}
+          >
+            {bars[0].n} · iOS needed simulator; CI built device
+          </text>
+          {bars.slice(1).map((b) => (
+            <text
+              key={`n-${b.label}`}
+              x={b.x + b.full / 2}
+              y={231}
+              textAnchor="middle"
+              fill={VIZ.muted}
+              fontSize={9.5}
+              fontFamily="var(--font-mono)"
+              className="tnum"
+              opacity={b.grow}
+            >
+              {b.n}
+            </text>
+          ))}
+
           <text
             x={0}
-            y={234}
+            y={250}
             fill={VIZ.amber}
             fontSize={11}
             fontFamily="var(--font-mono)"

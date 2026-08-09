@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import { Seo } from '@/components/shell/Seo';
 import { DocLink } from '@/components/ui/DocLink';
 import { EntryMasthead } from '@/components/ui/EntryMasthead';
@@ -26,6 +28,12 @@ export default function DiffusionPyramid() {
       />
 
       <Section className="pb-4 sm:pb-6">
+        <Link
+          to="/work"
+          className="mb-6 inline-flex items-center gap-1.5 font-mono text-[12px] tracking-[0.08em] text-faint uppercase transition-colors hover:text-primary"
+        >
+          ← all work
+        </Link>
         <EntryMasthead
           eyebrow={diffusion.eyebrow}
           title={diffusion.title}
@@ -33,6 +41,7 @@ export default function DiffusionPyramid() {
           dates={diffusion.dates}
           role={diffusion.role}
           stack={diffusion.stack}
+          credits={diffusion.credits}
           caveatTeaser={diffusion.caveatTeaser}
         />
       </Section>

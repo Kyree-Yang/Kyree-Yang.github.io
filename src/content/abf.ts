@@ -55,7 +55,7 @@ export const abf: Entry = {
       value: 42500,
       prefix: '~',
       suffix: ' lines',
-      note: '4 layers: 8,385 engine / 4,909 scheduler / 29,179 dashboard / ~900 chat + proxy',
+      note: '4 layers: 8,385 engine / 4,909 scheduler / 29,179 dashboard / ~900 chat + proxy — the layer counts are exact, the headline is rounded',
       tone: 'violet',
     },
     {
@@ -91,6 +91,8 @@ export const abf: Entry = {
       tone: 'violet',
     },
   ],
+
+  credits: 'TikTok Intelligent Creation · built solo',
 
   sections: [
     {
@@ -173,7 +175,7 @@ The result is a deliberately lopsided system. The two planes share exactly one P
       heading: 'The signal path',
       body: `The control plane runs in the cloud and the execution plane runs on a laptop that accepts no inbound connections, so the fast path had to be outbound-only. The laptop opens an SSE stream, advertises how much work it can take through a credit-pull protocol, and the dashboard hands out jobs against that credit. Polling was never removed; it dropped to a fallback.`,
       bullets: [
-        '106 kicks delivered on the push channel: 102 over SSE with credit-pull, 4 over plain SSE; the long-poll and WebSocket alternatives were built out and never needed',
+        '106 kicks delivered on the push channel: 102 over SSE with credit-pull, 4 over plain SSE; the long-poll fallback was built out and never promoted, and the WebSocket route never worked through the gateway',
         'Click-to-spawn fell from ~95 s to 1–2 s, because the laptop no longer had to wait for its next poll tick to learn there was work',
         'Dual-speed polling stays underneath at 90 s active / 600 s idle, so a dropped stream degrades responsiveness instead of losing a job',
         '16,082 scheduler ticks over 40 calendar days on a single long-lived daemon, 22 of those days without a restart',
@@ -216,7 +218,7 @@ The result is a deliberately lopsided system. The two planes share exactly one P
       bullets: [
         'Funnel: 75 runs → 73 with complete state records → 66 merge requests → 56 green pipelines → 30 reached the debug-log strip step → 2 merged to trunk',
         'Terminal states across the 73 recorded runs: 34 waiting on on-device verification, 27 completed, 4 stopped in evidence collection, 4 escalated as needs-human, 3 at the strip commit, 1 at the first commit',
-        '49 of the 66 merge requests were deliberately non-merge benchmark experiments; of the 17 regular intake tickets, one landed and ten are still open',
+        '49 of the 66 merge requests were deliberately non-merge benchmark experiments; of the 17 regular intake tickets, one landed inside the internship window and ten are still open',
         'The merge decision always belonged to the owning engineer, so the merge count measures a human review queue at least as much as it measures the agent',
       ],
       viz: ['OutcomeFunnel', 'TerminalStates'],
@@ -265,11 +267,12 @@ The result is a deliberately lopsided system. The two planes share exactly one P
   ],
 
   caveats: [
-    `Two of the 66 merge requests were merged to trunk. Forty-nine were deliberately non-merge benchmark experiments, and the merge decision always belonged to the owning engineer; of the 17 regular intake tickets, one landed and ten are still open.`,
+    `Two of the 66 merge requests were merged to trunk. Forty-nine were deliberately non-merge benchmark experiments, and the merge decision always belonged to the owning engineer; of the 17 regular intake tickets, one landed inside the internship window and ten are still open.`,
     `Tier-1 automated self-verification never returned a verdict: 46 runs, 46 skips, zero PASS and zero FAIL. The guardrail direction was correct — it was built to skip rather than risk a false PASS that would revert a good fix — but its practical contribution to this dataset was zero. The dominant blocker was concrete and fixable: CI emitted device builds while the verifier needed simulator builds.`,
     `Thirty-four of 73 runs (47%) end waiting for a human to verify the fix on a real device, the largest queue in the system. The design underestimated how much on-device verification it would generate; that queue set the system's real throughput.`,
     `Several enforcement gates check that an artifact exists rather than that it is correct, and I found one PASS gate that a compile-step line could satisfy. That means "reached the strip step" cannot be read as "verified fixed". The same gap let 6 of 8 audited merge requests reach review with debug instrumentation still attached; both gaps surfaced in an audit of my own hooks.`,
     `The system ran on a single laptop: credentials, worktrees, and run archives all lived locally, some capability existed only in unpushed local commits, and the two scheduler directories were never under version control. Making that setup durable was the correct next fix.`,
     `An earlier internal summary of this work quoted a materially higher first-attempt fix rate against a different denominator. The numbers on this page are the re-verified ones, and where they disagree with anything else I have written, these are correct.`,
+    `Code is TikTok internal; the architecture map and state machines on this page are the shareable record.`,
   ],
 };

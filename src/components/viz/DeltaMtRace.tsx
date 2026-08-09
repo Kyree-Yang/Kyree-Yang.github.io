@@ -16,7 +16,8 @@ const LANES = [
     sub: '256 keys sent · 129 that never resolve',
     end: 300,
     color: VIZ.rose,
-    verdict: '300s ceiling · timed out',
+    // Verdicts render at x=428 in a 560-wide viewBox: ~20 mono chars max.
+    verdict: '300s · timed out',
   },
   {
     label: 'poll published translations',
@@ -47,31 +48,43 @@ export function DeltaMtRace({ t, bare }: { t?: number; bare?: boolean }) {
         caption="The fix was on the trigger side, not the wait side. The old sync handed the whole namespace to the translation service, which swept every unresolved key in the shared workspace — including historical ones that will never translate — into one job, then blocked on it. Keeping an English-source snapshot and sending only the delta made a one-word change cost one key."
       >
         <svg viewBox="0 0 560 250" className="w-full" role="img" aria-label="Translation latency comparison">
-          {/* axis */}
-          {[0.1, 1, 10, 100, 300].map((s) => (
+          {/* axis — the compression is named, and ticks make the 5.1s vs 300s
+              bars readable as a measured ratio rather than a vibe */}
+          <text x={X0} y={12} fill={VIZ.faint} fontSize={8} fontFamily="var(--font-mono)">
+            wall-clock wait · log scale
+          </text>
+          {[1, 10, 100, 300].map((s) => (
             <g key={s}>
               <line x1={xOf(s)} y1={30} x2={xOf(s)} y2={196} stroke={VIZ.line} strokeDasharray="2 4" />
-              <text x={xOf(s)} y={22} textAnchor="middle" fill={VIZ.faint} fontSize={10} fontFamily="var(--font-mono)">
-                {s < 1 ? `${s}s` : `${s}s`}
+              <line x1={xOf(s)} y1={24} x2={xOf(s)} y2={30} stroke={VIZ.faint} />
+              <text x={xOf(s)} y={21} textAnchor="middle" fill={VIZ.faint} fontSize={8} fontFamily="var(--font-mono)">
+                {s} s
               </text>
             </g>
           ))}
 
           {LANES.map((lane, i) => {
             const y = 52 + i * 48;
-            const grow = segment(p, 0.06 + i * 0.02, 0.06 + i * 0.02 + (i === 2 ? 0.06 : i === 1 ? 0.4 : 0.72));
+            // All lanes finish by p=0.6 so the reduced-motion still (0.62)
+            // shows every bar at its measured length, verdicts included.
+            const grow = segment(p, 0.06 + i * 0.02, 0.06 + i * 0.02 + (i === 2 ? 0.06 : i === 1 ? 0.36 : 0.52));
             const w = (xOf(lane.end) - X0) * grow;
             const done = grow > 0.995;
             return (
               <g key={lane.label}>
-                <text x={0} y={y + 4} fill={VIZ.fg} fontSize={11.5} fontWeight={600}>
+                {/* Tracks paint first so no text is ever buried under a bar.
+                    The label sits ABOVE the track (baseline y−12, glyph
+                    bottom ≈ y−9.5 vs bar top y−6): 'poll published
+                    translations' is ~186 units wide and would otherwise run
+                    under the bar, which starts at X0 = 118. */}
+                <rect x={X0} y={y - 6} width={XW} height={12} rx={6} fill={VIZ.surface} />
+                <rect x={X0} y={y - 6} width={w} height={12} rx={6} fill={lane.color} fillOpacity={0.85} />
+                <text x={0} y={y - 12} fill={VIZ.fg} fontSize={11.5} fontWeight={600}>
                   {lane.label}
                 </text>
                 <text x={0} y={y + 19} fill={VIZ.faint} fontSize={9.5} fontFamily="var(--font-mono)">
                   {lane.sub}
                 </text>
-                <rect x={X0} y={y - 6} width={XW} height={12} rx={6} fill={VIZ.surface} />
-                <rect x={X0} y={y - 6} width={w} height={12} rx={6} fill={lane.color} fillOpacity={0.85} />
                 <text
                   x={X0 + XW + 10}
                   y={y + 4}
@@ -87,14 +100,15 @@ export function DeltaMtRace({ t, bare }: { t?: number; bare?: boolean }) {
           })}
 
           {/* the zero-delta case */}
-          <g transform={`translate(0 196)`} opacity={segment(p, 0.55, 0.72)}>
-            <text x={0} y={4} fill={VIZ.fg} fontSize={11.5} fontWeight={600}>
+          <g transform={`translate(0 196)`} opacity={segment(p, 0.48, 0.6)}>
+            {/* Same paint order and label placement as the lanes above. */}
+            <rect x={X0} y={-6} width={XW} height={12} rx={6} fill={VIZ.surface} />
+            <text x={0} y={-12} fill={VIZ.fg} fontSize={11.5} fontWeight={600}>
               delta of zero
             </text>
             <text x={0} y={19} fill={VIZ.faint} fontSize={9.5} fontFamily="var(--font-mono)">
               nothing changed since the snapshot
             </text>
-            <rect x={X0} y={-6} width={XW} height={12} rx={6} fill={VIZ.surface} />
             <text x={X0 + 8} y={4} fill={VIZ.emerald} fontSize={10.5} fontFamily="var(--font-mono)">
               skipped entirely — no job, no wait
             </text>

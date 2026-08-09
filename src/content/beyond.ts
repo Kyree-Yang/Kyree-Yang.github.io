@@ -61,6 +61,7 @@ export const competitions: Competition[] = [
       badge: 'MCM Highest Prize',
     },
     links: [
+      { label: 'Technical write-up', href: '/work/mcm-2024' },
       { label: 'Contest', href: 'https://www.comap.com/contests/mcm-icm' },
       { label: 'Story', href: 'https://www.ji.sjtu.edu.cn/off-the-press/2024-05-28/146005/' },
     ],
@@ -135,14 +136,14 @@ export const activities: Activity[] = [
     title: 'Eryuan County',
     place: 'Yunnan Province, China',
     date: 'January – February 2023',
-    badge: 'Conducting a Physics Experiment in Eryuan',
-    body: 'I went to Eryuan County in Yunnan over winter break with about twenty members of the Miyuan Youth Volunteer Team, tutoring local middle-school students in math, science, and English. We lived and ate at the school with them; the photo is a physics experiment we set up together.',
+    badge: 'Hands-on Water Purification in Eryuan',
+    body: 'I went to Eryuan County in Yunnan over winter break with about twenty members of the Miyuan Youth Volunteer Team, tutoring local middle-school students in math, science, and English. We lived and ate at the school with them; the photo is a hands-on water-purification experiment we set up together.',
     photo: {
       src: '/media/eryuan.jpg',
       webp: '/media/eryuan.webp',
-      alt: 'Conducting a physics experiment with students in Eryuan County.',
-      caption: 'Tutoring mathematics, science, and English in Eryuan County.',
-      badge: 'Conducting a Physics Experiment in Eryuan',
+      alt: 'Running a hands-on water-purification experiment with students in Eryuan County.',
+      caption: 'The hands-on water-purification experiment, Eryuan County.',
+      badge: 'Hands-on Water Purification in Eryuan',
     },
     links: [{ label: 'Eryuan County', href: 'https://en.wikipedia.org/wiki/Eryuan_County' }],
     note: {
@@ -157,6 +158,24 @@ export const activities: Activity[] = [
 
 /** Closing grid: the recognition photographs. */
 export const beyondGallery: BeyondPhoto[] = [
+  {
+    src: '/media/drone-field.jpg',
+    webp: '/media/drone-field.webp',
+    alt: 'Field deployment with a DJI Matrice-class drone, transport case and laptops on the steps.',
+    caption: 'Drone fieldwork — deployment day',
+  },
+  {
+    src: '/media/soldering.jpg',
+    webp: '/media/soldering.webp',
+    alt: 'Workbench close-up: soldering a quadrotor frame under assembly.',
+    caption: 'Bench work — soldering a quadrotor build',
+  },
+  {
+    src: '/media/tennis-medal.jpg',
+    webp: '/media/tennis-medal.webp',
+    alt: 'SJTU sports medal from the Freshman Cup tennis doubles.',
+    caption: 'Freshman Cup tennis doubles — SJTU sports medal',
+  },
   {
     src: '/media/eryuan-teaching.jpg',
     webp: '/media/eryuan-teaching.webp',

@@ -28,28 +28,33 @@ const STEPS = [
 
 /** What each step leaves behind — two artifact lines per step, shown in the
  *  side panel as the cursor arrives. Restates facts the entry page already
- *  claims; nothing here is a new number. */
+ *  claims; nothing here is a new number.
+ *
+ *  Width budget: panel text starts at PX+14 = 336; mono at fontSize 10.5 is
+ *  ~6.3 units/char, and the '▸ ' tspan prefix adds 2 chars. Every line is
+ *  ≤ 31 chars, so the widest extent is 336 + 6.3 × (31 + 2) ≈ 543.9 — inside
+ *  the plate edge (PX+PW = 548) and well inside the 560-unit viewBox. */
 const ARTIFACTS: [string, string][] = [
   ['ticket parsed → platform picked', 'repo snapshot mounted'],
   ['fresh git worktree, own branch', 'no checkout shared between runs'],
-  ['attachments · logs · screen recording', 'counterpart impl on the other platform'],
+  ['attachments · logs · recording', 'counterpart on other platform'],
   ['notes from prior runs pulled in', 'auto-written at step 19'],
-  ['competing hypotheses, argued in writing', 'every fact anchored file:line'],
-  ['hypotheses vote on a root cause', 'the losing theory is kept, not deleted'],
-  ['candidate fixes scored for blast radius', 'smallest reversible diff wins'],
-  ['patch applied in the worktree', 'kill switch wired — one flag reverts'],
+  ['hypotheses argued in writing', 'every fact anchored file:line'],
+  ['hypotheses vote on a root cause', 'losing theory kept, not deleted'],
+  ['fixes scored for blast radius', 'smallest reversible diff wins'],
+  ['patch applied in the worktree', 'kill switch — one flag reverts'],
   ['agent reviews its own diff cold', 'scope · style · regression risk'],
-  ['builds on both targets', 'a red build loops back with the log'],
-  ['evidence table pasted into the MR', 'reviewers see reasoning, not vibes'],
+  ['builds on both targets', 'red build loops back with log'],
+  ['evidence table pasted into MR', 'reviewers see logic, not vibes'],
   ['debug instrumentation committed', 'QR install build for a phone'],
   ['MR opened against trunk', 'CI pipeline attached'],
   ['internal CI must go green', 'red blocks the close hook'],
   ['a human with the phone confirms', 'the largest queue in the system'],
-  ['debug logs stripped byte-clean', 'diff re-verified after the strip'],
-  ['status written back to the tracker', 'links: MR · build · evidence'],
-  ['run report: what changed, what broke', 'denominators included'],
-  ['lessons written for the next run', 'read back at step 4'],
-  ['worktree removed, locks released', 'scheduler slot freed'],
+  ['debug logs stripped byte-clean', 'diff re-verified after strip'],
+  ['status written to the tracker', 'links: MR · build · evidence'],
+  ['what changed, what broke', 'denominators included'],
+  ['lessons written for next run', 'read back at step 4'],
+  ['worktree gone, locks released', 'scheduler slot freed'],
 ];
 
 const REPLAY_LINES: [string, string] = ['status must be 13, got 15', 'hook exit 2 → step re-entered'];
@@ -180,6 +185,25 @@ export function PipelineRing({ t, bare }: { t?: number; bare?: boolean }) {
             );
           })}
 
+          {/* ordinal ticks just outside the ring (R+20 clears the r=14 halos),
+              so the artifact panel's step numbers can be located on the ring */}
+          {[1, 5, 10, 15, 20].map((n) => {
+            const a = ((n - 1) / STEPS.length) * Math.PI * 2 - Math.PI / 2;
+            return (
+              <text
+                key={n}
+                x={CX + (R + 20) * Math.cos(a)}
+                y={CY + (R + 20) * Math.sin(a) + 3}
+                textAnchor="middle"
+                fill={VIZ.faint}
+                fontSize={8}
+                fontFamily="var(--font-mono)"
+              >
+                {n}
+              </text>
+            );
+          })}
+
           <circle cx={tokenX} cy={tokenY} r={5} fill={replaying ? VIZ.rose : VIZ.cyan} />
           <circle cx={tokenX} cy={tokenY} r={11} fill={replaying ? VIZ.rose : VIZ.cyan} opacity={0.18} />
 
@@ -197,7 +221,7 @@ export function PipelineRing({ t, bare }: { t?: number; bare?: boolean }) {
           )}
           {humanStop && (
             <text x={CX} y={CY + 46} textAnchor="middle" fill={VIZ.rose} fontSize={10.5} fontFamily="var(--font-mono)">
-              one of only two human stop points
+              the one scheduled human stop
             </text>
           )}
 
@@ -228,12 +252,12 @@ export function PipelineRing({ t, bare }: { t?: number; bare?: boolean }) {
           {!replaying && GATED.has(active) && (
             <g opacity={lineOpacity(2)}>
               <text x={PX + 14} y={PY + 82 + 2 * 24} fill={VIZ.amber} fontSize={10.5} fontFamily="var(--font-mono)">
-                ▸ close blocked until artifacts exist
+                ▸ no close until artifacts exist
               </text>
             </g>
           )}
           <text x={PX + 14} y={PY + PH - 16} fill={override !== null ? VIZ.primary : VIZ.faint} fontSize={9.5} fontFamily="var(--font-mono)">
-            {override !== null ? 'paused — you are driving' : 'one run · 20 steps · every step audited'}
+            {override !== null ? 'paused — you are driving' : 'one run · 20 steps · all audited'}
           </text>
 
           {/* legend, bottom strip */}
@@ -250,8 +274,12 @@ export function PipelineRing({ t, bare }: { t?: number; bare?: boolean }) {
             <text x={192} y={0} fill={VIZ.muted}>
               run cursor
             </text>
-            <text x={272} y={0} fill={VIZ.faint}>
-              7 hooks · 54 blocks · 2 human stops
+            {/* The one scheduled human stop lives on the ring (step 15); the
+                escape hatch is not a step, so it is not counted here.
+                Extent: x=266 in a group translated +20 → abs 286; 34 mono
+                chars × 6.3 → final glyph at 286 + 214.2 ≈ 500 ≤ 552. */}
+            <text x={266} y={0} fill={VIZ.faint}>
+              7 hooks · 54 blocks · 1 human stop
             </text>
           </g>
         </svg>

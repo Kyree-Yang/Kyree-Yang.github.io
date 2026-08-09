@@ -90,6 +90,8 @@ export const designlab: Entry = {
     },
   ],
 
+  credits: 'TikTok Intelligent Creation',
+
   sections: [
     {
       id: 'problem',
@@ -222,5 +224,6 @@ The board is intentionally read-only. Every write goes through the agent or a di
     `The weak/no-network node was hard-verified end to end on iOS only; the Android side is specified and templated but device-verified only at contract level. Within iOS, "enters directly into a state" scenarios (full-screen first load, progress ring) are device-proven, while gesture-triggered scenarios (pull-to-refresh, load-more) and skeleton screens remain contract-level.`,
     `Machine translation here exists so a designer can verify that switching language actually works; it is not shipping copy. Human translation happens downstream in the same task, and the pipeline reports which strings are still falling back to English.`,
     `Several of the described features lived on feature branches pending review at the time of this snapshot rather than on trunk; the localization node and the second weak-network pass in particular were verified locally but not yet merged.`,
+    `Code is TikTok internal; the architecture map and state machines on this page are the shareable record.`,
   ],
 };

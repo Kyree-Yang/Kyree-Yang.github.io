@@ -91,6 +91,11 @@ const KIND_COLOR: Record<Kind, string> = {
 /** The localization node is where the compile gate bounces the agent back. */
 const GATE_INDEX = 8;
 
+/** The design-MR node the seven build stages converge into. */
+const MR_INDEX = 9;
+/** ui · net · empty · size · dark · i18n · l10n — the fan-in sources. */
+const FAN_SOURCES = [2, 3, 4, 5, 6, 7, 8];
+
 /* Readout plate geometry (chamfered, top-right cut). */
 const PX = 140;
 const PW = 312;
@@ -116,6 +121,12 @@ export function DagFlow({ t, bare }: { t?: number; bare?: boolean }) {
   const nx = (i: number) => X0 + i * COL;
   const ny = (i: number) => ROW_Y[NODES[i].row];
 
+  // Fan-in emphasis: a brief pulse while the token sits at the MR node,
+  // pure in t (rises and falls with frac, 0 everywhere else).
+  const mrX = nx(MR_INDEX);
+  const mrY = ny(MR_INDEX);
+  const fanPulse = idx === MR_INDEX ? Math.sin(Math.PI * Math.min(1, frac)) : 0;
+
   const a = { x: nx(idx), y: ny(idx) };
   const bIdx = Math.min(NODES.length - 1, idx + 1);
   const b = { x: nx(bIdx), y: ny(bIdx) };
@@ -139,7 +150,31 @@ export function DagFlow({ t, bare }: { t?: number; bare?: boolean }) {
         title="12-node delivery DAG"
         caption="Structural work first, then layout, then color, then text — text runs last because translated strings are what stress the layout. Seven stages dispatch to isolated subagents; three must ask the designer a question; two belong to an engineer and are never auto-completed. Plate lines are each node's paper trail."
       >
-        <svg viewBox="0 0 600 312" className="w-full" role="img" aria-label="Twelve-node delivery DAG">
+        <svg viewBox="0 0 600 326" className="w-full" role="img" aria-label="Twelve-node delivery DAG">
+          {/* fan-in: the seven build stages converge into the design MR.
+              Drawn first (under the spine) as thin faint strands so the spine
+              stays dominant; same-row strands sag below the spine band, and
+              farther sources sag deeper so the bundle reads as separate edges. */}
+          {FAN_SOURCES.map((s) => {
+            const sx = nx(s);
+            const sy = ny(s);
+            const dy = mrY - sy;
+            const sag = dy === 0 ? 8 + (MR_INDEX - s) * 3 : 0;
+            const c1y = dy === 0 ? sy + sag : sy + dy * 0.2;
+            const c2y = dy === 0 ? mrY + sag : mrY - dy * 0.2;
+            const d = `M ${sx + 12} ${sy + (dy < 0 ? -5 : 5)} C ${sx + (mrX - sx) * 0.3} ${c1y}, ${sx + (mrX - sx) * 0.75} ${c2y}, ${mrX - 12} ${mrY + (dy < 0 ? 5 : dy > 0 ? -5 : 6)}`;
+            return (
+              <path
+                key={`fan-${NODES[s].id}`}
+                d={d}
+                fill="none"
+                stroke={VIZ.primary}
+                strokeWidth={1}
+                strokeOpacity={0.15 + 0.45 * fanPulse}
+              />
+            );
+          })}
+
           {/* edges */}
           {NODES.slice(0, -1).map((n, i) => {
             const x1 = nx(i);
@@ -260,8 +295,11 @@ export function DagFlow({ t, bare }: { t?: number; bare?: boolean }) {
               : 'gate passed · artifacts exist and the build is green'}
           </text>
 
-          {/* legend */}
-          <g transform="translate(16 306)" fontSize={10.5} fontFamily="var(--font-mono)">
+          {/* legend — its own band at the bottom of the 326-tall viewBox.
+              The gate narration baseline sits at PY+PH+14 = 298 (glyphs end
+              ~300); legend glyphs start ~313 (circles cy 318−r 5) and end
+              ~324 — a clear ~13-unit gap, nothing shares a band. */}
+          <g transform="translate(16 322)" fontSize={10.5} fontFamily="var(--font-mono)">
             <circle cx={5} cy={-4} r={5} fill={VIZ.primary} fillOpacity={0.35} stroke={VIZ.primary} />
             <text x={16} y={0} fill={VIZ.muted}>
               isolated subagent (7)

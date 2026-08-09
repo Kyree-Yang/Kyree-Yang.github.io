@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { HeroConsole } from '@/components/home/HeroConsole';
@@ -12,7 +13,7 @@ import { Reveal } from '@/components/ui/Reveal';
 import { DegreeGantt } from '@/components/viz/DegreeGantt';
 import { doc } from '@/content/docs';
 import { degreeNote, publications } from '@/content/profile';
-import { siteMeta } from '@/content/site';
+import { log, siteMeta } from '@/content/site';
 
 /** Four lines only — the remaining awards live on /cv#honors rather than here. */
 const RECOGNITION = [
@@ -40,13 +41,13 @@ const BEYOND_PHOTOS: StripPhoto[] = [
     src: '/media/eryuan-teaching.jpg',
     webp: '/media/eryuan-teaching.webp',
     alt: 'Teaching a water-purification science lesson to middle-school students in Eryuan County.',
-    caption: 'Teaching a water-purification lesson · Eryuan, Yunnan',
+    caption: 'Teaching the water-purification lesson · Eryuan, Yunnan',
   },
   {
     src: '/media/eryuan.jpg',
     webp: '/media/eryuan.webp',
-    alt: 'Conducting a physics experiment with students in Eryuan County.',
-    caption: 'Physics experiment with the same class · Eryuan, Yunnan',
+    alt: 'Running the hands-on water-purification experiment with students in Eryuan County.',
+    caption: 'The water-purification experiment with the same class · Eryuan, Yunnan',
   },
   {
     src: '/media/tenvolunteer.jpg',
@@ -71,12 +72,32 @@ const RECOGNITION_PHOTOS: StripPhoto[] = [
     caption: 'John Wu and Jane Sun Excellence Scholarship · Nov 2023',
   },
   {
-    src: '/media/TA.jpg',
-    webp: '/media/TA.webp',
-    alt: 'Holding a PHYS1500J recitation as teaching assistant at SJTU.',
-    caption: 'PHYS1500J recitation, teaching assistant · Summer 2024',
+    src: '/media/vp150-recitation.jpg',
+    webp: '/media/vp150-recitation.webp',
+    alt: 'Leading a physics recitation at the UM-SJTU Joint Institute, annotated free-body diagram on screen.',
+    caption: 'Physics recitation, teaching assistant · UM-SJTU JI · 2024',
   },
 ];
+
+/** Copy-to-clipboard chip for a citation block. */
+function BibtexButton({ bibtex, title }: { bibtex: string; title: string }) {
+  const [copied, setCopied] = useState(false);
+  return (
+    <button
+      type="button"
+      aria-label={`Copy BibTeX for ${title}`}
+      onClick={() => {
+        void navigator.clipboard?.writeText(bibtex).then(() => {
+          setCopied(true);
+          setTimeout(() => setCopied(false), 1600);
+        });
+      }}
+      className="elevate inline-flex items-center gap-1.5 rounded-[var(--radius-sm)] border px-2.5 py-1 font-mono text-[11px] text-muted transition-colors hover:text-fg"
+    >
+      {copied ? 'copied ✓' : 'BibTeX'}
+    </button>
+  );
+}
 
 export default function Home() {
   return (
@@ -101,22 +122,61 @@ export default function Home() {
         </Container>
       </Section>
 
-      <Section id="publications" className="border-t bg-bg-subtle">
+      <Section id="log" className="border-t bg-bg-subtle">
+        <Container>
+          <Reveal>
+            <SectionHeading title="Log" />
+            <ul className="max-w-3xl">
+              {log.map((item) => (
+                <li
+                  key={item.date + item.text}
+                  className="flex items-baseline gap-5 border-b py-2.5 text-[15px] last:border-b-0"
+                >
+                  <span className="tnum w-20 shrink-0 font-mono text-[12px] text-faint">
+                    {item.date}
+                  </span>
+                  <span className="text-muted">{item.text}</span>
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+        </Container>
+      </Section>
+
+      <Section id="publications">
         <Container>
           <Reveal>
             <SectionHeading title="Publications" />
-            <ol className="grid gap-3 lg:grid-cols-2">
+            <ol className="grid grid-cols-1 gap-3 lg:grid-cols-2">
               {publications.map((pub) => {
                 const ref = doc(pub.doc);
                 return (
-                  <li key={pub.title} className="cut-card">
-                    <div className="cut-inner flex h-full flex-col p-4 sm:p-5">
+                  <li key={pub.title} className="cut-card min-w-0">
+                    <div className="cut-inner flex h-full min-w-0 flex-col p-4 sm:p-5">
                       <span className="font-mono text-[11px] tracking-[0.14em] text-faint">
-                        {pub.year}
+                        {pub.year} · {pub.venue}
                       </span>
                       <h3 className="mt-1.5 text-[15px] leading-snug font-semibold text-balance">
                         {pub.title}
                       </h3>
+                      <p className="mt-1 text-[13px] leading-snug text-muted">
+                        {pub.authors.includes('Ruikai Yang') ? (
+                          pub.authors.split('Ruikai Yang').map((part, i, arr) => (
+                            <span key={i}>
+                              {part}
+                              {i < arr.length - 1 && (
+                                <span className="font-semibold text-fg">Ruikai Yang</span>
+                              )}
+                            </span>
+                          ))
+                        ) : (
+                          <>
+                            <span className="font-semibold text-fg">Ruikai Yang</span>
+                            {' · '}
+                            {pub.authors}
+                          </>
+                        )}
+                      </p>
                       {pub.figure && (
                         <figure className="mt-4">
                           {/* One window height for every paper figure, so the
@@ -128,7 +188,7 @@ export default function Home() {
                             target="_blank"
                             rel="noreferrer"
                             aria-label={`Open the PDF: ${pub.title}`}
-                            className="flex h-[220px] items-center justify-center overflow-hidden border bg-white p-2 transition-opacity hover:opacity-90"
+                            className="flex h-[220px] w-full items-center justify-center overflow-hidden border bg-white p-2 transition-opacity hover:opacity-90"
                           >
                             <picture className="contents">
                               <source srcSet={pub.figure.webp} type="image/webp" />
@@ -146,8 +206,9 @@ export default function Home() {
                           </figcaption>
                         </figure>
                       )}
-                      <div className="mt-4">
+                      <div className="mt-4 flex flex-wrap items-center gap-2">
                         <DocLink label="PDF" href={ref.href} kind={ref.kind} />
+                        <BibtexButton bibtex={pub.bibtex} title={pub.title} />
                       </div>
                     </div>
                   </li>
@@ -162,7 +223,7 @@ export default function Home() {
         <Container>
           <Reveal>
             <SectionHeading title="Recognition" />
-            <div className="grid gap-8 lg:grid-cols-[minmax(0,26rem)_minmax(0,1fr)] lg:gap-12">
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,26rem)_minmax(0,1fr)] lg:gap-12">
               <div>
                 <ul className="card divide-y overflow-hidden">
                   {RECOGNITION.map((line) => (
@@ -185,7 +246,7 @@ export default function Home() {
                   8 awards, 6 teaching and leadership roles →
                 </Link>
               </div>
-              <PhotoStrip photos={RECOGNITION_PHOTOS} label="Recognition photos" />
+              <div className="min-w-0"><PhotoStrip photos={RECOGNITION_PHOTOS} label="Recognition photos" /></div>
             </div>
           </Reveal>
         </Container>

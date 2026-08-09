@@ -11,6 +11,7 @@ export function EntryMasthead({
   tagline,
   dates,
   role,
+  credits,
   stack,
   caveatTeaser,
 }: {
@@ -19,6 +20,8 @@ export function EntryMasthead({
   tagline: string;
   dates: string;
   role: string;
+  /** Collaborators and advisor — named only as far as the public record allows. */
+  credits?: string;
   stack: string[];
   caveatTeaser: string;
 }) {
@@ -37,6 +40,7 @@ export function EntryMasthead({
         <span aria-hidden>·</span>
         <span>{role}</span>
       </div>
+      {credits && <p className="mt-1.5 font-mono text-[12.5px] text-faint">{credits}</p>}
 
       {stack.length > 0 && (
         <div className="mt-5 flex flex-wrap gap-2">

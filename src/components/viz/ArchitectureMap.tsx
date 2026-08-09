@@ -414,7 +414,7 @@ function DetailPanel({ id, onClose }: { id: string | null; onClose: () => void }
   const d = id ? architectureNodes[id] : undefined;
 
   return (
-    <div id={PANEL_ID} aria-live="polite" className="mt-4 min-h-[168px]">
+    <div id={PANEL_ID} aria-live="polite" className="mt-4 min-h-[168px] md:min-h-[480px]">
       {!d ? (
         <p className="rounded-[var(--radius)] border border-dashed px-4 py-5 text-[13px] text-faint">
           Click any component for what it does, what it measured, and where it broke.
@@ -583,13 +583,16 @@ export function ArchitectureMap({ t, bare }: { t?: number; bare?: boolean }) {
           </div>
         )}
 
-        {/* Wider than the reading column by design — the figure scrolls, the page never does. */}
+        {/* Wider than the reading column by design — the figure scrolls, the
+            page never does. The height cap keeps the whole map inside one
+            viewport at desktop sizes: hover still isolates links, and the
+            detail panel below carries the reading-size text. */}
         <div className="overflow-x-auto">
           <svg
             id={SVG_ID}
             viewBox="0 0 1760 1400"
-            className="block"
-            style={{ minWidth: 900, width: '100%' }}
+            className="mx-auto block"
+            style={{ minWidth: 780, width: '100%', maxHeight: 'min(76vh, 840px)' }}
             role="group"
             aria-label={ARIA}
             onClick={() => setSelected(null)}

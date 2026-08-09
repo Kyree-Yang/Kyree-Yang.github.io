@@ -5,7 +5,15 @@ import { useEffect, useRef, useState } from 'react';
  * framer-motion: these wrap most of the page, and a motion component per block
  * would put hundreds of springs on the main thread for a 420ms opacity ramp.
  */
-export function Reveal({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
+export function Reveal({
+  children,
+  delay = 0,
+  className,
+}: {
+  children: React.ReactNode;
+  delay?: number;
+  className?: string;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const [shown, setShown] = useState(false);
 
@@ -38,7 +46,7 @@ export function Reveal({ children, delay = 0 }: { children: React.ReactNode; del
   }, [delay]);
 
   return (
-    <div ref={ref} className="reveal" data-shown={shown ? 'true' : 'false'}>
+    <div ref={ref} className={className ? `reveal ${className}` : 'reveal'} data-shown={shown ? 'true' : 'false'}>
       {children}
     </div>
   );

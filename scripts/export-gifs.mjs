@@ -36,12 +36,12 @@ const SCALE = 2;
 
 /** ids must match the keys in src/gif/registry.tsx */
 export const MANIFEST = [
-  { id: 'abf-pipeline', w: 760, h: 500, frames: 48, fps: 16 },
+  { id: 'abf-pipeline', w: 760, h: 500, frames: 96, fps: 12 },
   { id: 'abf-layers', w: 760, h: 462, frames: 40, fps: 16 },
   { id: 'abf-funnel', w: 760, h: 426, frames: 40, fps: 16 },
   { id: 'abf-cas', w: 760, h: 336, frames: 48, fps: 16 },
   { id: 'abf-signal', w: 760, h: 386, frames: 44, fps: 16 },
-  { id: 'designlab-dag', w: 760, h: 395, frames: 52, fps: 16 },
+  { id: 'designlab-dag', w: 760, h: 395, frames: 104, fps: 16 },
   { id: 'i18n-delta-loop', w: 760, h: 362, frames: 44, fps: 16 },
   { id: 'rtl-mirror', w: 760, h: 362, frames: 44, fps: 16 },
   { id: 'weak-network', w: 760, h: 362, frames: 56, fps: 16 },
@@ -51,7 +51,7 @@ export const MANIFEST = [
   // 1760x1400 viewBox; captured wide so the three-plane filter cycle stays legible.
   // Dense diagram: only four filter states to show, and a smaller palette costs
   // nothing visually because the figure is flat fills and hairlines.
-  { id: 'abf-architecture', w: 980, h: 816, frames: 28, fps: 9, colors: 48 },
+  { id: 'abf-architecture', w: 980, h: 660, frames: 36, fps: 9, colors: 48 },
 ];
 
 const MIME = {
