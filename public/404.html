@@ -2,7 +2,34 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
     <title>Ruikai Yang</title>
+    <style>
+      html {
+        background: #faf6ee;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 12px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #6f6557;
+      }
+      @media (prefers-color-scheme: dark) {
+        html {
+          background: #16120d;
+        }
+        body {
+          color: #988b76;
+        }
+      }
+    </style>
     <script>
       // GitHub Pages serves 404.html for unknown paths. Stash the requested URL
       // and bounce to the SPA entry, which replays it into the router.
@@ -10,5 +37,7 @@
       location.replace('/');
     </script>
   </head>
-  <body></body>
+  <body>
+    redirecting…
+  </body>
 </html>

@@ -1,9 +1,11 @@
 import { cn } from '@/lib/utils';
 
 /**
- * Shared chrome for every visualization: a bordered panel with a mono caption
- * rail. `bare` drops the chrome entirely, which is what the GIF stage uses so
- * exported frames contain only the drawing.
+ * Shared chrome for every visualization: an instrument faceplate — chamfered
+ * hairline frame, mono title strip, recessed drawing well. `bare` drops the
+ * chrome entirely, which is what the GIF stage uses so exported frames contain
+ * only the drawing. Below ~460px the well scrolls horizontally instead of
+ * letting the SVG scale its 9-11px mono labels into illegibility.
  */
 export function VizFrame({
   title,
@@ -22,17 +24,25 @@ export function VizFrame({
 }) {
   if (bare) return <>{children}</>;
   return (
-    <figure className={cn('card overflow-hidden', className)}>
-      {(title || aside) && (
-        <figcaption className="flex items-center justify-between gap-3 border-b px-4 py-2.5">
-          <span className="font-mono text-[11px] tracking-wider text-muted uppercase">{title}</span>
-          {aside}
-        </figcaption>
-      )}
-      <div className="p-3 sm:p-4">{children}</div>
-      {caption && (
-        <div className="border-t px-4 py-2.5 text-[13px] leading-relaxed text-faint">{caption}</div>
-      )}
+    <figure className={cn('cut-card', className)}>
+      <div className="cut-inner overflow-hidden p-0">
+        {(title || aside) && (
+          <figcaption className="flex items-center justify-between gap-3 border-b px-4 py-2.5">
+            <span className="font-mono text-[11px] tracking-wider text-muted uppercase">
+              {title}
+            </span>
+            {aside}
+          </figcaption>
+        )}
+        <div className="scroll-well p-3 sm:p-4">
+          <div className="min-w-[460px]">{children}</div>
+        </div>
+        {caption && (
+          <div className="border-t px-4 py-2.5 text-[13px] leading-relaxed text-faint">
+            {caption}
+          </div>
+        )}
+      </div>
     </figure>
   );
 }

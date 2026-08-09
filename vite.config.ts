@@ -19,7 +19,7 @@ export default defineConfig({
     alias: { '@': path.resolve(__dirname, 'src') },
   },
   define: {
-    __BUILD_DATE__: JSON.stringify(new Date().toISOString().slice(0, 10)),
+    __BUILD_DATE__: JSON.stringify(new Date().toLocaleDateString('en-CA')),
     __BUILD_SHA__: JSON.stringify(sha),
   },
   build: {

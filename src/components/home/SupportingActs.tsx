@@ -17,7 +17,7 @@ const CRAWLER_CELLS = [
 
 function Act({ title, to, children }: { title: string; to: string; children: React.ReactNode }) {
   return (
-    <article className="flex flex-col">
+    <article className="flex min-w-0 flex-col">
       <Link
         to={to}
         className="group inline-flex items-center gap-1.5 self-start text-[15px] font-semibold tracking-[-0.01em]"
@@ -38,7 +38,7 @@ export function SupportingActs() {
     <Section className="border-y bg-bg-subtle">
       <Container>
         <Reveal>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             <Act title="AGHF robotics" to="/work/aghf">
               <VideoCard
                 src="/media/aghf_hardware"

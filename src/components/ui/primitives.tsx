@@ -35,7 +35,7 @@ export function Section({
   className?: string;
 }) {
   return (
-    <section id={id} className={cn('scroll-mt-20 py-14 sm:py-20', className)}>
+    <section id={id} className={cn('scroll-mt-20 py-16 sm:py-24', className)}>
       {children}
     </section>
   );
@@ -54,31 +54,42 @@ export function SectionHeading({
 }) {
   return (
     <div className={cn('mb-8', className)}>
-      {eyebrow && (
-        <div className="mb-2 font-mono text-xs tracking-widest text-primary uppercase">
-          {eyebrow}
-        </div>
-      )}
-      <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">{title}</h2>
-      {sub && <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-muted">{sub}</p>}
+      {eyebrow && <div className="eyebrow mb-3">{eyebrow}</div>}
+      <h2 className="text-[1.75rem] leading-[1.15] font-bold tracking-tight text-balance sm:text-[2rem]">
+        {title}
+      </h2>
+      {sub && <p className="mt-3 max-w-2xl text-base leading-relaxed text-muted">{sub}</p>}
     </div>
   );
 }
 
 /* ---------- surfaces ---------- */
 
+/** Chamfered surface — the masonry cut. Hairline border follows the 45° bevel. */
 export function Card({
   children,
   className,
+  innerClassName,
   interactive,
+  cut = 'md',
 }: {
   children: React.ReactNode;
   className?: string;
+  innerClassName?: string;
   interactive?: boolean;
+  cut?: 'sm' | 'md' | 'lg';
 }) {
   return (
-    <div className={cn('card p-5', interactive && 'elevate transition-colors', className)}>
-      {children}
+    <div className={cn('cut-card', cut === 'sm' && 'cut-sm', cut === 'lg' && 'cut-lg', className)}>
+      <div
+        className={cn(
+          'cut-inner p-5 sm:p-6',
+          interactive && 'elevate transition-colors',
+          innerClassName,
+        )}
+      >
+        {children}
+      </div>
     </div>
   );
 }
@@ -105,7 +116,7 @@ export function Tag({
   return (
     <span
       className={cn(
-        'inline-flex items-center rounded-md border px-2 py-0.5 font-mono text-[11px] whitespace-nowrap',
+        'inline-flex items-center rounded-[var(--radius-sm)] border bg-surface-2/60 px-2 py-0.5 font-mono text-[11px] whitespace-nowrap',
         TAG_TONE[tone],
         className,
       )}
@@ -177,6 +188,22 @@ export function CountUp({
   );
 }
 
+/** Render "a / b" values with the part after the slash muted: the headline
+ *  number pops while what it is measured against stays visibly attached. */
+export function StatValue({ value }: { value: string }) {
+  const m = value.match(/^(.*?)(\s*\/\s*)(.+)$/);
+  if (!m) return <>{value}</>;
+  return (
+    <>
+      {m[1]}
+      <span className="font-normal text-muted">
+        {m[2]}
+        {m[3]}
+      </span>
+    </>
+  );
+}
+
 export function Stat({
   value,
   label,
@@ -184,7 +211,7 @@ export function Stat({
   suffix,
   prefix,
   decimals,
-  tone = 'primary',
+  tone = 'neutral',
 }: {
   value: number | string;
   label: string;
@@ -194,15 +221,34 @@ export function Stat({
   decimals?: number;
   tone?: keyof typeof TAG_TONE;
 }) {
+  // Machine numbers speak mono; phrase values ("iOS 41 / Android 32") speak
+  // Besley. A run of 3+ letters marks a phrase; 1-2 letter units ("s", "GB")
+  // stay on the mono track.
+  const isPhrase = typeof value === 'string' && /[a-zA-Z]{3,}/.test(value);
+  const toneClass = tone === 'neutral' ? 'text-fg' : TAG_TONE[tone];
   return (
-    <div className="card elevate p-4 transition-colors">
-      <div className={cn('text-2xl font-semibold tracking-tight sm:text-[28px]', TAG_TONE[tone])}>
-        {prefix}
-        {typeof value === 'number' ? <CountUp value={value} decimals={decimals} /> : value}
-        {suffix}
+    <div className="cut-card">
+      <div className="cut-inner elevate p-4 transition-colors">
+        <div
+          className={cn(
+            'tracking-tight',
+            isPhrase
+              ? 'text-xl leading-snug font-semibold'
+              : 'tnum font-mono text-[clamp(20px,1.1rem+0.8vw,26px)] font-semibold',
+            toneClass,
+          )}
+        >
+          {prefix}
+          {typeof value === 'number' ? (
+            <CountUp value={value} decimals={decimals} />
+          ) : (
+            <StatValue value={value} />
+          )}
+          {suffix}
+        </div>
+        <div className="mt-1 text-[13px] font-medium">{label}</div>
+        {note && <div className="mt-0.5 text-xs leading-snug text-faint">{note}</div>}
       </div>
-      <div className="mt-1 text-[13px] font-medium">{label}</div>
-      {note && <div className="mt-0.5 text-xs leading-snug text-faint">{note}</div>}
     </div>
   );
 }

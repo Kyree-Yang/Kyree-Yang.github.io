@@ -26,12 +26,19 @@ export function DegreeGantt({ t, bare }: { t?: number; bare?: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
   const clock = useAnimationClock(t, 4600, ref);
 
+  // Loop shape: staggered draw-in over the first ~third of the cycle (~1.5s),
+  // then hold fully drawn until a brief fade at 0.9–0.97. The wrap back to 0
+  // lands while everything is faded out, so the redraw never wipes a lane
+  // that is still visible. The reduced-motion still (clock = 0.62) sits in
+  // the hold, i.e. fully drawn and static.
+  const fade = 1 - segment(clock, 0.9, 0.97);
+
   return (
     <div ref={ref}>
       <VizFrame
         bare={bare}
         title="Concurrent, not sequential"
-        caption="The two bachelor's degrees run at the same time under a dual-degree program — Michigan coursework and lab work stacked on top of an SJTU degree that had not finished yet."
+        caption="The two bachelor's degrees ran at the same time under a dual-degree program — Michigan coursework and lab work stacked on top of an SJTU degree that had not finished yet."
       >
         <svg viewBox="0 0 560 236" className="w-full" role="img" aria-label="Timeline of degrees and roles">
           {[2023, 2024, 2025, 2026, 2027].map((y) => (
@@ -44,7 +51,7 @@ export function DegreeGantt({ t, bare }: { t?: number; bare?: boolean }) {
           ))}
 
           {LANES.map((l, i) => {
-            const grow = segment(clock, 0.05 + i * 0.09, 0.5 + i * 0.09);
+            const grow = segment(clock, 0.02 + i * 0.04, 0.17 + i * 0.04);
             const w = (x(l.to) - x(l.from)) * grow;
             const y = 38 + i * 30;
             return (
@@ -55,20 +62,20 @@ export function DegreeGantt({ t, bare }: { t?: number; bare?: boolean }) {
                 <text x={0} y={y + 17} fill={VIZ.faint} fontSize={9} fontFamily="var(--font-mono)">
                   {l.note}
                 </text>
-                <rect x={x(l.from)} y={y - 6} width={w} height={13} rx={6.5} fill={l.color} fillOpacity={0.75} />
+                <rect x={x(l.from)} y={y - 6} width={w} height={13} rx={6.5} fill={l.color} fillOpacity={0.75 * fade} />
               </g>
             );
           })}
 
-          <line x1={x(TODAY)} y1={26} x2={x(TODAY)} y2={196} stroke={VIZ.rose} strokeWidth={1.4} opacity={segment(clock, 0.55, 0.75)} />
+          <line x1={x(TODAY)} y1={26} x2={x(TODAY)} y2={196} stroke={VIZ.primary} strokeWidth={1.4} opacity={segment(clock, 0.35, 0.5) * fade} />
           <text
             x={x(TODAY)}
             y={210}
             textAnchor="middle"
-            fill={VIZ.rose}
+            fill={VIZ.primary}
             fontSize={10}
             fontFamily="var(--font-mono)"
-            opacity={segment(clock, 0.55, 0.75)}
+            opacity={segment(clock, 0.35, 0.5) * fade}
           >
             Aug 2026
           </text>

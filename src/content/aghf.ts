@@ -76,10 +76,10 @@ export const aghf: Entry = {
       heading: 'Contributions',
       body: '',
       bullets: [
-        'Engineered optimized C++ modules for analytical Jacobian computation inside the PDE-based trajectory optimization framework, cutting solver execution time by 40% on average.',
+        'Wrote the C++ modules that compute the analytical Jacobians inside the PDE trajectory-optimization framework; they cut solver execution time by 40% on average.',
         'Derived a time-scaling factor formulation and Lagrangian interpolation constraints to reparameterize the PDE evolution, letting the solver generalize across variable time horizons and strictly enforce state limits.',
         'Verified and extended the method with endpoint constraints for real-world feasibility, then transferred simulation results to hardware with reliable trajectory tracking and obstacle avoidance.',
-        'Co-authored a peer-reviewed paper demonstrating the effectiveness and generality of the approach (IROS 2026).',
+        'Co-authored the peer-reviewed paper on the method (IROS 2026).',
       ],
     },
     { id: 'sim-hardware', heading: 'Sim → hardware', body: '' },
@@ -91,7 +91,7 @@ export const aghf: Entry = {
     },
   ],
   caveats: [
-    'The animation on this page is an illustrative curve-shortening relaxation with obstacle repulsion, computed in the browser. It is a faithful cartoon of what the solver does, not solver output, and it is labelled that way rather than passed off as a result.',
+    'The animation on this page is an illustrative curve-shortening relaxation with obstacle repulsion, computed in the browser. It is a faithful cartoon of what the solver does, not solver output, and it is labelled that way.',
     "The 40% figure is an average execution-time reduction from the analytical Jacobian modules measured on the lab's benchmark set, not a claim about the method as a whole.",
   ],
   docs: [

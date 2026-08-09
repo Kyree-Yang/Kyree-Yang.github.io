@@ -48,9 +48,18 @@ function ColumnHeading({ children }: { children: React.ReactNode }) {
   );
 }
 
+function TitleBlockCell({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex min-w-0 flex-col gap-0.5 border-l border-line px-3 py-2 first:border-l-0">
+      <span className="font-mono text-[9px] tracking-[0.14em] text-faint uppercase">{label}</span>
+      <span className="truncate font-mono text-[11px] text-muted">{value}</span>
+    </div>
+  );
+}
+
 export function SiteFooter() {
   return (
-    <footer className="mt-auto border-t border-line bg-bg-subtle">
+    <footer className="seam-top mt-auto bg-surface-2">
       <div className="mx-auto w-full max-w-6xl px-5 py-14 sm:px-8">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-2">
@@ -109,10 +118,21 @@ export function SiteFooter() {
           </nav>
         </div>
 
-        <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-line pt-6">
-          <p className="font-mono text-[11px] tracking-[0.14em] text-faint uppercase">
-            built {__BUILD_DATE__} · {__BUILD_SHA__}
-          </p>
+        {/* Drawing-set title block: the colophon as record-keeping. */}
+        <div className="mt-12 flex flex-wrap items-end justify-between gap-4">
+          <div className="cut-card cut-sm max-w-full">
+            <div className="cut-inner flex flex-wrap p-0">
+              <TitleBlockCell label="drawn by" value="RY" />
+              <TitleBlockCell label="rev" value={__BUILD_DATE__} />
+              <TitleBlockCell label="sha" value={__BUILD_SHA__} />
+              <TitleBlockCell label="typefaces" value="Besley · JetBrains Mono" />
+              <div className="hidden flex-col justify-center border-l border-line px-3 py-2 sm:flex">
+                <span className="font-mono text-[9px] tracking-[0.14em] text-faint uppercase">
+                  do not scale drawing — verify denominators
+                </span>
+              </div>
+            </div>
+          </div>
           <ThemeToggle />
         </div>
       </div>

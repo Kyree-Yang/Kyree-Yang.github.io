@@ -1,8 +1,9 @@
 import { Tag } from './primitives';
 
 /**
- * Entry header. The caveat one-liner is part of the masthead, not a footnote:
- * the reader meets the honest limitation before the metrics, not after them.
+ * Entry header — one grid, fixed 12px rhythm, deployed identically on all five
+ * work pages. The caveat one-liner is promoted to a formal epigraph: the reader
+ * meets the honest limitation before the metrics, not after them.
  */
 export function EntryMasthead({
   eyebrow,
@@ -22,14 +23,14 @@ export function EntryMasthead({
   caveatTeaser: string;
 }) {
   return (
-    <header>
-      <div className="font-mono text-[11px] tracking-[0.14em] text-primary uppercase">{eyebrow}</div>
+    <header className="seam-top pt-6">
+      <div className="eyebrow">{eyebrow}</div>
 
-      <h1 className="mt-3 text-[30px] leading-[1.12] font-semibold tracking-[-0.025em] sm:text-4xl">
+      <h1 className="mt-3 text-[2rem] leading-[1.1] font-extrabold tracking-[-0.015em] text-balance sm:text-[2.5rem] lg:text-[3rem]">
         {title}
       </h1>
 
-      <p className="mt-4 max-w-[60ch] text-[17px] leading-[1.75] text-muted">{tagline}</p>
+      <p className="mt-4 max-w-[60ch] text-lg leading-[1.6] text-muted">{tagline}</p>
 
       <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[13px] text-faint">
         <span>{dates}</span>
@@ -38,14 +39,14 @@ export function EntryMasthead({
       </div>
 
       {stack.length > 0 && (
-        <div className="mt-4 flex flex-wrap gap-2">
+        <div className="mt-5 flex flex-wrap gap-2">
           {stack.map((s) => (
             <Tag key={s}>{s}</Tag>
           ))}
         </div>
       )}
 
-      <p className="mt-6 max-w-[68ch] border-l-2 border-l-amber pl-4 text-[15px] leading-relaxed text-muted italic">
+      <p className="mt-6 max-w-[68ch] border-l-2 border-l-primary pl-4 text-[15.5px] leading-relaxed text-muted italic">
         {caveatTeaser}
       </p>
     </header>

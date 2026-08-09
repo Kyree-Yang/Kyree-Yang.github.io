@@ -44,8 +44,16 @@ export const contactLinks: { label: string; href: string; note?: string }[] = [
 export const hero = {
   eyebrow: 'ENGINEERING RUNBOOK',
   title: identity.display,
-  lead: 'I build systems that have to keep working when nobody is watching — LLM-agent infrastructure, distributed backends, and PDE solvers for robot motion. Every number on this site carries its denominator, and the failures sit on the same page as the wins.',
-  avatar: { src: '/media/Ruikai.jpg', webp: '/media/Ruikai.webp', alt: 'Ruikai Yang' },
+  lead: 'I build LLM-agent pipelines, distributed backends, and PDE solvers for robot motion. Most of it has to run overnight with nobody watching, which is why this site reads like a runbook: what each system actually did, and what never worked.',
+  consoleLead:
+    'Three of the systems below, drawn live from one shared clock. Scrub them, flip them, throttle them — they are the same state machines the pages describe.',
+  portrait: {
+    avif: '/media/portrait-hero.avif',
+    webp: '/media/portrait-hero.webp',
+    src: '/media/portrait-hero.jpg',
+    alt: 'Ruikai Yang in a graduation gown at the University of Michigan Law Quadrangle.',
+    caption: 'fig. 01 · law quadrangle, ann arbor · commencement 2026',
+  },
 } as const;
 
 export const heroChips: { label: string; tone: Tone }[] = [
@@ -161,7 +169,7 @@ export const experience: Experience = {
       id: 'design-lab',
       title: 'Design Lab',
       summary:
-        'Built a design-to-code delivery workflow so designers ship real iOS and Android UI code instead of mockups: a 12-node agent DAG whose seven heaviest stages run in isolated subagents, with lifecycle hooks registering every node and per-node on-stop gates that block the agent until the artifacts it claims to have produced actually exist. Localization, RTL correctness and weak-network behaviour are separate nodes, each with a deterministic checker rather than a model opinion.',
+        'Built a design-to-code delivery workflow so designers ship real iOS and Android UI code instead of mockups: a 12-node agent DAG whose seven heaviest stages run in isolated subagents, with lifecycle hooks registering every node and per-node on-stop gates that block the agent until the artifacts it claims to have produced actually exist. Localization, RTL correctness and weak-network behavior are separate nodes, each with a deterministic checker rather than a model opinion.',
       metric: '12-node DAG · 11 locales · 326 strings · 300 s → 5.1 s translation wait',
       to: '/work/design-lab',
       highlights: [
@@ -206,7 +214,7 @@ export const research: Research = {
   summary:
     'AGHF — Affine Geometric Heat Flow — is a path optimization method that evolves trajectories toward optimal solutions by applying affine-invariant geometric heat flow equations. I worked on the solver internals and on taking the method from simulation to real hardware.',
   bullets: [
-    'Engineered optimized C++ modules for analytical Jacobian computation inside the PDE-based trajectory optimization framework, cutting solver execution time by 40% on average.',
+    'Wrote the C++ modules that compute the analytical Jacobians inside the PDE trajectory-optimization framework; they cut solver execution time by 40% on average.',
     'Derived a time-scaling factor formulation and Lagrangian interpolation constraints to reparameterize the PDE evolution, letting the solver generalize across variable time horizons and strictly enforce state limits.',
     'Verified and extended the method with endpoint constraints for real-world feasibility, then transferred simulation results to hardware with reliable trajectory tracking and obstacle avoidance.',
   ],

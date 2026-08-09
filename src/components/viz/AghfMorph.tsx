@@ -86,7 +86,7 @@ export function AghfMorph({ t, bare }: { t?: number; bare?: boolean }) {
       <VizFrame
         bare={bare}
         title="Trajectory relaxing under geometric heat flow"
-        caption="Affine Geometric Heat Flow evolves a poor initial trajectory toward an optimal one by running a PDE forward in a virtual time. My contribution was the analytical Jacobian modules inside that solver — 40% off average execution time — plus a time-scaling and Lagrangian-interpolation reparameterization so one solve generalizes across time horizons while strictly enforcing state limits. The curve below is an illustrative relaxation computed in the browser, not the lab's solver output."
+        caption="Affine Geometric Heat Flow evolves a poor initial trajectory toward an optimal one by running a PDE forward in a virtual time. My contribution was the analytical Jacobian modules inside that solver — 40% off average execution time — plus a time-scaling and Lagrangian-interpolation reparameterization so one solve generalizes across time horizons while strictly enforcing state limits. The curve above is an illustrative relaxation computed in the browser, not the lab's solver output."
       >
         <svg viewBox="0 0 560 250" className="w-full" role="img" aria-label="Trajectory optimization under AGHF">
           {/* ghost trail of earlier iterations */}
@@ -129,8 +129,10 @@ export function AghfMorph({ t, bare }: { t?: number; bare?: boolean }) {
             <text x={0} y={74} fill={VIZ.primary} fontSize={16} fontWeight={600} className="tnum">
               {(ck / c0).toFixed(3)}
             </text>
+            {/* Keep this line short: the group starts at x=420 and the
+                viewBox ends at 560, so anything wider than ~135 units clips. */}
             <text x={0} y={90} fill={VIZ.faint} fontSize={9.5}>
-              relative to the initial guess
+              vs. initial guess
             </text>
 
             <rect x={0} y={104} width={104} height={6} rx={3} fill={VIZ.surface} />

@@ -48,7 +48,7 @@ export const architectureNodes: Record<string, NodeDetail> = {
       'Ten shipped human decisions live here — start, interrupt, cancel, verified-pass, verified-fail with screenshots and logs attached, needs-human, ignore, restore, delete, mark merged.',
       'Both the board and the job-detail view stop polling when the tab is hidden and refresh once immediately on return, rather than running a timer against a page nobody is looking at.',
       'The browser\'s built-in page translation used to take the whole app down: it wraps text nodes in extra elements outside React\'s knowledge, so the next reconciliation pass throws on insertBefore/removeChild and the top-level error boundary degrades the entire page.',
-      'The fix is 75 lines installed on the DOM prototype two lines before React mounts, with an idempotent install flag; it downgrades only the path that was already going to throw into a no-op and leaves normal behaviour untouched.',
+      'The fix is 75 lines installed on the DOM prototype two lines before React mounts, with an idempotent install flag; it downgrades only the path that was already going to throw into a no-op and leaves normal behavior untouched.',
     ],
     tension:
       'Users reported that translation crash as "clicking Start returns an error" when the row had in fact been written successfully — a pure render failure that looked exactly like a backend failure.',

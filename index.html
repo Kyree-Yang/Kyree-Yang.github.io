@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="dark">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,8 +9,10 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#faf6ee" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#16120d" media="(prefers-color-scheme: dark)" />
 
-    <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-var.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/besley-var.woff2" crossorigin />
     <link
       rel="preload"
       as="font"
@@ -19,21 +21,25 @@
       crossorigin
     />
 
-    <title>Ruikai Yang — systems that run unattended</title>
+    <title>Ruikai Yang — engineering runbook</title>
     <meta
       name="description"
-      content="Ruikai Yang — LLM-agent infrastructure, distributed backends, and PDE solvers for robot motion. Every number carries its denominator."
+      content="Ruikai Yang builds LLM-agent infrastructure, distributed backends, and PDE solvers for robot motion. This site is the runbook: what each system does, what it cost, and what broke."
     />
     <meta name="author" content="Ruikai Yang" />
     <link rel="canonical" href="https://kyree-yang.github.io/" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Ruikai Yang — systems that run unattended" />
+    <meta property="og:title" content="Ruikai Yang — engineering runbook" />
     <meta
       property="og:description"
       content="LLM-agent infrastructure, distributed backends, and PDE solvers for robot motion."
     />
     <meta property="og:url" content="https://kyree-yang.github.io/" />
+    <meta property="og:image" content="https://kyree-yang.github.io/og/og-default.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://kyree-yang.github.io/og/og-default.png" />
 
     <script type="application/ld+json">
       {
@@ -47,8 +53,10 @@
           "https://www.linkedin.com/in/ruikai-yang-17a940344",
           "https://scholar.google.com/citations?user=fXi8G90AAAAJ"
         ],
+        "affiliation": [
+          { "@type": "CollegeOrUniversity", "name": "Georgia Institute of Technology" }
+        ],
         "alumniOf": [
-          { "@type": "CollegeOrUniversity", "name": "Georgia Institute of Technology" },
           { "@type": "CollegeOrUniversity", "name": "University of Michigan" },
           { "@type": "CollegeOrUniversity", "name": "Shanghai Jiao Tong University" }
         ]

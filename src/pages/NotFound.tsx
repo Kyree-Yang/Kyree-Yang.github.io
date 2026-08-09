@@ -22,18 +22,28 @@ export default function NotFound() {
       <Section>
         <Container>
           <Reveal>
-            <div className="font-mono text-[11px] tracking-[0.14em] text-faint uppercase">
-              http 404
+            {/* An errata sheet whose gold seam runs off the edge: the one
+                trajectory on this site that never lands. */}
+            <div className="relative max-w-xl">
+              <div className="cut-card cut-lg">
+                <div className="cut-inner p-6 sm:p-8">
+                  <div className="eyebrow">http 404 · errata</div>
+                  <h1 className="mt-3 text-3xl font-extrabold tracking-[-0.015em] sm:text-4xl">
+                    {notFound.title}
+                  </h1>
+                  <Prose size="lead" className="mt-4">
+                    <p>{notFound.body}</p>
+                  </Prose>
+                  <p className="plate mt-5 inline-block max-w-full">
+                    requested <code className="break-all text-muted">{pathname}</code>
+                  </p>
+                </div>
+              </div>
+              <span
+                aria-hidden
+                className="absolute top-[-1px] left-[calc(100%-22px)] h-[2px] w-[64px] origin-left rotate-45 bg-gold"
+              />
             </div>
-            <h1 className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">
-              {notFound.title}
-            </h1>
-            <Prose size="lead" className="mt-4">
-              <p>{notFound.body}</p>
-            </Prose>
-            <p className="mt-5 font-mono text-[12px] text-faint">
-              requested <code className="break-all text-muted">{pathname}</code>
-            </p>
           </Reveal>
 
           <Reveal delay={80}>

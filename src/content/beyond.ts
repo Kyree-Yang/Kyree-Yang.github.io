@@ -41,7 +41,7 @@ export type Activity = {
 
 export const beyondHeader = {
   title: 'Beyond the lab',
-  lead: 'Three medals and two field projects. The most striking photographs on this site are here, and none of them are of a screen.',
+  lead: 'Three medals and two field projects. This is the part of the record that happened outdoors.',
 };
 
 export const competitions: Competition[] = [
@@ -52,7 +52,7 @@ export const competitions: Competition[] = [
     award: 'Outstanding Winner (top <1%)',
     date: 'February 2024',
     badge: 'MCM Highest Prize',
-    body: 'Our team was awarded the Outstanding Winner Prize for analyzing momentum shifts in tennis using 2023 Wimbledon match data. The topic is really fascinating for me, since I myself am a tennis lover. I contributed to the use of Exponential Weighted Moving Average (EWMA) to define and detect momentum swings.',
+    body: 'Our team was awarded the Outstanding Winner Prize for analyzing momentum shifts in tennis using 2023 Wimbledon match data. I am a tennis fan, so the problem was a good draw. My contribution was using an Exponential Weighted Moving Average (EWMA) to define and detect momentum swings.',
     photo: {
       src: '/media/Oprize.jpg',
       webp: '/media/Oprize.webp',
@@ -73,7 +73,7 @@ export const competitions: Competition[] = [
     award: 'First Prize',
     date: 'February – April 2024',
     badge: 'CUYMC First Prize',
-    body: "I designed a digital virtual human to make our intelligent elderly care project more approachable and user-friendly for seniors. By integrating large language models (LLMs) into the Unreal Engine 5 (UE5) platform, I enhanced the system's interactivity and responsiveness.",
+    body: "I designed a digital virtual human to make our intelligent elderly care project approachable for seniors. I built the avatar's conversational layer by connecting an LLM backend to Unreal Engine 5, so the digital human could respond to seniors in real time.",
     links: [
       { label: 'Contest', href: 'https://www.chinausyoungmaker.org/' },
       { label: 'Story', href: 'https://www.ji.sjtu.edu.cn/off-the-press/2024-07-22/146816/' },
@@ -87,12 +87,12 @@ export const competitions: Competition[] = [
     award: 'Bronze Medal',
     date: 'November 2023',
     badge: 'UPC Bronze Medal',
-    body: 'We studied complex dynamic systems, including the problem of multiple people bouncing on an elastic trampoline. In this competition, I worked on simulation-based prediction problems for the first time, leveraging my interdisciplinary background in both mechanical engineering and computer science.',
+    body: 'We studied complex dynamic systems, including the problem of multiple people bouncing on an elastic trampoline. It was the first time I had built simulation-based predictions, and the trampoline problem needed both halves of my coursework: the mechanics and the code.',
     photo: {
       src: '/media/2023UPC.jpg',
       webp: '/media/2023UPC.webp',
       alt: 'University Physics Competition 2023 Bronze Medal recognition.',
-      caption: 'University Physics Competition 2023 · Bronze Medal.',
+      caption: 'University Physics Competition 2023.',
       badge: 'UPC Bronze Medal',
     },
     links: [{ label: 'Contest', href: 'https://uphysicsc.com/' }],
@@ -115,7 +115,7 @@ export const activities: Activity[] = [
     place: 'Gansu, China',
     date: 'April – May 2024',
     badge: 'Desertification Control in Tengger',
-    body: 'Together with more than 40 fellow students from the Green Grid Club at Shanghai Jiao Tong University, we ventured deep into the Tengger Desert in early summer to participate in a social practice project focused on sand prevention and desertification control. Through our joint efforts, our team planted a total of 1,000 bundles—nearly 80,000 saplings—of cold-resistant Haloxylon ammodendron, hoping to contribute a patch of green to the ecologically fragile Minqin area.',
+    body: "About forty of us from SJTU's Green Grid Club went into the Tengger Desert for a sand-control project on the Minqin edge, one of the most ecologically fragile stretches of the desert's rim. We planted 1,000 bundles of cold-resistant Haloxylon ammodendron — close to 80,000 saplings, which is how you hold a dune still.",
     photo: {
       src: '/media/green_grid.jpg',
       webp: '/media/green_grid.webp',
@@ -136,7 +136,7 @@ export const activities: Activity[] = [
     place: 'Yunnan Province, China',
     date: 'January – February 2023',
     badge: 'Conducting a Physics Experiment in Eryuan',
-    body: "Together with more than twenty other members of the Miyuan Youth Volunteer Team, I traveled to Eryuan in Yunnan Province, where we spent an unforgettable time with local middle school students from several schools. I was responsible for tutoring the children in mathematics, science, and English. Unexpectedly, living, eating, and sharing daily life with the students taught me even more than I was able to teach them, allowing me to grow in ways I hadn't anticipated.",
+    body: 'I went to Eryuan County in Yunnan over winter break with about twenty members of the Miyuan Youth Volunteer Team, tutoring local middle-school students in math, science, and English. We lived and ate at the school with them; the photo is a physics experiment we set up together.',
     photo: {
       src: '/media/eryuan.jpg',
       webp: '/media/eryuan.webp',
@@ -155,7 +155,7 @@ export const activities: Activity[] = [
   },
 ];
 
-/** Closing grid: the recognition photographs, none of them of a screen. */
+/** Closing grid: the recognition photographs. */
 export const beyondGallery: BeyondPhoto[] = [
   {
     src: '/media/Oprize.jpg',

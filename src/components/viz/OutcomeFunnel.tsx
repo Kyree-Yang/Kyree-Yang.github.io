@@ -9,7 +9,7 @@ const STAGES = [
   { label: 'merge requests opened', n: 66, color: VIZ.cyan },
   { label: 'green CI pipelines', n: 56, color: VIZ.emerald },
   { label: 'reached the strip commit', n: 30, color: VIZ.amber },
-  { label: 'merged to trunk', n: 2, color: VIZ.rose },
+  { label: 'merged to trunk', n: 2, color: VIZ.emerald },
 ];
 
 const W = 300;
@@ -60,7 +60,7 @@ export function OutcomeFunnel({ t, bare }: { t?: number; bare?: boolean }) {
             );
           })}
 
-          <text x={352} y={TOP + STAGES.length * ROW + 6} fill={VIZ.rose} fontSize={11} fontFamily="var(--font-mono)" opacity={segment(clock, 0.7, 0.85)}>
+          <text x={352} y={TOP + STAGES.length * ROW + 6} fill={VIZ.amber} fontSize={11} fontFamily="var(--font-mono)" opacity={segment(clock, 0.7, 0.85)}>
             2 / 66 · the last mile stayed human
           </text>
         </svg>

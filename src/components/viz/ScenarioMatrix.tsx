@@ -122,7 +122,7 @@ export function ScenarioMatrix({ t, bare }: { t?: number; bare?: boolean }) {
       <VizFrame
         bare={bare}
         title="Loading-form selection matrix"
-        caption="Every scenario gets one form and one failure behaviour, decided once in the matrix instead of per screen. The rule that a failure only offers retry where retry can restore intent is what keeps refreshes from stranding a half-drawn view."
+        caption="Every scenario gets one form and one failure behavior, decided once in the matrix instead of per screen. The rule that a failure only offers retry where retry can restore intent is what keeps refreshes from stranding a half-drawn view."
       >
         <svg viewBox="0 0 560 348" className="w-full" role="img" aria-label="Eight loading scenarios mapped onto six loading forms">
           <g fontSize={10} fontFamily="var(--font-mono)">

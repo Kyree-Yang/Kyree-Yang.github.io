@@ -86,9 +86,12 @@ export function ShardFanout({ t, bare }: { t?: number; bare?: boolean }) {
               ['HTML crawled', '240 GB'],
               ['crawler threads', '7,500'],
               ['index on disk', '500 GB'],
-              ['index footprint', '−50% via UTF-8 + varint'],
+              // Long values get a faint sub-line: the row is only 230 units
+              // wide, so a value this long end-anchored at x=230 would run
+              // back over its own label.
+              ['index footprint', '−50%', 'via UTF-8 + varint'],
               ['query latency', '300 – 2,000 ms'],
-            ].map(([k, v], i) => (
+            ].map(([k, v, sub], i) => (
               <g key={k}>
                 <text x={0} y={i * 26} fill={VIZ.muted} fontSize={11}>
                   {k}
@@ -96,6 +99,11 @@ export function ShardFanout({ t, bare }: { t?: number; bare?: boolean }) {
                 <text x={230} y={i * 26} textAnchor="end" fill={VIZ.fg} fontSize={11.5} fontWeight={600}>
                   {v}
                 </text>
+                {sub && (
+                  <text x={230} y={i * 26 + 12} textAnchor="end" fill={VIZ.faint} fontSize={9.5}>
+                    {sub}
+                  </text>
+                )}
               </g>
             ))}
           </g>

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Download } from 'lucide-react';
 
 import { Seo } from '@/components/shell/Seo';
-import { Container, Section, SectionHeading } from '@/components/ui/primitives';
+import { Container, Section, SectionHeading, StatValue } from '@/components/ui/primitives';
 import { FilterChips } from '@/components/ui/FilterChips';
 import { LazyViz } from '@/components/ui/LazyViz';
 import { Prose } from '@/components/ui/Prose';
@@ -58,8 +58,8 @@ function EntryRow({ row }: { row: WorkRow }) {
   const viz = ROW_VIZ[row.viz];
 
   return (
-    <article className="card overflow-hidden">
-      <div className="grid lg:grid-cols-[1.1fr_1fr]">
+    <article className="cut-card">
+      <div className="cut-inner grid p-0 lg:grid-cols-[1.1fr_1fr]">
         <Link to={`/work/${row.slug}`} className="elevate group flex flex-col p-5 sm:p-6">
           <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 font-mono text-[11px] tracking-[0.14em] text-faint uppercase">
             <span>{row.dates}</span>
@@ -84,8 +84,8 @@ function EntryRow({ row }: { row: WorkRow }) {
                 key={m.label}
                 className="rounded-[var(--radius-sm)] border bg-surface-2/50 px-2.5 py-1.5"
               >
-                <div className="tnum font-mono text-[13px] font-semibold text-primary">
-                  {m.value}
+                <div className="tnum font-mono text-[13px] font-semibold">
+                  <StatValue value={m.value} />
                 </div>
                 <div className="mt-0.5 text-[11px] leading-snug text-faint">{m.label}</div>
               </div>
@@ -93,7 +93,7 @@ function EntryRow({ row }: { row: WorkRow }) {
           </div>
 
           <div className="mt-auto border-t pt-5">
-            <div className="font-mono text-[10px] tracking-[0.14em] text-faint uppercase">
+            <div className="font-mono text-[10px] font-bold tracking-[0.14em] text-amber uppercase">
               what broke
             </div>
             <p className="mt-1.5 text-[13px] leading-relaxed text-muted italic">{row.teaser}</p>

@@ -140,6 +140,7 @@ function CompetitionBlock({ item }: { item: Competition }) {
           alt={item.photo.alt}
           caption={item.photo.caption}
           badge={item.photo.badge}
+          fig={false}
         />
       )}
     </article>
@@ -151,55 +152,52 @@ function StatPhoto({ activity }: { activity: Activity }) {
   const { photo, stats } = activity;
 
   return (
-    <figure className="card overflow-hidden">
-      <div className="relative bg-bg-subtle" style={{ aspectRatio: '3 / 2' }}>
-        <picture>
-          <source srcSet={photo.webp} type="image/webp" />
-          <img
-            src={photo.src}
-            alt={photo.alt}
-            width={1200}
-            height={800}
-            loading="lazy"
-            decoding="async"
-            className="size-full object-cover"
-          />
-        </picture>
+    <figure className="cut-card">
+      <div className="cut-inner p-0">
+        <div className="relative overflow-hidden bg-bg-subtle" style={{ aspectRatio: '3 / 2' }}>
+          <picture>
+            <source srcSet={photo.webp} type="image/webp" />
+            <img
+              src={photo.src}
+              alt={photo.alt}
+              width={1200}
+              height={800}
+              loading="lazy"
+              decoding="async"
+              className="duotone size-full object-cover"
+            />
+          </picture>
 
-        {photo.badge && (
-          <Tag tone="amber" className="absolute top-3 left-3 bg-surface/90">
-            {photo.badge}
-          </Tag>
-        )}
-
-        {stats && (
-          <div className="absolute inset-x-0 bottom-0 grid grid-cols-3 gap-px border-t border-line-strong bg-line-strong">
-            {stats.map((stat) => (
-              <div key={stat.label} className="bg-surface/95 px-2 py-2.5 text-center sm:px-3">
-                <div
-                  className={cn(
-                    'tnum text-[17px] font-semibold tracking-tight sm:text-xl',
-                    STAT_TONE[stat.tone ?? 'primary'],
-                  )}
-                >
-                  {stat.prefix}
-                  {typeof stat.value === 'number' ? (
-                    <CountUp value={stat.value} decimals={stat.decimals} />
-                  ) : (
-                    stat.value
-                  )}
-                  {stat.suffix}
+          {stats && (
+            <div className="absolute inset-x-0 bottom-0 grid grid-cols-3 gap-px border-t border-line-strong bg-line-strong">
+              {stats.map((stat) => (
+                <div key={stat.label} className="bg-surface/95 px-2 py-2.5 text-center sm:px-3">
+                  <div
+                    className={cn(
+                      'tnum text-[17px] font-semibold tracking-tight sm:text-xl',
+                      STAT_TONE[stat.tone ?? 'primary'],
+                    )}
+                  >
+                    {stat.prefix}
+                    {typeof stat.value === 'number' ? (
+                      <CountUp value={stat.value} decimals={stat.decimals} />
+                    ) : (
+                      stat.value
+                    )}
+                    {stat.suffix}
+                  </div>
+                  <div className="mt-0.5 text-[11px] leading-tight text-muted">{stat.label}</div>
                 </div>
-                <div className="mt-0.5 text-[11px] leading-tight text-muted">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+              ))}
+            </div>
+          )}
+        </div>
 
-      <figcaption className="border-t px-4 py-2.5 text-[13px] leading-relaxed text-muted">
-        {photo.caption}
-      </figcaption>
+        <figcaption className="border-t bg-surface-2/60 px-3 py-2 font-mono text-[12px] leading-relaxed tracking-[0.02em] text-faint">
+          {photo.badge && <span className="mr-1.5 text-amber">{photo.badge} ·</span>}
+          {photo.caption}
+        </figcaption>
+      </div>
     </figure>
   );
 }

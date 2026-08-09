@@ -41,8 +41,10 @@ export function useRovingFocus(count: number, index: number, onSelect: (i: numbe
   return { refs, onKeyDown };
 }
 
-const CHIP_BASE =
-  'rounded-[var(--radius-pill)] border px-3 py-1.5 font-mono text-[11px] tracking-[0.14em] uppercase transition-colors';
+/* Chamfered plate, not a pill; the active filter is an ink stamp (fg/bg swap).
+   The clip lives on an inner span so the button keeps its focus ring. */
+const CHIP_INNER =
+  'inline-flex border px-3 py-1.5 transition-colors [clip-path:polygon(0_0,calc(100%-7px)_0,100%_7px,100%_100%,0_100%)]';
 
 export function FilterChips<T extends string>({
   options,
@@ -76,13 +78,17 @@ export function FilterChips<T extends string>({
             }}
             onKeyDown={onKeyDown}
             onClick={() => onChange(chip.id)}
-            className={cn(
-              CHIP_BASE,
-              'elevate',
-              on ? 'border-primary/40 bg-primary/10 text-primary' : 'text-muted',
-            )}
+            className="font-mono text-[11px] tracking-[0.14em] uppercase"
           >
-            {chip.label}
+            <span
+              className={cn(
+                CHIP_INNER,
+                'elevate',
+                on ? 'border-fg bg-fg font-bold text-bg' : 'bg-surface text-muted',
+              )}
+            >
+              {chip.label}
+            </span>
           </button>
         );
       })}

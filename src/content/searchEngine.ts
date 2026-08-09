@@ -95,7 +95,7 @@ export const searchEngine: Entry = {
     {
       id: 'architecture',
       heading: 'Architecture',
-      body: "Twelve Linux nodes — a mix of cloud VMs and local machines — crawl, index, and serve. Multi-threaded crawlers with crash recovery sustain throughput across 240 GB of HTML; the inverted index is hash-partitioned and sharded across servers; a central aggregator merges and re-ranks partial results from every shard. The slowest returning shard is the whole query's latency, which is why the profiling work targeted the aggregator path rather than the average.",
+      body: "Twelve Linux nodes — a mix of cloud VMs and local machines — crawl, index, and serve. Multi-threaded crawlers with crash recovery sustain throughput across 240 GB of HTML; the inverted index is hash-partitioned and sharded across servers; a central aggregator merges and re-ranks partial results from every shard. The slowest returning shard is the whole query's latency, which is why the profiling work targeted the aggregator path.",
       viz: ['ShardFanout'],
     },
     {
@@ -111,7 +111,7 @@ export const searchEngine: Entry = {
     { id: 'artifacts', heading: 'Artifacts', body: '' },
   ],
   caveats: [
-    'This was a six-person course project. The crawler, indexer, and query service were team-owned; my scope was the ranker and the aggregator profiling, and the KPIs above describe the system we built together, not work I did alone.',
+    'This was a six-person course project. The crawler, indexer, and query service were team-owned; my scope was the ranker and the aggregator profiling, and the KPIs above describe the system the whole team built.',
     "The figures are from the final report's measurement run on our own cluster, not a sustained production deployment.",
   ],
   docs: ['crawler-crew-slides', 'crawler-crew-report'],

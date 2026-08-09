@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { FileText, Menu, X } from 'lucide-react';
 
+import { routeDirectory } from '@/content/site';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from './ThemeToggle';
 
@@ -15,12 +16,13 @@ const RESUME = '/docs/ruikai-yang-resume.pdf';
 
 const linkClass = (isActive: boolean) =>
   cn(
-    'rounded-[var(--radius-sm)] px-3 py-1.5 text-[13px] font-medium transition-colors',
-    isActive ? 'bg-primary/10 text-primary' : 'text-muted hover:text-fg',
+    'nav-link rounded-[var(--radius-sm)] px-3 py-1.5 text-[13px] font-medium transition-colors',
+    isActive ? 'nav-active text-primary' : 'text-muted hover:text-fg',
   );
 
 export function SiteHeader() {
   const [hidden, setHidden] = useState(false);
+  const [past, setPast] = useState(false);
   const [open, setOpen] = useState(false);
   const { pathname } = useLocation();
   const lastY = useRef(0);
@@ -35,6 +37,7 @@ export function SiteHeader() {
       frame = requestAnimationFrame(() => {
         frame = 0;
         const y = window.scrollY;
+        setPast(y > 360);
         const dy = y - lastY.current;
         // Ignore sub-pixel jitter and iOS rubber-banding, otherwise the header flickers.
         if (Math.abs(dy) < 6) return;
@@ -48,6 +51,15 @@ export function SiteHeader() {
       cancelAnimationFrame(frame);
     };
   }, []);
+
+  // Running head: once the entry masthead has scrolled away, the sticky bar
+  // says where you are. Work entries only — elsewhere the nav is enough.
+  // Deep links may arrive with a trailing slash (route shells serve directories).
+  const normalizedPath = pathname.replace(/\/+$/, '') || '/';
+  const runningHead =
+    past && normalizedPath.startsWith('/work/')
+      ? routeDirectory.find((r) => r.to === normalizedPath)?.label
+      : undefined;
 
   useEffect(() => {
     if (!open) return;
@@ -78,13 +90,13 @@ export function SiteHeader() {
           hidden && !open ? '-translate-y-full' : 'translate-y-0',
         )}
       >
-        <div className="mx-auto flex h-14 w-full max-w-6xl items-center gap-3 px-5 sm:px-8">
-          <Link
-            to="/"
-            aria-label="Ruikai Yang — home"
-            className="elevate inline-flex size-8 shrink-0 items-center justify-center rounded-[var(--radius-sm)] border border-line font-mono text-[12px] font-semibold tracking-[0.08em]"
-          >
-            RY
+        <div className="relative mx-auto flex h-[60px] w-full max-w-6xl items-center gap-3 px-5 sm:px-8">
+          <Link to="/" aria-label="Ruikai Yang — home" className="shrink-0">
+            <span className="cut-card cut-sm inline-flex">
+              <span className="cut-inner elevate inline-flex size-8 items-center justify-center px-0 py-0 font-serif text-[15px] font-extrabold text-primary">
+                RY
+              </span>
+            </span>
           </Link>
 
           <nav aria-label="Primary" className="hidden items-center gap-1 md:flex">
@@ -94,6 +106,15 @@ export function SiteHeader() {
               </NavLink>
             ))}
           </nav>
+
+          {runningHead && (
+            <span
+              aria-hidden
+              className="pointer-events-none absolute left-1/2 hidden max-w-[36ch] -translate-x-1/2 truncate font-mono text-[11px] tracking-[0.08em] text-faint uppercase lg:block"
+            >
+              Work — {runningHead}
+            </span>
+          )}
 
           <div className="ml-auto flex items-center gap-2">
             <a
@@ -123,7 +144,7 @@ export function SiteHeader() {
       {/* The sheet lives outside <header>: backdrop-blur and transform on the header
           make it a containing block, which would break fixed positioning here. */}
       {open && (
-        <div className="fixed inset-x-0 top-14 bottom-0 z-40 md:hidden">
+        <div className="fixed inset-x-0 top-[60px] bottom-0 z-40 md:hidden">
           <button
             type="button"
             tabIndex={-1}

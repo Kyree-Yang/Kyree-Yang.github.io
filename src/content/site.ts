@@ -5,9 +5,9 @@ import type { Entry } from './types';
 export const siteMeta = {
   name: 'Ruikai Yang',
   url: 'https://kyree-yang.github.io',
-  title: 'Ruikai Yang — systems that run unattended',
+  title: 'Ruikai Yang — engineering runbook',
   description:
-    'Engineering runbook of Ruikai Yang: LLM-agent infrastructure, distributed backends, and PDE-based motion planning. Every number carries its denominator.',
+    'Ruikai Yang builds LLM-agent infrastructure, distributed backends, and PDE-based motion planning. This site is the runbook: what each system actually did, how often, and what never worked.',
 } as const;
 
 export const navItems: { label: string; to: string }[] = [
@@ -23,7 +23,8 @@ export const routeDirectory: { to: string; label: string; description: string }[
   {
     to: '/work/autonomous-bug-fix',
     label: 'Autonomous Bug-Fix Pipeline',
-    description: 'Bug ticket to merge request, unattended — and where it stopped.',
+    description:
+      'An agent pipeline that takes a mobile bug ticket to a merge request without supervision. Most runs park at on-device verification.',
   },
   {
     to: '/work/design-lab',
@@ -49,13 +50,13 @@ export const routeDirectory: { to: string; label: string; description: string }[
   {
     to: '/beyond',
     label: 'Beyond the lab',
-    description: 'Three competition medals, a desert, and a county in Yunnan.',
+    description: 'Three competition medals and two field projects.',
   },
 ];
 
 export const workHeader = {
   title: 'Work',
-  lead: 'Five systems, newest first. Each entry runs problem → constraint → design → what broke → what shipped → what I would still fix. The numbers are the ones I can defend, not the ones that read best.',
+  lead: 'Five systems, newest first. Each entry runs problem → constraint → design → what broke → what shipped → what I would still fix. Where a metric had two possible denominators, each page uses the harsher one and says which it is.',
 } as const;
 
 export const workFilters: { id: Entry['category'] | 'all'; label: string }[] = [
@@ -104,7 +105,7 @@ export const workIndex: WorkRow[] = [
     slug: 'design-lab',
     title: 'Design Lab',
     tagline:
-      'Designers ship real dual-platform UI code, not mockups — a 12-node agent DAG with deterministic quality gates.',
+      'A 12-node agent DAG that lets designers hand engineers compiling iOS and Android code instead of a design file.',
     dates: 'May – Aug 2026',
     role: 'TikTok, Intelligent Creation',
     category: 'agent-infrastructure',
@@ -165,7 +166,7 @@ export const workIndex: WorkRow[] = [
       { value: '3', label: 'person team' },
       { value: '2', label: 'augmentation techniques' },
     ],
-    teaser: 'One-shot generation traded diversity for control; we measured both.',
+    teaser: 'One-shot generation traded diversity for control; we compared the two in side-by-side outputs rather than on a benchmark.',
     viz: 'PipelineDiagram',
   },
 ];
@@ -176,14 +177,14 @@ export const colophon: {
   assets: { label: string; value: string }[];
 } = {
   title: 'How this site is built',
-  body: 'React 19 + Vite + TypeScript, Tailwind v4 with CSS-first tokens, no chart library and no animation library. Every visualization is hand-written SVG driven by one shared clock and is a pure function of t, which is what lets the same component animate on the page, freeze under prefers-reduced-motion, and be captured frame-by-frame into a .gif. The previous site referenced 106 MB of images, six animated GIFs accounting for 83 MB of it; those are now video with a poster frame, and the photographs ship WebP with a JPEG fallback.',
+  body: 'React 19 + Vite + TypeScript, Tailwind v4 with CSS-first tokens, no chart library and no animation library. Every visualization is hand-written SVG driven by one shared clock and is a pure function of t, which is what lets the same component animate on the page, freeze under prefers-reduced-motion, and be captured frame-by-frame into a .gif. Type is self-hosted: Besley (a Clarendon revival, with a true italic) and JetBrains Mono, three woff2 files, 0.2 MB. The previous site referenced 106 MB of images, six animated GIFs accounting for 83 MB of it; those are now video with a poster frame, and the photographs ship WebP with a JPEG fallback.',
   // Measured after the final build, not targets.
   assets: [
-    { label: 'photos and video', value: '105.9 MB → 3.4 MB' },
+    { label: 'photos and video', value: '105.9 MB → 3.9 MB' },
     { label: 'animated GIFs used as video', value: '6 (83.3 MB) → 0' },
-    { label: 'documents, self-hosted', value: '90 MB → 7.1 MB' },
-    { label: 'exported visualization GIFs', value: '12 · 1.0 MB · none over 400 KB' },
-    { label: 'entry chunk', value: '37 KB · 11 KB gzipped' },
+    { label: 'documents, self-hosted', value: '90 MB → 6.2 MB' },
+    { label: 'exported visualization GIFs', value: '13 · 1.4 MB · none over 400 KB' },
+    { label: 'entry chunk', value: '43 KB · 13 KB gzipped' },
     { label: 'unreferenced originals', value: 'dropped, ~56 MB' },
   ],
 };
