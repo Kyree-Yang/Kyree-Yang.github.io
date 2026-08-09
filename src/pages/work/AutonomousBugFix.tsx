@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import { Seo } from '@/components/shell/Seo';
 import { CaveatList } from '@/components/ui/CaveatList';
 import { EntryMasthead } from '@/components/ui/EntryMasthead';
+import { FullBleed } from '@/components/ui/FullBleed';
 import { JumpRail } from '@/components/ui/JumpRail';
 import { LazyViz } from '@/components/ui/LazyViz';
 import { MetricWall } from '@/components/ui/MetricWall';
@@ -36,7 +37,7 @@ const VIZ_NODES: Record<string, ReactNode> = {
 /** Reserved height per viz, so mounting one never shoves the page under the cursor. */
 const VIZ_HEIGHT: Record<string, number> = {
   PipelineRing: 540,
-  ArchitectureMap: 900,
+  ArchitectureMap: 1360,
   LayerStack: 460,
   CasRace: 400,
   SignalLatency: 430,
@@ -119,13 +120,23 @@ export default function AutonomousBugFix() {
                 )}
               </Reveal>
 
-              {s.viz?.map((key) => (
-                <Reveal key={key}>
-                  <div className="mt-8">
-                    <LazyViz height={VIZ_HEIGHT[key] ?? 420}>{VIZ_NODES[key]}</LazyViz>
-                  </div>
-                </Reveal>
-              ))}
+              {s.viz?.map((key) =>
+                // The architecture map is unreadable at prose width, so it alone
+                // breaks out to the viewport.
+                key === 'ArchitectureMap' ? (
+                  <Reveal key={key}>
+                    <FullBleed className="mt-8">
+                      <LazyViz height={VIZ_HEIGHT[key] ?? 420}>{VIZ_NODES[key]}</LazyViz>
+                    </FullBleed>
+                  </Reveal>
+                ) : (
+                  <Reveal key={key}>
+                    <div className="mt-8">
+                      <LazyViz height={VIZ_HEIGHT[key] ?? 420}>{VIZ_NODES[key]}</LazyViz>
+                    </div>
+                  </Reveal>
+                ),
+              )}
             </Section>
           ))}
 

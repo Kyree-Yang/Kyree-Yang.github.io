@@ -22,7 +22,8 @@ export function RootLayout() {
 
       <SiteHeader />
 
-      <main id="content" tabIndex={-1} className="flex-1 outline-none">
+      {/* clip, not hidden: hidden would make this a scroll container and break the sticky jump rail */}
+      <main id="content" tabIndex={-1} className="flex-1 overflow-x-clip outline-none">
         <PageTransition>
           <Outlet />
         </PageTransition>

@@ -1,7 +1,8 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useAnimationClock } from '@/lib/useAnimationClock';
 import { cn, wrap } from '@/lib/utils';
 import { VizFrame, VIZ } from './VizFrame';
+import { architectureNodes } from '@/content/architectureNodes';
 
 /**
  * A = control plane (cloud), B = execution plane (one laptop), ext = systems
@@ -45,7 +46,7 @@ const NODES: Node[] = [
     id: 'c1',
     plane: 'A',
     title: 'Chat-platform web app',
-    sub: ['in-app link · desktop & mobile'],
+    sub: ['in-app link'],
     x: 60,
     y: 56,
     w: 300,
@@ -62,7 +63,7 @@ const NODES: Node[] = [
     parent: 'gw',
     mono: true,
     title: '/openapi/*',
-    sub: ['API key · worker egress only'],
+    sub: ['API key · egress only'],
     x: 82,
     y: 360,
     w: 316,
@@ -81,10 +82,10 @@ const NODES: Node[] = [
 
   // ── SPA: sits under the gateway because it calls straight back up into it ─
   { id: 'fe', plane: 'A', title: 'React SPA · client', box: 'dashed', x: 60, y: 640, w: 460, h: 300 },
-  { id: 'p1', plane: 'A', parent: 'fe', title: 'Dashboard', sub: ['five-column board'], x: 82, y: 692, w: 196, h: 100 },
+  { id: 'p1', plane: 'A', parent: 'fe', title: 'Dashboard', sub: ['five columns'], x: 82, y: 692, w: 196, h: 100 },
   { id: 'p2', plane: 'A', parent: 'fe', title: 'JobDetail', sub: ['20-step detail'], x: 302, y: 692, w: 196, h: 100 },
   { id: 'p3', plane: 'A', parent: 'fe', title: 'Configs', sub: ['assignee watch'], x: 82, y: 812, w: 196, h: 100 },
-  { id: 'p4', plane: 'A', parent: 'fe', title: 'Credential', sub: ['vault · onboarding'], x: 302, y: 812, w: 196, h: 100 },
+  { id: 'p4', plane: 'A', parent: 'fe', title: 'Credential', sub: ['vault'], x: 302, y: 812, w: 196, h: 100 },
 
   // ── the one shared table ────────────────────────────────────────────────
   {
@@ -123,8 +124,8 @@ const NODES: Node[] = [
   {
     id: 'infra',
     plane: 'ext',
-    title: 'Engineering infrastructure',
-    sub: ['code review · internal CI · monorepo', 'iOS and Android worktrees'],
+    title: 'Eng. infrastructure',
+    sub: ['code review · CI', 'iOS and Android worktrees'],
     x: 1440,
     y: 700,
     w: 300,
@@ -189,7 +190,7 @@ const NODES: Node[] = [
   {
     id: 'orc',
     plane: 'B',
-    title: 'orchestrate.sh → headless agent',
+    title: 'orchestrate → agent',
     sub: ['20-step plugin', 'one process per ticket · single-instance lock'],
     x: 1370,
     y: 1114,
@@ -309,6 +310,9 @@ const CHIPS: { plane: Plane; label: string }[] = [
 const CYCLE: (Plane | null)[] = [null, 'A', 'B', 'ext'];
 
 const DIM = 0.13;
+
+/** The panel each node's aria-controls points at. */
+const PANEL_ID = 'architecture-detail';
 /** Divider between what runs in the cloud and what runs on the laptop. */
 const BOUNDARY_Y = 1000;
 
@@ -320,13 +324,13 @@ const ARIA =
  * pill has to actually cover the wire it sits on — undersize it and the stroke
  * reads as a strikethrough through the text.
  */
-const CH = 6.4;
+const CH = 9.7; // mono advance at fontSize 16
 const PILL_PAD = 10;
 
 function EdgeLabel({ e, color }: { e: Edge; color: string }) {
   const lines = e.label.split('\n');
   const w = Math.max(...lines.map((l) => l.length)) * CH + PILL_PAD;
-  const h = lines.length * 15 + 7;
+  const h = lines.length * 20 + 10;
   return (
     <g>
       <rect x={e.lx - w / 2} y={e.ly - h / 2} width={w} height={h} rx={5} fill={VIZ.surface} />
@@ -334,10 +338,10 @@ function EdgeLabel({ e, color }: { e: Edge; color: string }) {
         <text
           key={line}
           x={e.lx}
-          y={e.ly - h / 2 + 15 + i * 15}
+          y={e.ly - h / 2 + 20 + i * 20}
           textAnchor="middle"
           fill={color}
-          fontSize={10.5}
+          fontSize={16}
           fontFamily="var(--font-mono)"
         >
           {line}
@@ -347,32 +351,116 @@ function EdgeLabel({ e, color }: { e: Edge; color: string }) {
   );
 }
 
-/** Title + sub-lines. Identical metrics everywhere so nested boxes line up. */
+/**
+ * A name and at most one identifying line.
+ *
+ * Sizes are chosen against the RENDERED result, not the unit: this figure draws
+ * at roughly 1344 px against a 1760-unit viewBox on a 1440 px display, a scale
+ * of 0.76, so an 11-unit label lands at 8 px and is simply not readable. The
+ * earlier version stacked up to three such lines in every box. Everything past
+ * the first line now lives in the detail panel, which is what the click is for.
+ * scripts/check-viz-legibility.mjs enforces the floor.
+ */
 function NodeText({ n }: { n: Node }) {
+  const sub = n.sub?.[0];
   return (
     <>
       <text
-        x={n.x + 14}
-        y={n.y + 36}
+        x={n.x + 16}
+        y={sub ? n.y + 40 : n.y + n.h / 2 + 8}
         fill={VIZ.fg}
-        fontSize={n.big ? 17 : 15}
+        fontSize={n.big ? 24 : 20}
         fontWeight={600}
         fontFamily={n.mono ? 'var(--font-mono)' : undefined}
       >
         {n.title}
       </text>
-      {n.sub?.map((s, i) => (
-        <text key={s} x={n.x + 14} y={n.y + 58 + i * 18} fill={VIZ.faint} fontSize={11} fontFamily="var(--font-mono)">
-          {s}
+      {sub && (
+        <text x={n.x + 16} y={n.y + 70} fill={VIZ.faint} fontSize={17} fontFamily="var(--font-mono)">
+          {sub}
         </text>
-      ))}
+      )}
     </>
+  );
+}
+
+
+const PLANE_LABEL: Record<string, string> = {
+  control: 'control plane · cloud',
+  execution: 'execution plane · one laptop',
+  external: 'external system',
+};
+
+const PLANE_TONE: Record<string, string> = {
+  control: VIZ.primary,
+  execution: VIZ.amber,
+  external: VIZ.faint,
+};
+
+/**
+ * What the click is for. The boxes carry a name; the measured detail lives here,
+ * so the figure stays legible and the depth is one interaction away.
+ *
+ * The height is reserved whether or not anything is open — a panel that pushes
+ * the rest of the page down every time you click a node makes the diagram feel
+ * like it is fighting you.
+ */
+function DetailPanel({ id, onClose }: { id: string | null; onClose: () => void }) {
+  const d = id ? architectureNodes[id] : undefined;
+
+  return (
+    <div id={PANEL_ID} aria-live="polite" className="mt-4 min-h-[168px]">
+      {!d ? (
+        <p className="rounded-[var(--radius)] border border-dashed px-4 py-5 text-[13px] text-faint">
+          Click any component for what it does, what it measured, and where it broke.
+        </p>
+      ) : (
+        <div className="card p-5">
+          <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+            <h4 className="text-[17px] font-semibold tracking-[-0.01em]">{d.title}</h4>
+            <div className="flex items-center gap-3">
+              <span
+                className="font-mono text-[11px] tracking-wider uppercase"
+                style={{ color: PLANE_TONE[d.plane] }}
+              >
+                {PLANE_LABEL[d.plane]}
+              </span>
+              <button
+                type="button"
+                onClick={onClose}
+                className="elevate rounded-md border px-2 py-0.5 font-mono text-[11px] text-muted"
+              >
+                close
+              </button>
+            </div>
+          </div>
+
+          <p className="mt-2 max-w-[76ch] text-[15px] leading-relaxed text-muted">{d.summary}</p>
+
+          <ul className="mt-4 grid gap-2.5 lg:grid-cols-2">
+            {d.facts.map((f) => (
+              <li key={f} className="flex gap-2.5 text-[14px] leading-relaxed text-muted">
+                <span aria-hidden className="mt-[9px] size-1 shrink-0 rounded-full bg-primary/70" />
+                <span>{f}</span>
+              </li>
+            ))}
+          </ul>
+
+          {d.tension && (
+            <p className="mt-4 border-l-2 border-l-amber py-1 pl-4 text-[14px] leading-relaxed text-muted italic">
+              {d.tension}
+            </p>
+          )}
+        </div>
+      )}
+    </div>
   );
 }
 
 export function ArchitectureMap({ t, bare }: { t?: number; bare?: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
   const [focus, setFocus] = useState<string | null>(null);
+  const [selected, setSelected] = useState<string | null>(null);
   const [lock, setLock] = useState<Plane | null>(null);
   // `t ?? 0` keeps the hook controlled when no `t` is supplied: without an
   // exported clock this figure is static, and a rAF loop would re-render forty
@@ -383,8 +471,23 @@ export function ArchitectureMap({ t, bare }: { t?: number; bare?: boolean }) {
   const p = wrap(clock);
   const planeLock = auto ? CYCLE[Math.min(CYCLE.length - 1, Math.floor(p * CYCLE.length))] : lock;
 
-  // A locked chip owns the whole figure; hover is inert until it is cleared.
-  const hover = planeLock ? null : focus;
+  // Precedence: a locked chip owns the whole figure, then a clicked node, then
+  // hover. `auto` suppresses all three — under an exported clock this must be a
+  // pure function of `t`, and pointer state would leak into the first quarter of
+  // the cycle where no plane is locked.
+  const hover = auto || planeLock ? null : (selected ?? focus);
+  const detail = auto ? null : selected;
+
+  const toggle = (id: string) => setSelected((cur) => (cur === id ? null : id));
+
+  useEffect(() => {
+    if (!selected) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setSelected(null);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [selected]);
 
   /**
    * One hop, deliberately. Seeds are the focused node plus its children; an
@@ -406,7 +509,13 @@ export function ArchitectureMap({ t, bare }: { t?: number; bare?: boolean }) {
       litNodes.add(e.from);
       litNodes.add(e.to);
     });
-    // A child keeps its own frame drawn, or the node appears to float free.
+    // Every lit child keeps its frame, not just the hovered one — otherwise
+    // hovering `be` lights g1 and g3 while the gateway frame around them stays
+    // dimmed, and they read as floating free.
+    for (const id of [...litNodes]) {
+      const par = BY_ID.get(id)?.parent;
+      if (par) litNodes.add(par);
+    }
     const parent = BY_ID.get(hover)?.parent;
     if (parent) litNodes.add(parent);
   }
@@ -476,6 +585,7 @@ export function ArchitectureMap({ t, bare }: { t?: number; bare?: boolean }) {
             style={{ minWidth: 900, width: '100%' }}
             role="group"
             aria-label={ARIA}
+            onClick={() => setSelected(null)}
           >
             <defs>
               {(Object.keys(TONE_COLOR) as Tone[]).map((tone) => (
@@ -505,7 +615,7 @@ export function ArchitectureMap({ t, bare }: { t?: number; bare?: boolean }) {
               strokeWidth={1.2}
               strokeDasharray="10 8"
             />
-            <text x={40} y={BOUNDARY_Y - 12} fill={VIZ.faint} fontSize={11} fontFamily="var(--font-mono)">
+            <text x={40} y={BOUNDARY_Y - 14} fill={VIZ.faint} fontSize={17} fontFamily="var(--font-mono)">
               office network boundary · nothing dials in; the laptop only dials out
             </text>
 
@@ -516,13 +626,26 @@ export function ArchitectureMap({ t, bare }: { t?: number; bare?: boolean }) {
               return (
                 <g
                   key={n.id}
-                  tabIndex={0}
-                  role="group"
+                  tabIndex={auto ? -1 : 0}
+                  role="button"
                   aria-label={n.title}
+                  aria-expanded={selected === n.id}
+                  aria-controls={PANEL_ID}
                   opacity={nodeOpacity(n)}
                   className="transition-opacity duration-200"
                   style={{ cursor: 'pointer' }}
-                  onPointerEnter={() => setFocus(n.id)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggle(n.id);
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key !== 'Enter' && e.key !== ' ') return;
+                    e.preventDefault();
+                    toggle(n.id);
+                  }}
+                  onPointerEnter={(e) => {
+                    if (e.pointerType !== 'touch') setFocus(n.id);
+                  }}
                   onPointerLeave={() => setFocus(null)}
                   onFocus={() => setFocus(n.id)}
                   onBlur={() => setFocus(null)}
@@ -539,7 +662,15 @@ export function ArchitectureMap({ t, bare }: { t?: number; bare?: boolean }) {
                     strokeWidth={1.4}
                     strokeDasharray={dashed ? '7 6' : undefined}
                   />
-                  <text x={n.x + 20} y={n.y + 32} fill={color} fontSize={14} fontWeight={600}>
+                  <text
+                    x={n.x + 22}
+                    y={n.y + 36}
+                    fill={color}
+                    fontSize={21}
+                    fontWeight={600}
+                    stroke={selected === n.id ? color : undefined}
+                    strokeWidth={selected === n.id ? 0.6 : 0}
+                  >
                     {n.title}
                   </text>
                 </g>
@@ -576,13 +707,29 @@ export function ArchitectureMap({ t, bare }: { t?: number; bare?: boolean }) {
               return (
                 <g
                   key={n.id}
-                  tabIndex={0}
-                  role="group"
+                  tabIndex={auto ? -1 : 0}
+                  role="button"
                   aria-label={n.title}
+                  aria-expanded={selected === n.id}
+                  aria-controls={PANEL_ID}
                   opacity={nodeOpacity(n)}
                   className="transition-opacity duration-200"
                   style={{ cursor: 'pointer' }}
-                  onPointerEnter={() => setFocus(n.id)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggle(n.id);
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key !== 'Enter' && e.key !== ' ') return;
+                    // Space would otherwise scroll the page under the figure.
+                    e.preventDefault();
+                    toggle(n.id);
+                  }}
+                  onPointerEnter={(e) => {
+                    // A tap fires pointerenter and often never fires pointerleave,
+                    // which would strand every other node at 13% opacity.
+                    if (e.pointerType !== 'touch') setFocus(n.id);
+                  }}
                   onPointerLeave={() => setFocus(null)}
                   onFocus={() => setFocus(n.id)}
                   onBlur={() => setFocus(null)}
@@ -597,14 +744,29 @@ export function ArchitectureMap({ t, bare }: { t?: number; bare?: boolean }) {
                     rx={10}
                     fill={VIZ.surface}
                     stroke={color}
-                    strokeWidth={n.big ? 2 : 1.4}
+                    strokeWidth={selected === n.id ? 3 : n.big ? 2 : 1.4}
                   />
+                  {selected === n.id && (
+                    <rect
+                      x={n.x - 5}
+                      y={n.y - 5}
+                      width={n.w + 10}
+                      height={n.h + 10}
+                      rx={14}
+                      fill="none"
+                      stroke={color}
+                      strokeWidth={1.2}
+                      opacity={0.45}
+                    />
+                  )}
                   <NodeText n={n} />
                 </g>
               );
             })}
           </svg>
         </div>
+
+        {!bare && <DetailPanel id={detail} onClose={() => setSelected(null)} />}
       </VizFrame>
     </div>
   );

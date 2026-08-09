@@ -109,6 +109,23 @@ export const abf: Entry = {
     },
 
     {
+      id: 'architecture',
+      heading: 'Two planes and the one wire between them',
+      body: `The laptop that does the work sits inside an office network and accepts no inbound connections. Nothing in the cloud can call it — not the dashboard, not a webhook, not a retry after a dropped job. Every wire between the two planes therefore has to originate on the laptop, and the architecture is mostly a consequence of that one fact.
+
+What it forces is a push channel with no content in it. A button in the web UI does exactly one thing: increment a version number on a single control-signal row. The number says nothing about which job, which action, or which user — it only says that something moved. The laptop, holding an outbound connection open, notices the increment and re-reads the database to find out what actually changed. The practical payoff is that adding a new button to the UI needs no protocol change on either side, because there is no protocol to change.
+
+The result is a deliberately lopsided system. The two planes share exactly one Postgres table plus that one signal; everything else — 25 endpoints, five runners, the 20-step machine, the worktrees — lives entirely on one side or the other. The web tier reaches the database through HTTP, a service layer, and an ORM. The worker speaks no HTTP to the database at all — its only HTTP is the signal connection it dials itself.`,
+      bullets: [
+        'Outbound-only is a constraint, not a preference: the office network refuses inbound connections, so the control plane cannot reach the worker at all. Any button increments a version; the worker dials out, sees it moved, and re-reads the database to learn what changed — the signal itself carries no business semantics',
+        'Three tiers under the push channel: the WebSocket route never delivered a signal — the listener read that as the gateway refusing the upgrade, though probing the route directly makes that the client\u2019s inference rather than an observation — so the live channel is SSE with a 15 s heartbeat and a deliberate reconnect every 10 minutes; if that fails it drops to long-poll, and under that the 90 s full tick remains as the floor. Click to spawned process is 1–2 seconds',
+        `The write path is asymmetric: the web tier goes /api/* → service → ORM, while the worker skips that path entirely and writes to the database directly. The service layer's state-machine validation therefore does not apply to the worker, whose correctness rests entirely on each runner's own compare-and-swap`,
+        'Of the 20 steps, exactly one — step 15, on-device verification — is a scheduled human stop; the only other way a run waits for a person is the "this may not be a real bug" escape hatch, which is an escalation rather than a step. It is the most important valve in the system and also its largest queue: 34 of 73 runs end there',
+      ],
+      viz: ['ArchitectureMap'],
+    },
+
+    {
       id: 'four-layers',
       heading: 'Four layers',
       body: `The system separates the thing that reasons about code from the thing that schedules work, from the thing humans click on, from the thing that talks to people. Each layer can fail without taking the others down, and each was measured independently.`,
@@ -121,23 +138,6 @@ export const abf: Entry = {
         'Context budget was a first-class design constraint: the 2,809-line main skill loads in three tiers so a long headless run never blows its window',
       ],
       viz: ['LayerStack'],
-    },
-
-    {
-      id: 'architecture',
-      heading: 'Two planes and the one wire between them',
-      body: `The laptop that does the work sits inside an office network and accepts no inbound connections. Nothing in the cloud can call it — not the dashboard, not a webhook, not a retry after a dropped job. Every wire between the two planes therefore has to originate on the laptop, and the architecture is mostly a consequence of that one fact.
-
-What it forces is a push channel with no content in it. A button in the web UI does exactly one thing: increment a version number on a single control-signal row. The number says nothing about which job, which action, or which user — it only says that something moved. The laptop, holding an outbound connection open, notices the increment and re-reads the database to find out what actually changed. The practical payoff is that adding a new button to the UI needs no protocol change on either side, because there is no protocol to change.
-
-The result is a deliberately lopsided system. The two planes share exactly one Postgres table plus that one signal; everything else — 25 endpoints, five runners, the 20-step machine, the worktrees — lives entirely on one side or the other. The web tier reaches the database through HTTP, a service layer, and an ORM. The worker speaks no HTTP to the database at all — its only HTTP is the signal connection it dials itself.`,
-      bullets: [
-        'Outbound-only is a constraint, not a preference: the office network refuses inbound connections, so the control plane cannot reach the worker at all. Any button increments a version; the worker dials out, sees it moved, and re-reads the database to learn what changed — the signal itself carries no business semantics',
-        'Three tiers under the push channel: the gateway strips the WebSocket upgrade header, so the live channel is SSE with a 15 s heartbeat and a deliberate reconnect every 10 minutes; if that fails it drops to long-poll, and under that the 90 s full tick remains as the floor. Click to spawned process is 1–2 seconds',
-        `The write path is asymmetric: the web tier goes /api/* → service → ORM, while the worker skips that path entirely and writes to the database directly. The service layer's state-machine validation therefore does not apply to the worker, whose correctness rests entirely on each runner's own compare-and-swap`,
-        'Of the 20 steps, exactly one — step 15, on-device verification — is a scheduled human stop; the only other way a run waits for a person is the "this may not be a real bug" escape hatch, which is an escalation rather than a step. It is the most important valve in the system and also its largest queue: 34 of 73 runs end there',
-      ],
-      viz: ['ArchitectureMap'],
     },
 
     {
@@ -184,7 +184,7 @@ The result is a deliberately lopsided system. The two planes share exactly one P
     {
       id: 'control-plane',
       heading: 'Control plane: the web dashboard',
-      body: `A full-stack app that turns each ticket into a board row and exposes every human decision the pipeline needs: start, take over, interrupt, cancel, verified-pass, verified-fail with screenshots and logs attached, needs-human, ignore, restore, delete, mark merged. It also runs assignee sync against the tracker and hosts the signal channel the laptop listens on.`,
+      body: `A full-stack app that turns each ticket into a board row and exposes every human decision the pipeline needs: start, interrupt, cancel, verified-pass, verified-fail with screenshots and logs attached, needs-human, ignore, restore, delete, mark merged — plus take-over, which is written but never shipped past the working tree. It also runs assignee sync against the tracker and hosts the signal channel the laptop listens on.`,
       bullets: [
         '25 HTTP endpoints, 4 tables, a 16-state business state machine, and a 20-step drill-down view per ticket',
         `Transitional-state template: the web tier only CAS-sets an intermediate state and rings the bell; the destructive work (killing processes, removing worktrees) happens on the worker, which then CAS-closes the state — so "ignore then immediately delete" can't leak a worktree`,
