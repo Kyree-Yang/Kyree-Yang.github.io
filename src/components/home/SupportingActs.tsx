@@ -7,9 +7,22 @@ import { Reveal } from '@/components/ui/Reveal';
 import { VideoCard } from '@/components/ui/VideoCard';
 import { PipelineDiagram } from '@/components/viz/PipelineDiagram';
 
-
-
-function Act({ title, to, children }: { title: string; to: string; children: React.ReactNode }) {
+/**
+ * Three supporting entries in identical frames: same 16:10 media window, same
+ * one-line caption rail, so the row rules up regardless of what each cell
+ * holds — two videos and one drawing.
+ */
+function Act({
+  title,
+  to,
+  caption,
+  children,
+}: {
+  title: string;
+  to: string;
+  caption: string;
+  children: React.ReactNode;
+}) {
   return (
     <article className="flex min-w-0 flex-col">
       <Link
@@ -22,7 +35,14 @@ function Act({ title, to, children }: { title: string; to: string; children: Rea
           className="size-4 shrink-0 text-faint transition-transform group-hover:translate-x-0.5 group-hover:text-primary"
         />
       </Link>
-      <div className="mt-3">{children}</div>
+      <figure className="cut-card mt-3">
+        <div className="cut-inner p-0">
+          <div className="aspect-[16/10] overflow-hidden bg-bg-subtle">{children}</div>
+          <figcaption className="truncate border-t bg-surface-2/60 px-3 py-2 font-mono text-[11.5px] leading-snug tracking-[0.02em] text-faint">
+            {caption}
+          </figcaption>
+        </div>
+      </figure>
     </article>
   );
 }
@@ -33,8 +53,13 @@ export function SupportingActs() {
       <Container>
         <Reveal>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            <Act title="AGHF robotics" to="/work/aghf">
+            <Act
+              title="AGHF robotics"
+              to="/work/aghf"
+              caption="sim-to-real trajectory tracking, ROAHM Lab"
+            >
               <VideoCard
+                bare
                 src="/media/aghf_hardware"
                 poster="/media/aghf_hardware-poster.jpg"
                 caption="sim-to-real trajectory tracking, ROAHM Lab"
@@ -42,8 +67,13 @@ export function SupportingActs() {
               />
             </Act>
 
-            <Act title="Crawler Crew" to="/work/search-engine">
+            <Act
+              title="Crawler Crew"
+              to="/work/search-engine"
+              caption="live query against 30M pages, from-scratch C++"
+            >
               <VideoCard
+                bare
                 src="/media/super_quality"
                 poster="/media/super_quality-poster.jpg"
                 caption="live query against 30M pages, from-scratch C++"
@@ -51,10 +81,16 @@ export function SupportingActs() {
               />
             </Act>
 
-            <Act title="Diffusion-Pyramid" to="/work/diffusion-pyramid">
-              <LazyViz height={220}>
-                <PipelineDiagram />
-              </LazyViz>
+            <Act
+              title="Diffusion-Pyramid"
+              to="/work/diffusion-pyramid"
+              caption="text augmentation · Stable Diffusion · Laplacian pyramid"
+            >
+              <div className="flex size-full items-center px-3">
+                <LazyViz height={220}>
+                  <PipelineDiagram bare />
+                </LazyViz>
+              </div>
             </Act>
           </div>
         </Reveal>

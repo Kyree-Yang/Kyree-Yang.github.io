@@ -5,8 +5,6 @@ export type StripPhoto = {
   webp?: string;
   alt: string;
   caption: string;
-  /** Portrait-ish photos may ask for a narrower card. */
-  aspect?: '4/3' | '3/2';
 };
 
 /**
@@ -39,26 +37,25 @@ export function PhotoStrip({
             key={photo.src}
             className="w-[260px] shrink-0 snap-start sm:w-[300px] lg:w-[320px]"
           >
+            {/* One gauge for the whole strip: every frame 3:2, every caption
+                two lines tall, so tops and bottoms rule up exactly. */}
             <div className="cut-card">
               <div className="cut-inner p-0">
-                <div
-                  className="overflow-hidden bg-bg-subtle"
-                  style={{ aspectRatio: photo.aspect ?? '4/3' }}
-                >
+                <div className="aspect-[3/2] overflow-hidden bg-bg-subtle">
                   <picture>
                     {photo.webp && <source srcSet={photo.webp} type="image/webp" />}
                     <img
                       src={photo.src}
                       alt={photo.alt}
                       width={1200}
-                      height={photo.aspect === '3/2' ? 800 : 900}
+                      height={800}
                       loading="lazy"
                       decoding="async"
                       className="size-full object-cover"
                     />
                   </picture>
                 </div>
-                <figcaption className="border-t bg-surface-2/60 px-3 py-2 font-mono text-[11.5px] leading-snug tracking-[0.02em] text-faint">
+                <figcaption className="line-clamp-2 min-h-[47px] border-t bg-surface-2/60 px-3 py-2 font-mono text-[11.5px] leading-snug tracking-[0.02em] text-faint">
                   {photo.caption}
                 </figcaption>
               </div>

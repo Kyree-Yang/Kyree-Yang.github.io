@@ -45,8 +45,6 @@ export const hero = {
   eyebrow: 'ENGINEERING RUNBOOK',
   title: identity.display,
   lead: 'I build LLM-agent pipelines, distributed backends, and PDE solvers for robot motion. Most of it has to run overnight with nobody watching, which is why this site reads like a runbook: what each system actually did, and what never worked.',
-  consoleLead:
-    'Three of the systems below, drawn live from one shared clock. Scrub them, flip them, throttle them — they are the same state machines the pages describe.',
   portrait: {
     avif: '/media/portrait-hero.avif',
     webp: '/media/portrait-hero.webp',
@@ -67,13 +65,6 @@ export const heroCtas: { label: string; to: string; primary?: boolean }[] = [
   { label: 'Read the work →', to: '/work', primary: true },
   { label: 'CV', to: '/cv' },
   { label: 'Résumé (PDF)', to: '/docs/ruikai-yang-resume.pdf' },
-];
-
-/** Tab labels for the hero console; the page owns which viz each tab mounts. */
-export const heroTabs: { id: string; label: string }[] = [
-  { id: 'pipeline', label: 'Scrub the pipeline' },
-  { id: 'locale', label: 'Flip the locale' },
-  { id: 'network', label: 'Throttle the network' },
 ];
 
 export const education: EduItem[] = [

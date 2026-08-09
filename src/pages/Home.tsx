@@ -35,14 +35,12 @@ const BEYOND_PHOTOS: StripPhoto[] = [
     webp: '/media/tengger-fire.webp',
     alt: 'Tending the camp stove during the Tengger Desert sand-control trip.',
     caption: 'Camp logistics on the same trip — tending the stove',
-    aspect: '3/2',
   },
   {
     src: '/media/eryuan-teaching.jpg',
     webp: '/media/eryuan-teaching.webp',
     alt: 'Teaching a water-purification science lesson to middle-school students in Eryuan County.',
     caption: 'Teaching a water-purification lesson · Eryuan, Yunnan',
-    aspect: '3/2',
   },
   {
     src: '/media/eryuan.jpg',
@@ -71,7 +69,6 @@ const RECOGNITION_PHOTOS: StripPhoto[] = [
     webp: '/media/wu-sun-scholarship.webp',
     alt: 'Award ceremony of the John Wu and Jane Sun Excellence Scholarship.',
     caption: 'John Wu and Jane Sun Excellence Scholarship · Nov 2023',
-    aspect: '3/2',
   },
   {
     src: '/media/TA.jpg',

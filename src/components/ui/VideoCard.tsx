@@ -13,12 +13,16 @@ export function VideoCard({
   caption,
   aspect = '16 / 9',
   clickToPlay = true,
+  bare = false,
 }: {
   src: string;
   poster: string;
   caption: string;
   aspect?: string;
   clickToPlay?: boolean;
+  /** Render only the media box (video + play control), no card chrome or
+   *  caption rail — for hosts that supply their own uniform frame. */
+  bare?: boolean;
 }) {
   const ref = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
@@ -44,9 +48,8 @@ export function VideoCard({
     }
   };
 
-  return (
-    <figure className="card overflow-hidden">
-      <div className="relative bg-bg-subtle" style={{ aspectRatio: aspect }}>
+  const media = (
+    <div className="relative size-full bg-bg-subtle" style={bare ? undefined : { aspectRatio: aspect }}>
         <video
           ref={ref}
           muted
@@ -57,7 +60,7 @@ export function VideoCard({
           aria-label={caption}
           onPlay={() => setPlaying(true)}
           onPause={() => setPlaying(false)}
-          className="size-full object-cover"
+          className={cn('size-full', bare ? 'object-contain' : 'object-cover')}
         >
           <source src={`${src}.webm`} type="video/webm" />
           <source src={`${src}.mp4`} type="video/mp4" />
@@ -82,8 +85,14 @@ export function VideoCard({
             )}
           </span>
         </button>
-      </div>
+    </div>
+  );
 
+  if (bare) return media;
+
+  return (
+    <figure className="card overflow-hidden">
+      {media}
       <figcaption className="border-t px-4 py-2.5 text-[13px] leading-relaxed text-muted">
         {caption}
       </figcaption>
