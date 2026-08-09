@@ -313,6 +313,9 @@ const DIM = 0.13;
 
 /** The panel each node's aria-controls points at. */
 const PANEL_ID = 'architecture-detail';
+
+/** The figure the plane chips control. */
+const SVG_ID = 'architecture-figure';
 /** Divider between what runs in the cloud and what runs on the laptop. */
 const BOUNDARY_Y = 1000;
 
@@ -331,8 +334,9 @@ function EdgeLabel({ e, color }: { e: Edge; color: string }) {
   const lines = e.label.split('\n');
   const w = Math.max(...lines.map((l) => l.length)) * CH + PILL_PAD;
   const h = lines.length * 20 + 10;
+  // Edge prose is read from the panel, not walked glyph by glyph.
   return (
-    <g>
+    <g aria-hidden>
       <rect x={e.lx - w / 2} y={e.ly - h / 2} width={w} height={h} rx={5} fill={VIZ.surface} />
       {lines.map((line, i) => (
         <text
@@ -363,8 +367,9 @@ function EdgeLabel({ e, color }: { e: Edge; color: string }) {
  */
 function NodeText({ n }: { n: Node }) {
   const sub = n.sub?.[0];
+  // The enclosing group carries the accessible name; these are pixels.
   return (
-    <>
+    <g aria-hidden>
       <text
         x={n.x + 16}
         y={sub ? n.y + 40 : n.y + n.h / 2 + 8}
@@ -380,7 +385,7 @@ function NodeText({ n }: { n: Node }) {
           {sub}
         </text>
       )}
-    </>
+    </g>
   );
 }
 
@@ -557,6 +562,7 @@ export function ArchitectureMap({ t, bare }: { t?: number; bare?: boolean }) {
                   key={c.plane}
                   type="button"
                   aria-pressed={on}
+                  aria-controls={SVG_ID}
                   disabled={auto}
                   onClick={() => setLock((prev) => (prev === c.plane ? null : c.plane))}
                   className={cn(
@@ -580,6 +586,7 @@ export function ArchitectureMap({ t, bare }: { t?: number; bare?: boolean }) {
         {/* Wider than the reading column by design — the figure scrolls, the page never does. */}
         <div className="overflow-x-auto">
           <svg
+            id={SVG_ID}
             viewBox="0 0 1760 1400"
             className="block"
             style={{ minWidth: 900, width: '100%' }}
@@ -615,7 +622,7 @@ export function ArchitectureMap({ t, bare }: { t?: number; bare?: boolean }) {
               strokeWidth={1.2}
               strokeDasharray="10 8"
             />
-            <text x={40} y={BOUNDARY_Y - 14} fill={VIZ.faint} fontSize={17} fontFamily="var(--font-mono)">
+            <text aria-hidden x={40} y={BOUNDARY_Y - 14} fill={VIZ.faint} fontSize={17} fontFamily="var(--font-mono)">
               office network boundary · nothing dials in; the laptop only dials out
             </text>
 
@@ -663,6 +670,7 @@ export function ArchitectureMap({ t, bare }: { t?: number; bare?: boolean }) {
                     strokeDasharray={dashed ? '7 6' : undefined}
                   />
                   <text
+                    aria-hidden
                     x={n.x + 22}
                     y={n.y + 36}
                     fill={color}
@@ -766,7 +774,18 @@ export function ArchitectureMap({ t, bare }: { t?: number; bare?: boolean }) {
           </svg>
         </div>
 
-        {!bare && <DetailPanel id={detail} onClose={() => setSelected(null)} />}
+        {!bare && (
+          <>
+            {/* The chips repaint the whole figure. Without this a screen-reader
+                user gets a pressed state and no idea what changed. */}
+            <p aria-live="polite" className="sr-only">
+              {planeLock
+                ? `Showing the ${CHIPS.find((c) => c.plane === planeLock)?.label ?? planeLock} only.`
+                : 'Showing every component.'}
+            </p>
+            <DetailPanel id={detail} onClose={() => setSelected(null)} />
+          </>
+        )}
       </VizFrame>
     </div>
   );
