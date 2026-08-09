@@ -109,15 +109,46 @@ export default function Home() {
               {publications.map((pub) => {
                 const ref = doc(pub.doc);
                 return (
-                  <li key={pub.title} className="card flex flex-col p-4 sm:p-5">
-                    <span className="font-mono text-[11px] tracking-[0.14em] text-faint">
-                      {pub.year}
-                    </span>
-                    <h3 className="mt-1.5 text-[15px] leading-snug font-semibold text-balance">
-                      {pub.title}
-                    </h3>
-                    <div className="mt-4">
-                      <DocLink label="PDF" href={ref.href} kind={ref.kind} />
+                  <li key={pub.title} className="cut-card">
+                    <div className="cut-inner flex h-full flex-col p-4 sm:p-5">
+                      <span className="font-mono text-[11px] tracking-[0.14em] text-faint">
+                        {pub.year}
+                      </span>
+                      <h3 className="mt-1.5 text-[15px] leading-snug font-semibold text-balance">
+                        {pub.title}
+                      </h3>
+                      {pub.figure && (
+                        <figure className="mt-4">
+                          {/* One window height for every paper figure, so the
+                              two cards rule up; white ground because the
+                              figures are typeset for paper. Clicking opens
+                              the PDF the figure came from. */}
+                          <a
+                            href={ref.href}
+                            target="_blank"
+                            rel="noreferrer"
+                            aria-label={`Open the PDF: ${pub.title}`}
+                            className="flex h-[220px] items-center justify-center overflow-hidden border bg-white p-2 transition-opacity hover:opacity-90"
+                          >
+                            <picture className="contents">
+                              <source srcSet={pub.figure.webp} type="image/webp" />
+                              <img
+                                src={pub.figure.src}
+                                alt={pub.figure.alt}
+                                loading="lazy"
+                                decoding="async"
+                                className="max-h-full max-w-full object-contain"
+                              />
+                            </picture>
+                          </a>
+                          <figcaption className="truncate border border-t-0 bg-surface-2/60 px-3 py-2 font-mono text-[11.5px] leading-snug tracking-[0.02em] text-faint">
+                            {pub.figure.caption}
+                          </figcaption>
+                        </figure>
+                      )}
+                      <div className="mt-4">
+                        <DocLink label="PDF" href={ref.href} kind={ref.kind} />
+                      </div>
                     </div>
                   </li>
                 );

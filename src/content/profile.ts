@@ -212,7 +212,13 @@ export const research: Research = {
   to: '/work/aghf',
 };
 
-export type Publication = { year: string; title: string; doc: string };
+export type Publication = {
+  year: string;
+  title: string;
+  doc: string;
+  /** The paper's own figure, extracted from the PDF, shown under the title. */
+  figure?: { src: string; webp: string; alt: string; caption: string };
+};
 
 export const publications: Publication[] = [
   {
@@ -220,11 +226,23 @@ export const publications: Publication[] = [
     title:
       'Phasing Through the Flames: Rapid Motion Planning with the AGHF PDE for Arbitrary Objective Functions and Constraints',
     doc: 'aghfPaper',
+    figure: {
+      src: '/media/pub-aghf.jpg',
+      webp: '/media/pub-aghf.webp',
+      alt: 'Kinova Gen3 trajectory before and after optimization: the orange initial guess passes through obstacles; the green optimized sweep avoids them.',
+      caption: 'initial guess in collision → optimized, constraint-satisfying · Kinova Gen3',
+    },
   },
   {
     year: '2024',
     title: 'A Pathological Diagnosis Method Combining Image-Text Large Model and Rule-Based Reasoning',
     doc: 'pathologyPaper',
+    figure: {
+      src: '/media/pub-pathology.jpg',
+      webp: '/media/pub-pathology.webp',
+      alt: 'Framework diagram: whole-slide image patches through an image encoder, symptom prompts through a text encoder, matched features feeding a Datalog rule engine that outputs an Ishak score.',
+      caption: 'WSI patches → image-text encoders → Datalog rule engine → Ishak score',
+    },
   },
 ];
 

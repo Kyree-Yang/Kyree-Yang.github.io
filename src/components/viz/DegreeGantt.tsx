@@ -56,10 +56,10 @@ export function DegreeGantt({ t, bare }: { t?: number; bare?: boolean }) {
             const y = 38 + i * 30;
             return (
               <g key={l.label}>
-                <text x={0} y={y + 4} fill={VIZ.fg} fontSize={10.5} fontWeight={500}>
+                <text x={0} y={y + 4} fill={VIZ.fg} fontSize={9.5} fontWeight={500}>
                   {l.label}
                 </text>
-                <text x={0} y={y + 17} fill={VIZ.faint} fontSize={9} fontFamily="var(--font-mono)">
+                <text x={0} y={y + 17} fill={VIZ.faint} fontSize={8} fontFamily="var(--font-mono)">
                   {l.note}
                 </text>
                 <rect x={x(l.from)} y={y - 6} width={w} height={13} rx={6.5} fill={l.color} fillOpacity={0.75 * fade} />
