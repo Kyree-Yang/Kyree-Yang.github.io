@@ -90,7 +90,7 @@ export function SiteHeader() {
           hidden && !open ? '-translate-y-full' : 'translate-y-0',
         )}
       >
-        <div className="relative mx-auto flex h-[60px] w-full max-w-6xl items-center gap-3 px-5 sm:px-8">
+        <div className="relative mx-auto flex h-[60px] w-full max-w-7xl items-center gap-3 px-5 sm:px-8">
           <Link to="/" aria-label="Ruikai Yang — home" className="shrink-0">
             <span className="cut-card cut-sm inline-flex">
               <span className="cut-inner elevate inline-flex size-8 items-center justify-center px-0 py-0 font-serif text-[15px] font-extrabold text-primary">

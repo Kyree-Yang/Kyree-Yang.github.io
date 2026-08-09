@@ -60,7 +60,7 @@ function TitleBlockCell({ label, value }: { label: string; value: string }) {
 export function SiteFooter() {
   return (
     <footer className="seam-top mt-auto bg-surface-2">
-      <div className="mx-auto w-full max-w-6xl px-5 py-14 sm:px-8">
+      <div className="mx-auto w-full max-w-7xl px-5 py-14 sm:px-8">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-2">
             <ColumnHeading>Contact</ColumnHeading>

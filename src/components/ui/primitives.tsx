@@ -16,7 +16,7 @@ export function Container({
     <div
       className={cn(
         'mx-auto w-full px-5 sm:px-8',
-        size === 'wide' ? 'max-w-6xl' : 'max-w-3xl',
+        size === 'wide' ? 'max-w-7xl' : 'max-w-4xl',
         className,
       )}
     >
@@ -58,7 +58,7 @@ export function SectionHeading({
       <h2 className="text-[1.75rem] leading-[1.15] font-bold tracking-tight text-balance sm:text-[2rem]">
         {title}
       </h2>
-      {sub && <p className="mt-3 max-w-2xl text-base leading-relaxed text-muted">{sub}</p>}
+      {sub && <p className="mt-3 max-w-3xl text-base leading-relaxed text-muted">{sub}</p>}
     </div>
   );
 }

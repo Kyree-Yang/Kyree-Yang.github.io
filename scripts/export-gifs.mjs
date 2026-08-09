@@ -36,12 +36,12 @@ const SCALE = 2;
 
 /** ids must match the keys in src/gif/registry.tsx */
 export const MANIFEST = [
-  { id: 'abf-pipeline', w: 760, h: 490, frames: 48, fps: 16 },
+  { id: 'abf-pipeline', w: 760, h: 500, frames: 48, fps: 16 },
   { id: 'abf-layers', w: 760, h: 462, frames: 40, fps: 16 },
   { id: 'abf-funnel', w: 760, h: 426, frames: 40, fps: 16 },
   { id: 'abf-cas', w: 760, h: 336, frames: 48, fps: 16 },
   { id: 'abf-signal', w: 760, h: 386, frames: 44, fps: 16 },
-  { id: 'designlab-dag', w: 760, h: 362, frames: 52, fps: 16 },
+  { id: 'designlab-dag', w: 760, h: 395, frames: 52, fps: 16 },
   { id: 'i18n-delta-loop', w: 760, h: 362, frames: 44, fps: 16 },
   { id: 'rtl-mirror', w: 760, h: 362, frames: 44, fps: 16 },
   { id: 'weak-network', w: 760, h: 362, frames: 56, fps: 16 },

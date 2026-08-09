@@ -164,7 +164,7 @@ function StatPhoto({ activity }: { activity: Activity }) {
               height={800}
               loading="lazy"
               decoding="async"
-              className="duotone size-full object-cover"
+              className="size-full object-cover"
             />
           </picture>
 

@@ -30,7 +30,7 @@ export function EntryMasthead({
         {title}
       </h1>
 
-      <p className="mt-4 max-w-[60ch] text-lg leading-[1.6] text-muted">{tagline}</p>
+      <p className="mt-4 max-w-[68ch] text-lg leading-[1.6] text-muted">{tagline}</p>
 
       <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[13px] text-faint">
         <span>{dates}</span>
@@ -46,7 +46,7 @@ export function EntryMasthead({
         </div>
       )}
 
-      <p className="mt-6 max-w-[68ch] border-l-2 border-l-primary pl-4 text-[15.5px] leading-relaxed text-muted italic">
+      <p className="mt-6 max-w-[76ch] border-l-2 border-l-primary pl-4 text-[15.5px] leading-relaxed text-muted italic">
         {caveatTeaser}
       </p>
     </header>

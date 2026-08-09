@@ -53,10 +53,9 @@ export function Experience() {
               </p>
 
               <p className="mt-5 max-w-[70ch] text-[15px] leading-relaxed text-muted">
-                Twelve weeks, two workstreams, one question underneath both: what has to be
-                mechanically true before an LLM agent is allowed to touch a production codebase
-                without a person watching it. Both shipped into {experience.context}; neither
-                relies on the agent behaving well.
+                Two systems in twelve weeks, built on one rule: an agent touches production code
+                only after the checks that don&rsquo;t trust it have passed. Both shipped into{' '}
+                {experience.context}; neither relies on the agent behaving well.
               </p>
             </header>
 

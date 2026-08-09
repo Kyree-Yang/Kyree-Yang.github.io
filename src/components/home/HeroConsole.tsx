@@ -36,7 +36,7 @@ const isFile = (to: string) => to.slice(1).includes('.');
 function PortraitPlate() {
   return (
     <figure className="w-full max-w-[440px]">
-      <div className="portrait-reveal relative">
+      <div className="relative">
         <div className="cut-card cut-lg cut-strong">
           <div className="cut-inner bg-bg p-2">
             <div className="relative overflow-hidden [clip-path:polygon(0_0,calc(100%-16px)_0,100%_16px,100%_100%,0_100%)]">
@@ -135,7 +135,7 @@ export function HeroConsole() {
                 {hero.title}
               </h1>
 
-              <p className="mt-5 max-w-[54ch] text-[17px] leading-[1.6] text-muted">{hero.lead}</p>
+              <p className="mt-5 max-w-[64ch] text-[17px] leading-[1.6] text-muted">{hero.lead}</p>
             </div>
 
             {/* The portrait carries the fold. */}

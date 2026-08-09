@@ -1,24 +1,81 @@
 import { useRef, useState } from 'react';
 import { useAnimationClock } from '@/lib/useAnimationClock';
-import { wrap } from '@/lib/utils';
+import { sat, wrap } from '@/lib/utils';
 import { VizFrame, VIZ } from './VizFrame';
 
 type Kind = 'input' | 'subagent' | 'engineer';
 
-/** `detail` is what a node actually ships — the unit of "add a capability". */
-const NODES: { id: string; label: string; kind: Kind; row: number; detail: string }[] = [
-  { id: 'tech', label: 'architecture', kind: 'input', row: 1, detail: 'asks the designer which structure fits' },
-  { id: 'comp', label: 'components', kind: 'input', row: 1, detail: 'asks which design-system components to use' },
-  { id: 'ui', label: 'UI build', kind: 'subagent', row: 1, detail: 'writes the screen on both platforms' },
-  { id: 'net', label: 'weak network', kind: 'subagent', row: 0, detail: '3 network states · 2 thresholds · 6 loading forms' },
-  { id: 'empty', label: 'empty state', kind: 'subagent', row: 1, detail: 'the state a design file never shows' },
-  { id: 'size', label: 'screen sizes', kind: 'subagent', row: 2, detail: 'layout across device classes' },
-  { id: 'dark', label: 'dark mode', kind: 'subagent', row: 0, detail: 'token-only colour, no literals' },
-  { id: 'i18n', label: 'i18n strings', kind: 'input', row: 1, detail: 'designer confirms the copy to extract' },
-  { id: 'l10n', label: 'localization', kind: 'subagent', row: 2, detail: '1 manual · 8 references · 4 tools · 3 hooks · 2,207 lines' },
-  { id: 'mr', label: 'design MR', kind: 'subagent', row: 1, detail: 'fans in from all seven build stages' },
-  { id: 'integ', label: 'integration', kind: 'engineer', row: 1, detail: 'engineer-owned — never auto-completed' },
-  { id: 'merge', label: 'final merge', kind: 'engineer', row: 1, detail: 'engineer-owned — never auto-completed' },
+/** `detail` is what a node actually ships; `sample` is the paper trail it
+ *  leaves — two concrete lines shown in the readout plate as the token
+ *  arrives. Facts restate the entry page; nothing here is a new number. */
+const NODES: {
+  id: string;
+  label: string;
+  kind: Kind;
+  row: number;
+  detail: string;
+  sample: [string, string];
+}[] = [
+  {
+    id: 'tech', label: 'architecture', kind: 'input', row: 1,
+    detail: 'asks the designer which structure fits',
+    sample: ['“scrolling feed, or paged detail?”', 'the answer pins the structure'],
+  },
+  {
+    id: 'comp', label: 'components', kind: 'input', row: 1,
+    detail: 'asks which design-system components to use',
+    sample: ['mock mapped to real components', 'invented APIs rejected here'],
+  },
+  {
+    id: 'ui', label: 'UI build', kind: 'subagent', row: 1,
+    detail: 'writes the screen on both platforms',
+    sample: ['same screen, iOS and Android', 'compile-checked before it may stop'],
+  },
+  {
+    id: 'net', label: 'weak network', kind: 'subagent', row: 0,
+    detail: '3 network states · 2 thresholds · 6 loading forms',
+    sample: ['timeout → skeleton, retry, or keep', 'retry only where intent survives'],
+  },
+  {
+    id: 'empty', label: 'empty state', kind: 'subagent', row: 1,
+    detail: 'the state a design file never shows',
+    sample: ['first run · zero data · error path', 'the screens mocks never include'],
+  },
+  {
+    id: 'size', label: 'screen sizes', kind: 'subagent', row: 2,
+    detail: 'layout across device classes',
+    sample: ['smallest phone → tablet pass', 'no truncated label ships'],
+  },
+  {
+    id: 'dark', label: 'dark mode', kind: 'subagent', row: 0,
+    detail: 'token-only colour, no literals',
+    sample: ['hex literals rejected, tokens only', 'both themes rendered and checked'],
+  },
+  {
+    id: 'i18n', label: 'i18n strings', kind: 'input', row: 1,
+    detail: 'designer confirms the copy to extract',
+    sample: ['strings pulled out for sign-off', 'the designer owns the words'],
+  },
+  {
+    id: 'l10n', label: 'localization', kind: 'subagent', row: 2,
+    detail: '1 manual · 8 references · 4 tools · 3 hooks · 2,207 lines',
+    sample: ['11 locales · 326 strings', 'translation wait: 300 s → 5.1 s'],
+  },
+  {
+    id: 'mr', label: 'design MR', kind: 'subagent', row: 1,
+    detail: 'fans in from all seven build stages',
+    sample: ['seven stages fan into one MR', 'artifacts checked before it opens'],
+  },
+  {
+    id: 'integ', label: 'integration', kind: 'engineer', row: 1,
+    detail: 'engineer-owned — never auto-completed',
+    sample: ['an engineer wires the screen in', 'the DAG cannot complete this'],
+  },
+  {
+    id: 'merge', label: 'final merge', kind: 'engineer', row: 1,
+    detail: 'engineer-owned — never auto-completed',
+    sample: ['an engineer lands it', 'the DAG cannot approve itself'],
+  },
 ];
 
 const COL = 46;
@@ -34,10 +91,17 @@ const KIND_COLOR: Record<Kind, string> = {
 /** The localization node is where the compile gate bounces the agent back. */
 const GATE_INDEX = 8;
 
+/* Readout plate geometry (chamfered, top-right cut). */
+const PX = 140;
+const PW = 312;
+const PY = 188;
+const PH = 96;
+const CUT = 10;
+
 export function DagFlow({ t, bare }: { t?: number; bare?: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
   const [hovered, setHovered] = useState<number | null>(null);
-  const clock = useAnimationClock(t, 11000, ref);
+  const clock = useAnimationClock(t, 15000, ref);
   const p = wrap(clock);
 
   // Token walks the spine; it stalls at the localization gate, gets rejected
@@ -59,14 +123,23 @@ export function DagFlow({ t, bare }: { t?: number; bare?: boolean }) {
   const tokenX = a.x + (b.x - a.x) * travel;
   const tokenY = a.y + (b.y - a.y) * travel;
 
+  // The hovered node wins the readout; otherwise the active one. Hover shows
+  // its samples immediately; the walking token types them in.
+  const shown = hovered ?? idx;
+  const node = NODES[shown];
+  // Thresholds keep the reduced-motion still (clock pinned at 0.62 → frac .43)
+  // with both sample lines fully visible.
+  const sampleOpacity = (k: number) =>
+    hovered !== null ? 1 : sat((frac - 0.12 - k * 0.16) / 0.1);
+
   return (
     <div ref={ref}>
       <VizFrame
         bare={bare}
         title="12-node delivery DAG"
-        caption="Structural work first, then layout, then color, then text — text runs last because translated strings are what stress the layout. Seven stages dispatch to isolated subagents; three must ask the designer a question; two belong to an engineer and are never auto-completed."
+        caption="Structural work first, then layout, then color, then text — text runs last because translated strings are what stress the layout. Seven stages dispatch to isolated subagents; three must ask the designer a question; two belong to an engineer and are never auto-completed. Plate lines are each node's paper trail."
       >
-        <svg viewBox="0 0 600 268" className="w-full" role="img" aria-label="Twelve-node delivery DAG">
+        <svg viewBox="0 0 600 312" className="w-full" role="img" aria-label="Twelve-node delivery DAG">
           {/* edges */}
           {NODES.slice(0, -1).map((n, i) => {
             const x1 = nx(i);
@@ -136,35 +209,49 @@ export function DagFlow({ t, bare }: { t?: number; bare?: boolean }) {
           <circle cx={tokenX} cy={tokenY} r={5} fill={VIZ.amber} />
           <circle cx={tokenX} cy={tokenY} r={11} fill={VIZ.amber} opacity={0.2} />
 
-          {/* Node name + what it ships: the hovered node wins, else the active one. */}
-          <text
-            x={290}
-            y={196}
-            textAnchor="middle"
-            fill={VIZ.fg}
-            fontSize={13}
-            fontWeight={600}
-          >
-            {String((hovered ?? idx) + 1).padStart(2, '0')} · {NODES[hovered ?? idx].label}
+          {/* readout plate: node name, what it ships, and its paper trail */}
+          <path
+            d={`M ${PX} ${PY} H ${PX + PW - CUT} L ${PX + PW} ${PY + CUT} V ${PY + PH} H ${PX} Z`}
+            fill={VIZ.surface}
+            stroke={VIZ.line}
+            strokeWidth={1}
+          />
+          <text x={296} y={PY + 20} textAnchor="middle" fill={VIZ.fg} fontSize={13} fontWeight={600}>
+            {String(shown + 1).padStart(2, '0')} · {node.label}
           </text>
           <text
-            x={290}
-            y={213}
+            x={296}
+            y={PY + 36}
             textAnchor="middle"
             fill={VIZ.faint}
-            fontSize={10.5}
+            fontSize={10}
             fontFamily="var(--font-mono)"
           >
-            {NODES[hovered ?? idx].detail}
+            {node.detail}
           </text>
+          {node.sample.map((line, k) => (
+            <g key={`${shown}-${k}`} opacity={sampleOpacity(k)}>
+              <text
+                x={296}
+                y={PY + 56 + k * 16}
+                textAnchor="middle"
+                fill={VIZ.muted}
+                fontSize={10.5}
+                fontFamily="var(--font-mono)"
+              >
+                <tspan fill={node.kind === 'engineer' ? VIZ.faint : VIZ.emerald}>▸ </tspan>
+                {line}
+              </text>
+            </g>
+          ))}
 
-          {/* gate narration */}
+          {/* gate narration, below the plate while the token is at the gate */}
           <text
-            x={290}
-            y={232}
+            x={296}
+            y={PY + PH + 14}
             textAnchor="middle"
             fill={gateFail ? VIZ.rose : VIZ.emerald}
-            fontSize={11.5}
+            fontSize={11}
             fontFamily="var(--font-mono)"
             opacity={hovered !== null ? 0 : atGate ? 1 : 0}
           >
@@ -174,7 +261,7 @@ export function DagFlow({ t, bare }: { t?: number; bare?: boolean }) {
           </text>
 
           {/* legend */}
-          <g transform="translate(16 260)" fontSize={10.5} fontFamily="var(--font-mono)">
+          <g transform="translate(16 306)" fontSize={10.5} fontFamily="var(--font-mono)">
             <circle cx={5} cy={-4} r={5} fill={VIZ.primary} fillOpacity={0.35} stroke={VIZ.primary} />
             <text x={16} y={0} fill={VIZ.muted}>
               isolated subagent (7)

@@ -30,8 +30,8 @@ const CATEGORY_OPTIONS = workFilters.filter(
  * inside its link. Heights only reserve space until the viz mounts.
  */
 const ROW_VIZ: Record<string, { Viz: React.ComponentType<{ bare?: boolean }>; height: number }> = {
-  PipelineRing: { Viz: PipelineRing, height: 210 },
-  DagFlow: { Viz: DagFlow, height: 150 },
+  PipelineRing: { Viz: PipelineRing, height: 235 },
+  DagFlow: { Viz: DagFlow, height: 175 },
   AghfMorph: { Viz: AghfMorph, height: 155 },
   ShardFanout: { Viz: ShardFanout, height: 155 },
   PipelineDiagram: { Viz: PipelineDiagram, height: 130 },
@@ -39,12 +39,12 @@ const ROW_VIZ: Record<string, { Viz: React.ComponentType<{ bare?: boolean }>; he
 
 /** Ids and dimensions mirror the MANIFEST in scripts/export-gifs.mjs. */
 const GIFS: { id: string; title: string; w: number; h: number }[] = [
-  { id: 'abf-pipeline', title: '20-step state machine', w: 760, h: 490 },
+  { id: 'abf-pipeline', title: '20-step state machine', w: 760, h: 500 },
   { id: 'abf-layers', title: 'Four layers', w: 760, h: 462 },
   { id: 'abf-funnel', title: 'Outcome funnel · the honest shape', w: 760, h: 426 },
   { id: 'abf-cas', title: 'Claiming a job under concurrency', w: 760, h: 336 },
   { id: 'abf-signal', title: 'Click → agent spawn', w: 760, h: 386 },
-  { id: 'designlab-dag', title: '12-node delivery DAG', w: 760, h: 362 },
+  { id: 'designlab-dag', title: '12-node delivery DAG', w: 760, h: 395 },
   { id: 'i18n-delta-loop', title: 'Translation wait · 300s → 5.1s', w: 760, h: 362 },
   { id: 'rtl-mirror', title: 'RTL mirroring', w: 760, h: 362 },
   { id: 'weak-network', title: 'Weak-network state machine', w: 760, h: 362 },

@@ -351,23 +351,6 @@
     right: 0;
   }
 
-  /* Golden-hour reveal: photos rest in warm duotone, resolve on attention.
-     Touch devices and reduced motion get full color, always. */
-  .duotone {
-    filter: grayscale(1) sepia(0.32) saturate(1.15) brightness(1.02);
-    transition: filter 300ms ease;
-  }
-  .duotone:hover,
-  .duotone:focus-visible,
-  a:hover .duotone,
-  a:focus-visible .duotone {
-    filter: none;
-  }
-  @media (hover: none) {
-    .duotone {
-      filter: none;
-    }
-  }
 
   .shadow-pop {
     box-shadow: var(--shadow-pop);
@@ -438,18 +421,6 @@
     outline-offset: -3px;
   }
 
-  /* Portrait golden-hour entrance: duotone resolving to full color once. */
-  .portrait-reveal {
-    animation: portrait-reveal 500ms ease-out 180ms both;
-  }
-  @keyframes portrait-reveal {
-    from {
-      filter: grayscale(1) sepia(0.32) saturate(1.15) brightness(1.02);
-    }
-    to {
-      filter: none;
-    }
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -467,10 +438,6 @@
   .reveal {
     opacity: 1;
     transform: none;
-  }
-  .duotone,
-  .portrait-reveal {
-    filter: none;
   }
   .cut-card {
     transition: none;

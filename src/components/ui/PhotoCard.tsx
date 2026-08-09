@@ -88,7 +88,7 @@ export function PhotoCard({
                 height={height}
                 loading="lazy"
                 decoding="async"
-                className="duotone size-full object-cover"
+                className="size-full object-cover"
               />
             </picture>
             <CropMarks />
