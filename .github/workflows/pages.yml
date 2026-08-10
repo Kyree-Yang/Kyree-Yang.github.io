@@ -14,22 +14,19 @@ concurrency:
   group: pages
   cancel-in-progress: true
 
+# TEMPORARILY OFFLINE.
+# GitHub will not let a public <user>.github.io repo disable Pages, so the site
+# is taken down by deploying `offline/`, which holds a 404 page and no
+# index.html — Pages then answers every path with HTTP 404.
+# To bring the site back: revert the commit that introduced this block.
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-      - run: npm ci
-      - name: Verify exported GIFs exist and are within budget
-        run: node scripts/check-gifs.mjs
-      - run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: offline
 
   deploy:
     needs: build
